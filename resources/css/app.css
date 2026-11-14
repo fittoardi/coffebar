@@ -1,0 +1,37 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../views/**/*.blade.php';
+
+@theme {
+    --color-rustic-50: #FDF6EC;
+    --color-rustic-100: #F5E6C8;
+    --color-rustic-200: #EDD9A3;
+    --color-rustic-300: #D4944A;
+    --color-rustic-400: #C4956A;
+    --color-rustic-500: #B87333;
+    --color-rustic-600: #8B3A2A;
+    --color-rustic-700: #6B3A1F;
+    --color-rustic-800: #3E1F0D;
+    --color-rustic-900: #2A1208;
+
+    --color-copper: #B87333;
+    --color-copper-light: #D4944A;
+    --color-brick: #8B3A2A;
+    --color-parchment: #F5E6C8;
+    --color-parchment-dark: #EDD9A3;
+
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-heading: 'Libre Baskerville', Georgia, serif;
+    --font-body: 'Lora', Georgia, serif;
+
+    --shadow-rustic: 3px 3px 0px #B87333;
+    --shadow-rustic-lg: 6px 6px 0px #6B3A1F;
+    --shadow-rustic-sm: 2px 2px 0px #B87333;
+}
+
+.texture-parchment {
+    background-color: #F5E6C8;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+}
