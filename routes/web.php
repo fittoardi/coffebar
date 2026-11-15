@@ -2,11 +2,16 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\Cashier\CashierDashboardController;
+use App\Http\Controllers\Cashier\CashierOrderController;
+use App\Http\Controllers\Cashier\CashierPosController;
+use App\Http\Controllers\Cashier\CashierShiftController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CustomMenuController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PaymentWebhookController;
 use Illuminate\Support\Facades\Route;
 
 // Public Front-Facing Pages
@@ -41,6 +46,9 @@ Route::middleware('auth')->group(function () {
 Route::get('/pesanan/{orderCode}', [OrderController::class, 'show'])->name('orders.show');
 Route::get('/pesanan/{orderCode}/struk', [OrderController::class, 'receipt'])->name('orders.receipt');
 
+// Midtrans Payment Webhook
+Route::post('/webhook/midtrans', [PaymentWebhookController::class, 'handle'])->name('webhook.midtrans');
+
 // Authentication & OTP Routes
 Route::controller(AuthController::class)->group(function () {
     Route::get('/register', 'showRegister')->name('register');
@@ -56,11 +64,26 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('/logout', 'logout')->name('logout');
 });
 
-// Protected Cashier Area (Phase 3/4)
+// Protected Cashier Area (Phase 3)
 Route::middleware(['auth', 'role:cashier,admin'])->prefix('kasir')->name('cashier.')->group(function () {
-    Route::get('/', function () {
-        return 'Halaman Dashboard Kasir (Akan diimplementasikan pada Fase Kasir)';
-    })->name('dashboard');
+    // Real-time Dashboard & live feed
+    Route::get('/', [CashierDashboardController::class, 'index'])->name('dashboard');
+    Route::get('/feed', [CashierDashboardController::class, 'feed'])->name('feed');
+
+    // Order Verification & QR Scan
+    Route::get('/verifikasi', [CashierOrderController::class, 'verify'])->name('verify');
+    Route::post('/pesanan/{order}/status', [CashierOrderController::class, 'updateStatus'])->name('order.update-status');
+    Route::post('/pesanan/{order}/bayar', [CashierOrderController::class, 'processPayment'])->name('order.pay');
+    Route::post('/produk/{product}/toggle', [CashierOrderController::class, 'toggleProductAvailability'])->name('product.toggle');
+
+    // Walk-in Point of Sale
+    Route::get('/pos', [CashierPosController::class, 'index'])->name('pos.index');
+    Route::post('/pos', [CashierPosController::class, 'store'])->name('pos.store');
+
+    // Cashier Shifts
+    Route::get('/shift', [CashierShiftController::class, 'index'])->name('shifts.index');
+    Route::post('/shift/buka', [CashierShiftController::class, 'start'])->name('shifts.start');
+    Route::post('/shift/{shift}/tutup', [CashierShiftController::class, 'close'])->name('shifts.close');
 });
 
 // Protected Admin Area (Phase 4)
