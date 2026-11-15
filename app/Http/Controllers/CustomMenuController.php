@@ -101,7 +101,7 @@ class CustomMenuController extends Controller
             ]);
         }
 
-        return redirect()->route('custom.index')->with('success', 'Kreasi "' . $customMenu->name . '" berhasil disimpan ke daftar favorit Anda!');
+        return redirect()->route('custom.index')->with('success', 'Kreasi "'.$customMenu->name.'" berhasil disimpan ke daftar favorit Anda!');
     }
 
     /**
@@ -142,7 +142,7 @@ class CustomMenuController extends Controller
 
         $this->cartService->add([
             'custom_menu_id' => null,
-            'name' => 'Custom: ' . $validated['name'],
+            'name' => 'Custom: '.$validated['name'],
             'price' => (float) $validated['price'],
             'quantity' => (int) ($validated['quantity'] ?? 1),
             'options' => $options,

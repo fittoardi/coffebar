@@ -95,7 +95,7 @@ test('user can remove item from cart', function () {
         'quantity' => 1,
     ]);
 
-    $response = $this->delete('/keranjang/hapus/' . $rowId);
+    $response = $this->delete('/keranjang/hapus/'.$rowId);
     $response->assertRedirect(route('cart.index'));
 
     expect($cartService->isEmpty())->toBeTrue();

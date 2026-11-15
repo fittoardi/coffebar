@@ -68,7 +68,7 @@ class OrderService
                 'method' => $paymentMethod,
                 'status' => 'pending',
                 'gateway_name' => $paymentMethod === 'online' ? 'midtrans' : null,
-                'gateway_reference' => $paymentMethod === 'online' ? 'MID-' . random_int(100000, 999999) : null,
+                'gateway_reference' => $paymentMethod === 'online' ? 'MID-'.random_int(100000, 999999) : null,
             ]);
 
             $this->cartService->clear();

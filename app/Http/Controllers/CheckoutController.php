@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Services\Cart\CartService;
 use App\Services\Order\OrderService;
 use Illuminate\Http\JsonResponse;
@@ -48,7 +49,7 @@ class CheckoutController extends Controller
             'payment_method.in' => 'Metode pembayaran tidak valid.',
         ]);
 
-        /** @var \App\Models\User $user */
+        /** @var User $user */
         $user = Auth::user();
 
         $order = $this->orderService->createFromCart(
@@ -67,6 +68,6 @@ class CheckoutController extends Controller
         }
 
         return redirect()->route('orders.show', $order->order_code)
-            ->with('success', 'Pesanan Anda berhasil dibuat dengan kode ' . $order->order_code . '!');
+            ->with('success', 'Pesanan Anda berhasil dibuat dengan kode '.$order->order_code.'!');
     }
 }

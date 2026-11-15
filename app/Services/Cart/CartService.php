@@ -22,7 +22,7 @@ class CartService
     /**
      * Add an item to the cart.
      *
-     * @param array{product_id?: ?int, custom_menu_id?: ?int, name: string, price: float, quantity?: int, options?: array, notes?: ?string} $attributes
+     * @param  array{product_id?: ?int, custom_menu_id?: ?int, name: string, price: float, quantity?: int, options?: array, notes?: ?string}  $attributes
      * @return string The unique row_id
      */
     public function add(array $attributes): string
@@ -36,7 +36,7 @@ class CartService
 
         // Generate consistent row_id based on item type and chosen options
         $serializedOptions = json_encode($options);
-        $rowId = md5(($attributes['product_id'] ?? 'cm_' . ($attributes['custom_menu_id'] ?? 'custom')) . '_' . $serializedOptions);
+        $rowId = md5(($attributes['product_id'] ?? 'cm_'.($attributes['custom_menu_id'] ?? 'custom')).'_'.$serializedOptions);
 
         if ($items->has($rowId)) {
             $existing = $items->get($rowId);
