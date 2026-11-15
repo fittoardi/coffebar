@@ -1,5 +1,10 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminCategoryController;
+use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\AdminProductController;
+use App\Http\Controllers\Admin\AdminReportController;
+use App\Http\Controllers\Admin\AdminStaffController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\Cashier\CashierDashboardController;
@@ -88,7 +93,19 @@ Route::middleware(['auth', 'role:cashier,admin'])->prefix('kasir')->name('cashie
 
 // Protected Admin Area (Phase 4)
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
-    Route::get('/', function () {
-        return 'Halaman Dashboard Admin (Akan diimplementasikan pada Fase Admin)';
-    })->name('dashboard');
+    Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
+
+    // Category Management
+    Route::resource('categories', AdminCategoryController::class)->except(['show']);
+
+    // Product Management
+    Route::patch('/products/{product}/toggle', [AdminProductController::class, 'toggleAvailability'])->name('products.toggle');
+    Route::resource('products', AdminProductController::class)->except(['show']);
+
+    // Staff Management
+    Route::resource('staff', AdminStaffController::class)->except(['show']);
+
+    // Reports & CSV Export
+    Route::get('/laporan', [AdminReportController::class, 'index'])->name('reports.index');
+    Route::get('/laporan/export-csv', [AdminReportController::class, 'exportCsv'])->name('reports.export');
 });
