@@ -50,13 +50,13 @@ class AdminReportController extends Controller
 
         // Top selling products in this period
         $topProducts = OrderItem::query()
-            ->select('item_name', DB::raw('SUM(quantity) as total_qty'), DB::raw('SUM(subtotal_price) as total_revenue'))
+            ->select('name', DB::raw('SUM(quantity) as total_qty'), DB::raw('SUM(subtotal) as total_revenue'))
             ->whereHas('order', function ($q) use ($startDate, $endDate, $validStatuses) {
                 $q->whereDate('created_at', '>=', $startDate)
                     ->whereDate('created_at', '<=', $endDate)
                     ->whereIn('status', $validStatuses);
             })
-            ->groupBy('item_name')
+            ->groupBy('name')
             ->orderByDesc('total_qty')
             ->take(8)
             ->get();
@@ -143,7 +143,7 @@ class AdminReportController extends Controller
                     'pending' => 'Menunggu',
                     'paid' => 'Lunas',
                     'failed' => 'Gagal',
-                    'refunded' => 'Dikembalikan',
+                    'expired' => 'Kedaluwarsa',
                 ];
 
                 fputcsv($handle, [
@@ -153,8 +153,8 @@ class AdminReportController extends Controller
                     $order->source === 'online' ? 'Online' : 'Kasir (Walk-in)',
                     $order->user ? $order->user->name.' ('.$order->user->phone.')' : 'Pelanggan Langsung (Walk-in)',
                     $statusLabels[$order->status] ?? $order->status,
-                    $order->payment ? strtoupper($order->payment->payment_method) : '-',
-                    $order->payment ? ($paymentStatusLabels[$order->payment->payment_status] ?? $order->payment->payment_status) : 'Belum Ada',
+                    $order->payment ? strtoupper($order->payment->method) : '-',
+                    $order->payment ? ($paymentStatusLabels[$order->payment->status] ?? $order->payment->status) : 'Belum Ada',
                     (float) $order->subtotal_amount,
                     (float) $order->tax_amount,
                     (float) $order->total_amount,

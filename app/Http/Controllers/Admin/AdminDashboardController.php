@@ -49,12 +49,12 @@ class AdminDashboardController extends Controller
             ->get();
 
         $topProducts = OrderItem::query()
-            ->select('product_id', 'item_name', DB::raw('SUM(quantity) as total_qty'), DB::raw('SUM(subtotal_price) as total_revenue'))
+            ->select('product_id', 'name', DB::raw('SUM(quantity) as total_qty'), DB::raw('SUM(subtotal) as total_revenue'))
             ->whereHas('order', function ($query) use ($validStatuses) {
                 $query->whereIn('status', $validStatuses);
             })
             ->whereNotNull('product_id')
-            ->groupBy('product_id', 'item_name')
+            ->groupBy('product_id', 'name')
             ->orderByDesc('total_qty')
             ->take(5)
             ->get();
