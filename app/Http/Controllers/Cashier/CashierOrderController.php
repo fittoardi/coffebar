@@ -11,6 +11,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
@@ -65,6 +66,10 @@ class CashierOrderController extends Controller
         }
 
         $order->update($updateData);
+
+        /** @var \App\Models\User $cashier */
+        $cashier = Auth::user();
+        Log::info("Kasir [ID: {$cashier->id}, Nama: {$cashier->name}] memperbarui status pesanan [#{$order->order_code}] menjadi: {$newStatus}");
 
         if ($request->wantsJson()) {
             return response()->json([
@@ -130,6 +135,10 @@ class CashierOrderController extends Controller
                 $activeShift->increment('total_cash_expected', $total);
             }
         }
+
+        /** @var \App\Models\User $cashier */
+        $cashier = Auth::user();
+        Log::info("Kasir [ID: {$cashier->id}, Nama: {$cashier->name}] memproses pembayaran pesanan [#{$order->order_code}] senilai Rp {$total} dengan metode {$method}");
 
         if ($request->wantsJson()) {
             return response()->json([
