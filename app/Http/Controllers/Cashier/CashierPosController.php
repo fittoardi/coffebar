@@ -131,6 +131,10 @@ class CashierPosController extends Controller
             return $order;
         });
 
+        /** @var \App\Models\User $cashier */
+        $cashier = Auth::user();
+        Log::info("Kasir [ID: {$cashier->id}, Nama: {$cashier->name}] membuat pesanan walk-in [#{$order->order_code}] senilai Rp {$order->total_amount}");
+
         if ($request->wantsJson()) {
             return response()->json([
                 'message' => 'Pesanan walk-in berhasil diproses!',
