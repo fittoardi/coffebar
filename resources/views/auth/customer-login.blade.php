@@ -5,7 +5,7 @@
 @section('content')
     <div class="mb-6 text-center">
         <span class="inline-block bg-rustic-800 text-copper font-heading uppercase text-[10px] tracking-widest px-2.5 py-0.5 border border-copper mb-2">
-            ☕ Area Pelanggan
+            ☕ Pelanggan (OTP)
         </span>
         <h1 class="font-display font-bold text-2xl text-rustic-900">Masuk Akun Pelanggan</h1>
         <p class="font-body italic text-xs text-rustic-600 mt-1">

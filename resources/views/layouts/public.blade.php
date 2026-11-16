@@ -248,7 +248,12 @@
 
             <!-- Footer Bottom Line -->
             <div class="border-t border-rustic-800 pt-6 text-center text-xs text-rustic-400 font-body">
-                &copy; {{ date('Y') }} CoffeBar Indonesia. Disajikan dengan rasa bangga dan secangkir cerita.
+                <div>&copy; {{ date('Y') }} CoffeBar Indonesia. Disajikan dengan rasa bangga dan secangkir cerita.</div>
+                <div class="mt-2 text-[11px]">
+                    <a href="{{ route('staff.login') }}" class="text-rustic-500 hover:text-copper transition font-heading uppercase tracking-wider">
+                        🔐 Portal Khusus Petugas Kasir & Admin →
+                    </a>
+                </div>
             </div>
         </div>
     </footer>

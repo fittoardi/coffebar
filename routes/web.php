@@ -60,8 +60,13 @@ Route::controller(AuthController::class)->group(function () {
     Route::get('/register', 'showRegister')->name('register');
     Route::post('/register', 'register');
 
+    // Customer Authentication (OTP)
     Route::get('/login', 'showLogin')->name('login');
     Route::post('/login', 'login');
+
+    // Staff & Admin Internal Portal (Password)
+    Route::get('/internal/login', 'showStaffLogin')->name('staff.login');
+    Route::post('/internal/login', 'staffLogin')->name('staff.login.post');
 
     Route::get('/verify-otp', 'showVerifyOtp')->name('otp.verify.notice');
     Route::post('/verify-otp', 'verifyOtp')->name('otp.verify');

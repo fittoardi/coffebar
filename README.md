@@ -158,6 +158,8 @@ php artisan serve
 
 Aplikasi dapat dibuka pada browser:
 - **Halaman Depan (Publik)**: [http://localhost:8000/](http://localhost:8000/)
+- **Login Pelanggan (OTP)**: [http://localhost:8000/login](http://localhost:8000/login)
+- **Portal Login Internal Staf & Admin**: [http://localhost:8000/internal/login](http://localhost:8000/internal/login)
 - **Sistem Kasir & POS**: [http://localhost:8000/kasir](http://localhost:8000/kasir)
 - **Panel Administrasi**: [http://localhost:8000/admin](http://localhost:8000/admin)
 
@@ -165,17 +167,17 @@ Aplikasi dapat dibuka pada browser:
 
 ## 🧪 Menjalankan Pengujian Otomatis (Test Suite)
 
-Aplikasi dilengkapi dengan rangkaian **68 Pest PHP Tests** tanpa kegagalan:
+Aplikasi dilengkapi dengan rangkaian **72 Pest PHP Tests** tanpa kegagalan:
 
 | Berkas Pengujian | Cakupan Fitur |
 |---|---|
 | `EndToEndCoffeeShopWorkflowTest.php` | Pengujian menyeluruh (*end-to-end*): registrasi, OTP, custom menu, checkout, buka shift kasir, verifikasi tiket QR, pembayaran tunai, cetak struk, tutup shift kasir, dan matriks keamanan role |
 | `OtpServiceUnitTest.php` | Algoritma OTP hash, kedaluwarsa 5 menit, batas percobaan 3x, dan rate limiting |
-| `AuthFeatureTest.php` | Alur registrasi, validasi OTP email & HP, sesi login, proteksi role |
+| `AuthFeatureTest.php` | Alur registrasi, validasi OTP email & HP, sesi login pelanggan terpisah, portal internal staf dengan kata sandi, proteksi role |
 | `PublicMenuFeatureTest.php` | Tampilan beranda, katalog menu per kategori, filter pencarian |
 | `CartFeatureTest.php` | Keranjang belanja, penambahan menu kustom, manipulasi kuantitas item |
 | `OrderAndCheckoutFeatureTest.php` | Checkout pesanan online & kasir, pembentukan tiket QR code |
-| `CashierOrderAndWorkflowFeatureTest.php` | Pemindaian tiket QR di kasir, perpindahan status pesanan, stok habis |
+| `CashierOrderAndWorkflowFeatureTest.php` | Pemindaian tiket QR di kasir, perpindahan status pesanan, stok habis, live feed notifikasi |
 | `CashierPosAndShiftFeatureTest.php` | Transaksi walk-in tunai POS, perhitungan kembalian, buka/tutup shift kasir |
 | `MidtransPaymentFeatureTest.php` | Callback webhook Midtrans (settlement, pending, expire) & update status |
 | `AdminMenuAndCategoryFeatureTest.php` | Proteksi role admin, CRUD kategori, CRUD menu & varian dinamis |
@@ -187,7 +189,7 @@ Jalankan seluruh pengujian:
 php vendor/bin/pest
 ```
 
-Hasil: **68 passed (302 assertions)**.
+Hasil: **72 passed (333 assertions)**.
 
 ---
 

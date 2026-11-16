@@ -183,3 +183,43 @@ test('api authentication returns token on valid otp verification', function () {
     $response->assertStatus(200);
     $response->assertJsonStructure(['message', 'token', 'user']);
 });
+
+test('staff internal login page can be rendered separately from customer login', function () {
+    $response = $this->get(route('staff.login'));
+    $response->assertStatus(200);
+    $response->assertSee('Portal Internal Staf');
+    $response->assertSee('Masuk Portal Staf');
+    $response->assertSee('Kata Sandi');
+});
+
+test('staff can login through dedicated internal portal and redirect to cashier', function () {
+    $cashier = User::factory()->cashier()->create([
+        'email' => 'kasir.internal@coffebar.id',
+        'password' => Hash::make('secret123'),
+    ]);
+
+    $response = $this->post(route('staff.login.post'), [
+        'email' => 'kasir.internal@coffebar.id',
+        'password' => 'secret123',
+    ]);
+
+    $response->assertRedirect('/kasir');
+    expect(Auth::check())->toBeTrue();
+    expect(Auth::id())->toBe($cashier->id);
+});
+
+test('customer account cannot login through staff portal', function () {
+    $customer = User::factory()->create([
+        'email' => 'regular.user@example.com',
+        'password' => Hash::make('secret123'),
+        'role' => 'customer',
+    ]);
+
+    $response = $this->post(route('staff.login.post'), [
+        'email' => 'regular.user@example.com',
+        'password' => 'secret123',
+    ]);
+
+    $response->assertSessionHasErrors(['email']);
+    expect(Auth::check())->toBeFalse();
+});
