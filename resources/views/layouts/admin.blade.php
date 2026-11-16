@@ -63,6 +63,12 @@
                     <span>Laporan Penjualan</span>
                 </a>
 
+                <a href="{{ route('admin.settings.index') }}"
+                   class="flex items-center space-x-3 px-3 py-2.5 rounded-sm transition {{ request()->routeIs('admin.settings.*') ? 'bg-rustic-800 text-copper border-l-4 border-copper font-bold' : 'text-parchment hover:bg-rustic-800 hover:text-copper' }}">
+                    <span>⚙️</span>
+                    <span>Profil & Pengaturan</span>
+                </a>
+
                 <div class="border-t border-rustic-800 pt-3 mt-4 space-y-1">
                     <a href="{{ route('cashier.dashboard') }}"
                        class="flex items-center space-x-3 px-3 py-2 text-rustic-400 hover:text-copper transition">
@@ -117,6 +123,7 @@
         <a href="{{ route('admin.products.index') }}" class="block py-2">☕ Produk & Menu</a>
         <a href="{{ route('admin.staff.index') }}" class="block py-2">👥 Akun Staf / Kasir</a>
         <a href="{{ route('admin.reports.index') }}" class="block py-2">📈 Laporan Penjualan</a>
+        <a href="{{ route('admin.settings.index') }}" class="block py-2">⚙️ Profil & Pengaturan</a>
         <div class="border-t border-rustic-800 pt-2 space-y-2">
             <a href="{{ route('cashier.dashboard') }}" class="block py-1 text-copper">⚡ Sistem Kasir</a>
             <a href="{{ route('home') }}" class="block py-1 text-parchment-dark">← Web Publik</a>

@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminCategoryController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminProductController;
 use App\Http\Controllers\Admin\AdminReportController;
+use App\Http\Controllers\Admin\AdminSettingController;
 use App\Http\Controllers\Admin\AdminStaffController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
@@ -108,4 +109,8 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     // Reports & CSV Export
     Route::get('/laporan', [AdminReportController::class, 'index'])->name('reports.index');
     Route::get('/laporan/export-csv', [AdminReportController::class, 'exportCsv'])->name('reports.export');
+
+    // Company Profile & Shop Settings
+    Route::get('/pengaturan', [AdminSettingController::class, 'index'])->name('settings.index');
+    Route::put('/pengaturan', [AdminSettingController::class, 'update'])->name('settings.update');
 });

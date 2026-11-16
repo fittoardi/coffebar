@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Setting;
 use Illuminate\View\View;
 
 class HomeController extends Controller
@@ -21,6 +22,8 @@ class HomeController extends Controller
             ->orderBy('sort_order')
             ->get();
 
-        return view('public.home', compact('popularProducts', 'categories'));
+        $settings = Setting::allKeyed();
+
+        return view('public.home', compact('popularProducts', 'categories', 'settings'));
     }
 }
