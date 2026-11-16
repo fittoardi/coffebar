@@ -90,7 +90,7 @@ class AuthController extends Controller
     }
 
     /**
-     * Display login page.
+     * Display customer login page (OTP only).
      */
     public function showLogin(): View|RedirectResponse
     {
@@ -98,7 +98,73 @@ class AuthController extends Controller
             return redirect()->intended('/');
         }
 
-        return view('auth.login');
+        return view('auth.customer-login');
+    }
+
+    /**
+     * Display staff & admin internal login page (Email + Password).
+     */
+    public function showStaffLogin(): View|RedirectResponse
+    {
+        if (Auth::check()) {
+            /** @var User $user */
+            $user = Auth::user();
+
+            return $this->redirectBasedOnRole($user);
+        }
+
+        return view('auth.staff-login');
+    }
+
+    /**
+     * Handle staff internal login via password.
+     */
+    public function staffLogin(Request $request): JsonResponse|RedirectResponse
+    {
+        $validated = $request->validate([
+            'email' => ['required', 'string'],
+            'password' => ['required', 'string'],
+        ], [
+            'email.required' => 'Email atau Akun Petugas wajib diisi.',
+            'password.required' => 'Kata sandi wajib diisi.',
+        ]);
+
+        $identifier = trim($validated['email']);
+        $password = $validated['password'];
+
+        $user = User::where('email', strtolower($identifier))
+            ->orWhere('phone', $identifier)
+            ->first();
+
+        if (! $user || ! Hash::check($password, (string) $user->password)) {
+            throw ValidationException::withMessages([
+                'email' => 'Kredensial staf yang diberikan tidak cocok dengan data kami.',
+            ]);
+        }
+
+        if (! in_array($user->role, ['admin', 'cashier'], true)) {
+            throw ValidationException::withMessages([
+                'email' => 'Akun ini terdaftar sebagai pelanggan. Silakan masuk melalui halaman login pelanggan.',
+            ]);
+        }
+
+        Auth::login($user, $request->boolean('remember'));
+
+        if ($request->hasSession()) {
+            $request->session()->regenerate();
+        }
+
+        if ($request->wantsJson()) {
+            $token = $user->createToken('staff-token')->plainTextToken;
+
+            return response()->json([
+                'message' => 'Login staf berhasil.',
+                'token' => $token,
+                'user' => $user,
+            ]);
+        }
+
+        return $this->redirectBasedOnRole($user);
     }
 
     /**

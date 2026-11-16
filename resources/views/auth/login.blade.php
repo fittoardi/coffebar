@@ -1,123 +1,70 @@
 @extends('layouts.auth')
 
-@section('title', 'Masuk Akun')
+@section('title', 'Masuk Akun Pelanggan')
 
 @section('content')
     <div class="mb-6 text-center">
-        <h1 class="font-display font-bold text-2xl text-rustic-900">Selamat Datang</h1>
-        <p class="font-body italic text-sm text-rustic-600 mt-1">
-            Masuk untuk mengakses pesanan dan fitur kedai
+        <span class="inline-block bg-rustic-800 text-copper font-heading uppercase text-[10px] tracking-widest px-2.5 py-0.5 border border-copper mb-2">
+            ☕ Area Pelanggan
+        </span>
+        <h1 class="font-display font-bold text-2xl text-rustic-900">Masuk Akun Pelanggan</h1>
+        <p class="font-body italic text-xs text-rustic-600 mt-1">
+            Masuk untuk memesan kopi favorit, meracik kreasi menu, dan melihat tiket pesanan Anda.
         </p>
     </div>
 
-    <!-- Tab Selection between OTP (Customer) and Password (Internal Staff) -->
-    <div class="flex border-2 border-rustic-300 rounded-sm mb-5 text-xs font-heading uppercase tracking-wider overflow-hidden" id="login-tabs">
-        <button type="button"
-                id="tab-otp-btn"
-                onclick="switchTab('otp')"
-                class="flex-1 py-2.5 px-3 bg-rustic-800 text-parchment text-center transition font-bold">
-            Pelanggan (OTP)
-        </button>
-        <button type="button"
-                id="tab-password-btn"
-                onclick="switchTab('password')"
-                class="flex-1 py-2.5 px-3 bg-parchment text-rustic-800 text-center transition hover:bg-rustic-200">
-            Kasir / Admin
-        </button>
-    </div>
-
-    <!-- Form 1: Customer OTP Login -->
-    <form method="POST" action="{{ route('login') }}" id="form-otp" class="space-y-4">
+    <!-- Form: Customer OTP Login -->
+    <form method="POST" action="{{ route('login') }}" class="space-y-4">
         @csrf
 
         <div>
-            <label for="identifier_otp" class="block font-body italic text-sm text-rustic-700 mb-1">
-                Email atau Nomor WhatsApp / HP
+            <label for="identifier" class="block font-heading uppercase tracking-wider text-xs text-rustic-800 font-bold mb-1">
+                Email atau Nomor WhatsApp / HP <span class="text-brick">*</span>
             </label>
             <input type="text"
                    name="identifier"
-                   id="identifier_otp"
+                   id="identifier"
                    value="{{ old('identifier') }}"
                    required
                    autofocus
-                   placeholder="Contoh: 0812xxxx atau user@email.com"
+                   placeholder="Contoh: 08123456789 atau nama@email.com"
                    class="w-full bg-parchment border-2 border-rustic-400 font-body px-4 py-2.5 text-rustic-900 rounded-sm focus:border-copper focus:outline-none focus:ring-1 focus:ring-copper">
-            <span class="text-xs text-rustic-500 italic mt-0.5 block">Kode verifikasi OTP akan dikirimkan ke nomor / email ini.</span>
+            <span class="text-[11px] text-rustic-500 italic mt-1 block">
+                Kode verifikasi OTP 6-digit akan dikirimkan langsung ke kontak ini.
+            </span>
+        </div>
+
+        <div class="p-3 bg-rustic-100 border border-rustic-300 rounded-xs text-xs text-rustic-700 space-y-1">
+            <div class="font-heading uppercase font-bold text-copper text-[10px] tracking-wider">
+                🔒 Tanpa Kata Sandi
+            </div>
+            <p class="font-body text-[11px] leading-relaxed">
+                Anda tidak perlu mengingat kata sandi rumit. Cukup masukkan email atau WhatsApp terdaftar dan sistem akan mengirimkan kode login instan.
+            </p>
         </div>
 
         <div class="pt-2">
             <button type="submit"
-                    class="w-full bg-rustic-800 text-parchment border-2 border-copper hover:bg-rustic-700 font-heading tracking-widest uppercase text-sm py-3 px-4 shadow-rustic transition duration-150 active:translate-x-0.5 active:translate-y-0.5">
-                KIRIM KODE OTP
+                    class="w-full bg-rustic-800 text-parchment border-2 border-copper hover:bg-rustic-700 font-heading tracking-widest uppercase text-xs py-3 px-4 shadow-rustic transition duration-150 active:translate-x-0.5 active:translate-y-0.5 font-bold">
+                KIRIM KODE OTP MASUK →
             </button>
         </div>
     </form>
 
-    <!-- Form 2: Password Login (Staff / Admin) -->
-    <form method="POST" action="{{ route('login') }}" id="form-password" class="space-y-4 hidden">
-        @csrf
-
-        <div>
-            <label for="identifier_pwd" class="block font-body italic text-sm text-rustic-700 mb-1">
-                Email Karyawan / Admin
-            </label>
-            <input type="text"
-                   name="identifier"
-                   id="identifier_pwd"
-                   placeholder="admin@coffebar.id"
-                   class="w-full bg-parchment border-2 border-rustic-400 font-body px-4 py-2.5 text-rustic-900 rounded-sm focus:border-copper focus:outline-none focus:ring-1 focus:ring-copper">
-        </div>
-
-        <div>
-            <label for="password" class="block font-body italic text-sm text-rustic-700 mb-1">
-                Kata Sandi
-            </label>
-            <input type="password"
-                   name="password"
-                   id="password"
-                   placeholder="••••••••"
-                   class="w-full bg-parchment border-2 border-rustic-400 font-body px-4 py-2.5 text-rustic-900 rounded-sm focus:border-copper focus:outline-none focus:ring-1 focus:ring-copper">
-        </div>
-
-        <div class="pt-2">
-            <button type="submit"
-                    class="w-full bg-copper text-rustic-900 border-2 border-rustic-700 hover:bg-copper-light font-heading tracking-widest uppercase text-sm py-3 px-4 shadow-rustic transition duration-150 active:translate-x-0.5 active:translate-y-0.5 font-bold">
-                MASUK DENGAN SANDI
-            </button>
-        </div>
-    </form>
-
-    <div class="mt-6 pt-4 border-t border-rustic-200 text-center text-sm font-body">
-        Belum memiliki akun?
+    <div class="mt-6 pt-4 border-t border-rustic-200 text-center text-xs font-body">
+        Belum memiliki akun pelanggan?
         <a href="{{ route('register') }}" class="font-heading text-copper hover:underline font-bold ml-1">
             Daftar Sekarang
         </a>
     </div>
 
-    <script>
-        function switchTab(mode) {
-            const formOtp = document.getElementById('form-otp');
-            const formPwd = document.getElementById('form-password');
-            const btnOtp = document.getElementById('tab-otp-btn');
-            const btnPwd = document.getElementById('tab-password-btn');
-
-            if (mode === 'password') {
-                formOtp.classList.add('hidden');
-                formPwd.classList.remove('hidden');
-                btnPwd.classList.remove('bg-parchment', 'text-rustic-800');
-                btnPwd.classList.add('bg-rustic-800', 'text-parchment', 'font-bold');
-                btnOtp.classList.remove('bg-rustic-800', 'text-parchment', 'font-bold');
-                btnOtp.classList.add('bg-parchment', 'text-rustic-800');
-                document.getElementById('identifier_pwd').focus();
-            } else {
-                formPwd.classList.add('hidden');
-                formOtp.classList.remove('hidden');
-                btnOtp.classList.remove('bg-parchment', 'text-rustic-800');
-                btnOtp.classList.add('bg-rustic-800', 'text-parchment', 'font-bold');
-                btnPwd.classList.remove('bg-rustic-800', 'text-parchment', 'font-bold');
-                btnPwd.classList.add('bg-parchment', 'text-rustic-800');
-                document.getElementById('identifier_otp').focus();
-            }
-        }
-    </script>
+    <!-- Portal Switch for Staff & Admin -->
+    <div class="mt-6 pt-4 border-t-2 border-dashed border-rustic-300 text-center">
+        <span class="text-[11px] text-rustic-500 font-body block mb-1">Petugas Kasir, Barista, atau Admin Kedai?</span>
+        <a href="{{ route('staff.login') }}"
+           class="inline-flex items-center space-x-1.5 px-3 py-1.5 bg-rustic-100 border border-copper text-copper font-heading uppercase text-[10px] tracking-wider font-bold hover:bg-copper hover:text-rustic-900 transition">
+            <span>🔐</span>
+            <span>Masuk ke Portal Internal Staf →</span>
+        </a>
+    </div>
 @endsection
