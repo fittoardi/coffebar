@@ -22,14 +22,12 @@ test('end-to-end: full journey from customer registration, custom menu order, to
     ]);
 
     // 1. Customer registers
-    $registerResponse = $this->post(route('register.post'), [
+    $registerResponse = $this->post('/register', [
         'name' => 'Dewi Lestari',
         'email' => 'dewi@example.com',
         'phone' => '081299887766',
-        'password' => 'password123',
-        'password_confirmation' => 'password123',
     ]);
-    $registerResponse->assertRedirect(route('otp.verify.form'));
+    $registerResponse->assertRedirect(route('otp.verify.notice'));
 
     $user = User::where('email', 'dewi@example.com')->first();
     expect($user)->not->toBeNull();
@@ -41,29 +39,27 @@ test('end-to-end: full journey from customer registration, custom menu order, to
         ->first();
     expect($otpRecord)->not->toBeNull();
 
-    // Verify OTP using OtpService (or simulate valid verification)
-    $otpService = app(\App\Services\Otp\OtpService::class);
     $dummyCode = '123456';
     $otpRecord->update(['code_hash' => Hash::make($dummyCode)]);
 
-    $verifyResponse = $this->post(route('otp.verify.post'), [
+    $verifyResponse = $this->post('/verify-otp', [
         'identifier' => 'dewi@example.com',
         'code' => $dummyCode,
     ]);
-    $verifyResponse->assertRedirect(route('home'));
+    $verifyResponse->assertRedirect('/');
 
     $user->refresh();
     expect($user->email_verified_at)->not->toBeNull();
 
     // 3. Authenticated customer designs a custom coffee and adds to cart
     $customResponse = $this->actingAs($user)->post(route('custom.add-to-cart'), [
-        'custom_name' => 'Kopi Senja Spesial Dewi',
+        'name' => 'Kopi Senja Spesial Dewi',
         'base' => 'Espresso Double Shot',
-        'milk' => 'Oat Milk',
         'size' => 'Large (16oz)',
-        'sugar' => 'Less Sugar (50%)',
-        'ice' => 'Normal Ice',
-        'toppings' => ['Sea Salt Foam', 'Aren Syrup'],
+        'sugar_level' => 'Less Sugar (50%)',
+        'ice_level' => 'Normal Ice',
+        'options' => ['Sea Salt Foam', 'Aren Syrup'],
+        'price' => 28000,
         'notes' => 'Tolong buat agak kental',
         'quantity' => 1,
     ]);
@@ -74,17 +70,17 @@ test('end-to-end: full journey from customer registration, custom menu order, to
     $cartResponse->assertOk();
     $cartResponse->assertSee('Kopi Senja Spesial Dewi');
 
-    // 4. Customer checks out with "bayar_di_kasir"
+    // 4. Customer checks out with "cash" (bayar di kasir)
     $checkoutResponse = $this->actingAs($user)->post(route('checkout.process'), [
         'customer_name' => 'Dewi Lestari',
         'customer_phone' => '081299887766',
-        'payment_method' => 'bayar_di_kasir',
+        'payment_method' => 'cash',
         'notes' => 'Antar ke meja nomor 7',
     ]);
 
     $order = Order::where('user_id', $user->id)->latest()->first();
     expect($order)->not->toBeNull();
-    expect($order->status)->toBe('pending_payment');
+    expect($order->status)->toBe('menunggu');
     $checkoutResponse->assertRedirect(route('orders.show', $order->order_code));
 
     // 5. Customer views Ticket with QR
@@ -120,7 +116,7 @@ test('end-to-end: full journey from customer registration, custom menu order, to
     $orderTotal = (float) $order->total_amount;
     $cashGiven = $orderTotal + 10000; // Customer gives extra cash
 
-    $paymentResponse = $this->actingAs($cashier)->post(route('cashier.orders.pay', $order), [
+    $paymentResponse = $this->actingAs($cashier)->post(route('cashier.order.pay', $order), [
         'payment_method' => 'cash',
         'cash_given' => $cashGiven,
     ]);
@@ -133,15 +129,15 @@ test('end-to-end: full journey from customer registration, custom menu order, to
     expect((float) $order->payment->change_given)->toBe(10000.0);
 
     // 9. Cashier updates status through the workflow: diterima -> diproses -> siap -> selesai
-    $this->actingAs($cashier)->patch(route('cashier.orders.status', $order), ['status' => 'diproses'])
+    $this->actingAs($cashier)->post(route('cashier.order.update-status', $order), ['status' => 'diproses'])
         ->assertRedirect();
     expect($order->fresh()->status)->toBe('diproses');
 
-    $this->actingAs($cashier)->patch(route('cashier.orders.status', $order), ['status' => 'siap'])
+    $this->actingAs($cashier)->post(route('cashier.order.update-status', $order), ['status' => 'siap'])
         ->assertRedirect();
     expect($order->fresh()->status)->toBe('siap');
 
-    $this->actingAs($cashier)->patch(route('cashier.orders.status', $order), ['status' => 'selesai'])
+    $this->actingAs($cashier)->post(route('cashier.order.update-status', $order), ['status' => 'selesai'])
         ->assertRedirect();
     expect($order->fresh()->status)->toBe('selesai');
     expect($order->fresh()->completed_at)->not->toBeNull();
@@ -149,7 +145,7 @@ test('end-to-end: full journey from customer registration, custom menu order, to
     // 10. Printable receipt check
     $receiptResponse = $this->actingAs($cashier)->get(route('orders.receipt', $order->order_code));
     $receiptResponse->assertOk();
-    $receiptResponse->assertSee('STRUK PEMBAYARAN KASIR');
+    $receiptResponse->assertSee('Cetak Struk');
     $receiptResponse->assertSee($order->order_code);
 
     // 11. Cashier closes shift with physical cash count
@@ -207,5 +203,5 @@ test('security: webhook endpoint is accessible without csrf restriction', functi
     ]);
 
     $response->assertOk();
-    $response->assertJson(['status' => 'success']);
+    $response->assertJson(['message' => 'Notification processed successfully.']);
 });

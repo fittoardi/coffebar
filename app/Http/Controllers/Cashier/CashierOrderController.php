@@ -7,6 +7,7 @@ use App\Models\CashierShift;
 use App\Models\Order;
 use App\Models\Payment;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -67,7 +68,7 @@ class CashierOrderController extends Controller
 
         $order->update($updateData);
 
-        /** @var \App\Models\User $cashier */
+        /** @var User $cashier */
         $cashier = Auth::user();
         Log::info("Kasir [ID: {$cashier->id}, Nama: {$cashier->name}] memperbarui status pesanan [#{$order->order_code}] menjadi: {$newStatus}");
 
@@ -136,7 +137,7 @@ class CashierOrderController extends Controller
             }
         }
 
-        /** @var \App\Models\User $cashier */
+        /** @var User $cashier */
         $cashier = Auth::user();
         Log::info("Kasir [ID: {$cashier->id}, Nama: {$cashier->name}] memproses pembayaran pesanan [#{$order->order_code}] senilai Rp {$total} dengan metode {$method}");
 

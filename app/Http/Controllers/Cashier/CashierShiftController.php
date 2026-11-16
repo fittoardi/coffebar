@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Cashier;
 
 use App\Http\Controllers\Controller;
 use App\Models\CashierShift;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -64,7 +65,7 @@ class CashierShiftController extends Controller
             'notes' => $validated['notes'] ?? null,
         ]);
 
-        /** @var \App\Models\User $cashier */
+        /** @var User $cashier */
         $cashier = Auth::user();
         Log::info("Kasir [ID: {$cashier->id}, Nama: {$cashier->name}] membuka shift kasir baru dengan modal awal Rp {$startingCash}");
 
@@ -115,7 +116,7 @@ class CashierShiftController extends Controller
             'notes' => ($validated['notes'] ? $validated['notes'].' | ' : '').$varianceText,
         ]);
 
-        /** @var \App\Models\User $cashier */
+        /** @var User $cashier */
         $cashier = Auth::user();
         Log::info("Kasir [ID: {$cashier->id}, Nama: {$cashier->name}] menutup shift [Shift ID: {$shift->id}] dengan kas fisik Rp {$actualCash} (Variansi: {$varianceText})");
 

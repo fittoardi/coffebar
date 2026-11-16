@@ -9,6 +9,7 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Payment;
 use App\Models\ProductOption;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -131,7 +132,7 @@ class CashierPosController extends Controller
             return $order;
         });
 
-        /** @var \App\Models\User $cashier */
+        /** @var User $cashier */
         $cashier = Auth::user();
         Log::info("Kasir [ID: {$cashier->id}, Nama: {$cashier->name}] membuat pesanan walk-in [#{$order->order_code}] senilai Rp {$order->total_amount}");
 
