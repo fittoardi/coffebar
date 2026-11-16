@@ -165,10 +165,11 @@ Aplikasi dapat dibuka pada browser:
 
 ## 🧪 Menjalankan Pengujian Otomatis (Test Suite)
 
-Aplikasi dilengkapi dengan rangkaian **65 Pest PHP Tests** tanpa kegagalan:
+Aplikasi dilengkapi dengan rangkaian **68 Pest PHP Tests** tanpa kegagalan:
 
 | Berkas Pengujian | Cakupan Fitur |
 |---|---|
+| `EndToEndCoffeeShopWorkflowTest.php` | Pengujian menyeluruh (*end-to-end*): registrasi, OTP, custom menu, checkout, buka shift kasir, verifikasi tiket QR, pembayaran tunai, cetak struk, tutup shift kasir, dan matriks keamanan role |
 | `OtpServiceUnitTest.php` | Algoritma OTP hash, kedaluwarsa 5 menit, batas percobaan 3x, dan rate limiting |
 | `AuthFeatureTest.php` | Alur registrasi, validasi OTP email & HP, sesi login, proteksi role |
 | `PublicMenuFeatureTest.php` | Tampilan beranda, katalog menu per kategori, filter pencarian |
@@ -186,7 +187,7 @@ Jalankan seluruh pengujian:
 php vendor/bin/pest
 ```
 
-Hasil: **65 passed (246 assertions)**.
+Hasil: **68 passed (302 assertions)**.
 
 ---
 
