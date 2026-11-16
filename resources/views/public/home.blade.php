@@ -11,12 +11,11 @@
 
         <div class="relative max-w-5xl mx-auto px-4 sm:px-6 text-center space-y-6">
             <span class="inline-block bg-rustic-800 text-copper border border-copper font-heading uppercase text-xs tracking-widest px-3 py-1 mb-2">
-                ☕ Kedai Kopi Autentik Nusantara
+                ☕ {{ $settings['shop_tagline'] ?? 'Kedai Kopi Autentik Nusantara' }}
             </span>
 
             <h1 class="font-display font-black text-4xl sm:text-6xl lg:text-7xl text-parchment tracking-tight leading-tight">
-                Kopi Terbaik,<br>
-                <span class="text-copper">Diracik Untukmu</span>
+                {{ $settings['hero_title'] ?? 'Kopi Terbaik, Diracik Untukmu' }}
             </h1>
 
             <div class="text-copper text-base tracking-widest select-none">
@@ -24,7 +23,7 @@
             </div>
 
             <p class="font-body italic text-base sm:text-xl text-rustic-200 max-w-2xl mx-auto leading-relaxed">
-                "Setiap tetes seduhan menyimpan cerita kehangatan meja kayu, obrolan akrab, dan biji kopi pilihan yang disangrai dengan penuh cinta."
+                "{{ $settings['hero_subtitle'] ?? 'Setiap tetes seduhan menyimpan cerita kehangatan meja kayu, obrolan akrab, dan biji kopi pilihan yang disangrai dengan penuh cinta.' }}"
             </p>
 
             <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -119,16 +118,16 @@
                         Tentang Kedai Kami
                     </span>
                     <h2 class="font-display font-bold text-3xl sm:text-4xl text-parchment">
-                        Bukan Sekadar Kedai Kopi, Tapi Rumah Cerita
+                        {{ $settings['about_title'] ?? 'Bukan Sekadar Kedai Kopi, Tapi Rumah Cerita' }}
                     </h2>
                     <div class="text-copper text-sm tracking-widest select-none">
                         ❧ ─────── ✦ ─────── ❧
                     </div>
                     <p class="font-body text-rustic-200 text-sm sm:text-base leading-relaxed">
-                        Lahir dari kecintaan pada aroma biji kopi yang baru digiling dan hangatnya interaksi manusia. Di CoffeBar, kami percaya bahwa secangkir kopi terbaik bukan hanya tentang teknik ekstraksi, melainkan tentang momen hening yang Anda nikmati atau obrolan mendalam bersama sahabat.
+                        {{ $settings['about_description_1'] ?? 'Lahir dari kecintaan pada aroma biji kopi yang baru digiling dan hangatnya interaksi manusia. Di CoffeBar, kami percaya bahwa secangkir kopi terbaik bukan hanya tentang teknik ekstraksi, melainkan tentang momen hening yang Anda nikmati atau obrolan mendalam bersama sahabat.' }}
                     </p>
                     <p class="font-body text-rustic-200 text-sm sm:text-base leading-relaxed">
-                        Kami bekerja sama langsung dengan para petani kopi lokal dari Gayo, Kintamani, Toraja, hingga Mandailing untuk menyajikan cita rasa asli yang terjaga kesegarannya.
+                        {{ $settings['about_description_2'] ?? 'Kami bekerja sama langsung dengan para petani kopi lokal dari Gayo, Kintamani, Toraja, hingga Mandailing untuk menyajikan cita rasa asli yang terjaga kesegarannya.' }}
                     </p>
                 </div>
 
@@ -214,9 +213,9 @@
                     Tersedia area indoor ber-AC yang nyaman untuk bekerja (WFC) dengan Wi-Fi kencang dan colokan di setiap meja, serta area outdoor rimbun untuk menikmati senja.
                 </p>
                 <div class="pt-2 border-t border-rustic-400 space-y-2 text-sm font-body text-rustic-900">
-                    <div>📍 <strong>Alamat:</strong> Jl. Kopi No. 12, Senopati, Kebayoran Baru, Jakarta Selatan</div>
-                    <div>🕒 <strong>Jam Buka:</strong> Setiap hari 08.00 – 22.00 WIB</div>
-                    <div>📞 <strong>Kontak Kasir:</strong> 0812-3456-7890</div>
+                    <div>📍 <strong>Alamat:</strong> {{ $settings['address'] ?? 'Jl. Kopi No. 12, Senopati, Kebayoran Baru, Jakarta Selatan' }}</div>
+                    <div>🕒 <strong>Jam Buka:</strong> {{ $settings['opening_hours'] ?? 'Setiap hari 08.00 – 22.00 WIB' }}</div>
+                    <div>📞 <strong>Kontak Kasir:</strong> {{ $settings['contact_phone'] ?? '0812-3456-7890' }}</div>
                 </div>
             </div>
 
@@ -227,7 +226,7 @@
                 <p class="font-body italic text-xs text-rustic-300">
                     Hanya 5 menit berjalan kaki dari Halte Senopati. Parkir mobil dan motor luas tersedia di area depan.
                 </p>
-                <a href="https://maps.google.com" target="_blank" rel="noopener"
+                <a href="{{ $settings['maps_url'] ?? 'https://maps.google.com' }}" target="_blank" rel="noopener"
                    class="inline-block bg-copper text-rustic-900 font-heading text-xs uppercase tracking-wider py-2 px-4 font-bold hover:bg-copper-light transition">
                     Buka Google Maps ↗
                 </a>

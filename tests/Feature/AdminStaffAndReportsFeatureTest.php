@@ -122,3 +122,30 @@ test('admin can export sales report as csv stream', function () {
     expect($content)->toContain('CB-TEST-REPORT-CSV');
     expect($content)->toContain('Kasir (Walk-in)');
 });
+
+test('admin can view and update company profile settings', function () {
+    $admin = User::factory()->create(['role' => 'admin']);
+
+    $response = $this->actingAs($admin)->get(route('admin.settings.index'));
+    $response->assertOk();
+    $response->assertSee('Pengaturan Profil Kedai');
+
+    $updateResponse = $this->actingAs($admin)->put(route('admin.settings.update'), [
+        'shop_name' => 'CoffeBar Artisan Senopati',
+        'shop_tagline' => 'Kedai Kopi Pilihan Penikmat Sejati',
+        'hero_title' => 'Cita Rasa Juara Dari Bumi Nusantara',
+        'address' => 'Jl. Senopati No. 88, Jakarta Selatan',
+        'contact_phone' => '081122334455',
+        'opening_hours' => '07.00 - 23.00 WIB',
+        'maps_url' => 'https://maps.google.com/?q=coffebar',
+    ]);
+
+    $updateResponse->assertRedirect(route('admin.settings.index'));
+    $updateResponse->assertSessionHas('success');
+
+    // Verify on public home page
+    $homeResponse = $this->get(route('home'));
+    $homeResponse->assertOk();
+    $homeResponse->assertSee('Cita Rasa Juara Dari Bumi Nusantara');
+    $homeResponse->assertSee('Jl. Senopati No. 88, Jakarta Selatan');
+});
