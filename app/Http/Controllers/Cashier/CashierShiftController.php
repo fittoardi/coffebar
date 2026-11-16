@@ -64,6 +64,10 @@ class CashierShiftController extends Controller
             'notes' => $validated['notes'] ?? null,
         ]);
 
+        /** @var \App\Models\User $cashier */
+        $cashier = Auth::user();
+        Log::info("Kasir [ID: {$cashier->id}, Nama: {$cashier->name}] membuka shift kasir baru dengan modal awal Rp {$startingCash}");
+
         if ($request->wantsJson()) {
             return response()->json([
                 'message' => 'Shift kasir berhasil dibuka.',
@@ -110,6 +114,10 @@ class CashierShiftController extends Controller
             'status' => 'closed',
             'notes' => ($validated['notes'] ? $validated['notes'].' | ' : '').$varianceText,
         ]);
+
+        /** @var \App\Models\User $cashier */
+        $cashier = Auth::user();
+        Log::info("Kasir [ID: {$cashier->id}, Nama: {$cashier->name}] menutup shift [Shift ID: {$shift->id}] dengan kas fisik Rp {$actualCash} (Variansi: {$varianceText})");
 
         if ($request->wantsJson()) {
             return response()->json([
