@@ -84,7 +84,34 @@ class CashierDashboardController extends Controller
         $orders = Order::with(['items', 'payment', 'user'])
             ->whereNotIn('status', ['selesai', 'batal'])
             ->latest()
-            ->get();
+            ->get()
+            ->map(function ($order) {
+                return [
+                    'id' => $order->id,
+                    'order_code' => $order->order_code,
+                    'customer_name' => $order->customer_name ?: ($order->user?->name ?? 'Pelanggan'),
+                    'customer_phone' => $order->customer_phone ?: ($order->user?->phone ?? '-'),
+                    'source' => $order->source,
+                    'status' => $order->status,
+                    'payment_method' => $order->payment_method,
+                    'payment_status' => $order->payment_status,
+                    'total_amount' => (float) $order->total_amount,
+                    'formatted_total' => 'Rp '.number_format((float) $order->total_amount, 0, ',', '.'),
+                    'notes' => $order->notes,
+                    'created_at_human' => $order->created_at->diffForHumans(),
+                    'created_at_time' => $order->created_at->format('H:i'),
+                    'receipt_url' => route('orders.receipt', $order->order_code),
+                    'items' => $order->items->map(function ($item) {
+                        return [
+                            'name' => $item->name,
+                            'quantity' => $item->quantity,
+                            'price' => (float) $item->price,
+                            'formatted_subtotal' => 'Rp '.number_format((float) $item->subtotal, 0, ',', '.'),
+                            'options' => $item->options,
+                        ];
+                    }),
+                ];
+            });
 
         return response()->json([
             'orders' => $orders,
@@ -93,7 +120,9 @@ class CashierDashboardController extends Controller
                 'paid' => Order::where('status', 'dibayar')->count(),
                 'processing' => Order::whereIn('status', ['diterima', 'diproses'])->count(),
                 'ready' => Order::where('status', 'siap')->count(),
+                'total_active' => Order::whereNotIn('status', ['selesai', 'batal'])->count(),
             ],
+            'timestamp' => now()->timestamp,
         ]);
     }
 }

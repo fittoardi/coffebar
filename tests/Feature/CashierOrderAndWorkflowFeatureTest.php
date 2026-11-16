@@ -114,3 +114,46 @@ test('cashier can toggle product availability', function () {
 
     expect($product->fresh()->is_available)->toBeTrue();
 });
+
+test('barista feed receives incoming web orders with structured JSON for live notifications without scan', function () {
+    $cashier = User::factory()->cashier()->create();
+
+    $webOrder = Order::factory()->create([
+        'order_code' => 'CF-WEB-LIVE',
+        'source' => 'online',
+        'status' => 'menunggu',
+        'payment_method' => 'cash',
+        'total_amount' => 38000,
+        'customer_name' => 'Maya Pelanggan Web',
+    ]);
+
+    $response = $this->actingAs($cashier)->getJson('/kasir/feed');
+    $response->assertOk();
+    $response->assertJsonStructure([
+        'orders' => [
+            '*' => [
+                'id',
+                'order_code',
+                'customer_name',
+                'source',
+                'status',
+                'formatted_total',
+                'items',
+            ],
+        ],
+        'counts' => [
+            'waiting',
+            'paid',
+            'processing',
+            'ready',
+            'total_active',
+        ],
+        'timestamp',
+    ]);
+
+    $response->assertJsonFragment([
+        'order_code' => 'CF-WEB-LIVE',
+        'customer_name' => 'Maya Pelanggan Web',
+        'source' => 'online',
+    ]);
+});
