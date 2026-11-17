@@ -18,7 +18,7 @@
         @csrf
 
         <div>
-            <label for="identifier" class="block font-heading uppercase tracking-wider text-xs text-rustic-800 font-bold mb-1">
+            <label for="identifier" class="block font-heading uppercase tracking-wider text-xs text-rustic-900 font-black mb-1">
                 Email atau Nomor WhatsApp / HP <span class="text-brick">*</span>
             </label>
             <input type="text"
@@ -28,14 +28,14 @@
                    required
                    autofocus
                    placeholder="Contoh: 08123456789 atau nama@email.com"
-                   class="w-full bg-parchment border-2 border-rustic-400 font-body px-4 py-2.5 text-rustic-900 rounded-sm focus:border-copper focus:outline-none focus:ring-1 focus:ring-copper">
-            <span class="text-[11px] text-rustic-500 italic mt-1 block">
+                   class="w-full bg-parchment border-2 border-rustic-900 font-body px-4 py-2.5 text-rustic-900 rounded-sm shadow-rustic-sm focus:border-retro-orange focus:outline-none">
+            <span class="text-[11px] text-rustic-600 italic mt-1 block">
                 Kode verifikasi OTP 6-digit akan dikirimkan langsung ke kontak ini.
             </span>
         </div>
 
-        <div class="p-3 bg-rustic-100 border border-rustic-300 rounded-xs text-xs text-rustic-700 space-y-1">
-            <div class="font-heading uppercase font-bold text-copper text-[10px] tracking-wider">
+        <div class="p-3 bg-parchment border-2 border-dashed border-rustic-400 rounded-xs text-xs text-rustic-800 space-y-1">
+            <div class="font-heading uppercase font-black text-retro-orange text-[10px] tracking-wider">
                 🔒 Tanpa Kata Sandi
             </div>
             <p class="font-body text-[11px] leading-relaxed">
@@ -45,7 +45,7 @@
 
         <div class="pt-2">
             <button type="submit"
-                    class="w-full bg-rustic-800 text-parchment border-2 border-copper hover:bg-rustic-700 font-heading tracking-widest uppercase text-xs py-3 px-4 shadow-rustic transition duration-150 active:translate-x-0.5 active:translate-y-0.5 font-bold">
+                    class="w-full bg-retro-orange text-parchment border-2 border-rustic-900 hover:bg-[#d85f30] font-heading font-black tracking-widest uppercase text-xs py-3.5 px-4 shadow-rustic transition duration-150 active:translate-x-1 active:translate-y-1 active:shadow-none">
                 KIRIM KODE OTP MASUK →
             </button>
         </div>

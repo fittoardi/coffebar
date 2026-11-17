@@ -29,10 +29,10 @@
                        pattern="[0-9]*"
                        autocomplete="one-time-code"
                        data-index="{{ $i }}"
-                       class="otp-digit w-10 sm:w-12 h-14 text-center text-2xl font-display font-bold bg-parchment border-2 border-rustic-500 rounded-sm focus:border-copper focus:outline-none focus:ring-2 focus:ring-copper/30 transition text-rustic-900"
+                       class="otp-digit w-10 sm:w-12 h-14 text-center text-2xl font-display font-black bg-parchment border-2 border-rustic-900 rounded-sm shadow-rustic-sm focus:border-retro-orange focus:outline-none transition text-rustic-900"
                        {{ $i === 0 ? 'autofocus' : '' }}>
                 @if ($i === 2)
-                    <span class="text-copper font-bold text-lg select-none">—</span>
+                    <span class="text-retro-orange font-bold text-lg select-none">—</span>
                 @endif
             @endfor
         </div>
@@ -40,8 +40,8 @@
         <div>
             <button type="submit"
                     id="btn-verify"
-                    class="w-full bg-rustic-800 text-parchment border-2 border-copper hover:bg-rustic-700 font-heading tracking-widest uppercase text-sm py-3 px-4 shadow-rustic transition duration-150 active:translate-x-0.5 active:translate-y-0.5">
-                VERIFIKASI
+                    class="w-full bg-retro-orange text-parchment border-2 border-rustic-900 hover:bg-[#d85f30] font-heading font-black tracking-widest uppercase text-xs py-3.5 px-4 shadow-rustic transition duration-150 active:translate-x-1 active:translate-y-1 active:shadow-none">
+                VERIFIKASI & MASUK →
             </button>
         </div>
     </form>

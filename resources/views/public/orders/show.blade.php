@@ -140,14 +140,14 @@
     <div class="mt-6 flex flex-col sm:flex-row gap-3 text-center">
         @auth
             <a href="{{ route('orders.index') }}"
-               class="flex-1 bg-parchment text-rustic-800 border-2 border-rustic-700 hover:bg-rustic-200 font-heading text-xs uppercase tracking-wider py-3 shadow-rustic-sm transition">
+               class="flex-1 bg-parchment text-rustic-900 border-2 border-rustic-900 hover:bg-parchment-dark font-heading text-xs uppercase tracking-wider py-3 shadow-rustic transition active:translate-x-1 active:translate-y-1 active:shadow-none font-bold">
                 ← DAFTAR PESANAN SAYA
             </a>
         @endauth
         <a href="{{ route('orders.receipt', $order->order_code) }}"
            target="_blank"
-           class="flex-1 bg-rustic-800 text-parchment border-2 border-copper hover:bg-rustic-700 font-heading text-xs uppercase tracking-wider py-3 shadow-rustic transition font-bold">
-            🖨 CETAK STRUK DIGITAL
+           class="flex-1 bg-retro-orange text-parchment border-2 border-rustic-900 hover:bg-[#d85f30] font-heading text-xs uppercase tracking-wider py-3 shadow-rustic transition active:translate-x-1 active:translate-y-1 active:shadow-none font-black">
+            🖨 CETAK STRUK DIGITAL →
         </a>
     </div>
 

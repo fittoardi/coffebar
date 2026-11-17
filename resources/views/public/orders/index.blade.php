@@ -50,7 +50,7 @@
                     $badgeStyle = $statusStyles[$order->status] ?? 'border-rustic-400 text-rustic-600';
                 @endphp
 
-                <div class="bg-[#FFF8F0] border-2 border-rustic-500 rounded-sm p-5 sm:p-6 shadow-rustic hover:shadow-rustic-lg transition flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div class="bg-[#FFF9F0] border-2 border-rustic-900 rounded-sm p-5 sm:p-6 shadow-rustic hover:shadow-rustic-lg transition flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                     <!-- Left: Order Code, Date & Items -->
                     <div class="space-y-1.5 flex-1">
                         <div class="flex items-center space-x-3">
@@ -81,13 +81,13 @@
                     <div class="flex items-center justify-between sm:justify-end w-full sm:w-auto space-x-6 border-t sm:border-t-0 pt-3 sm:pt-0 border-rustic-200">
                         <div class="text-left sm:text-right">
                             <span class="block text-[10px] font-heading uppercase text-rustic-500">Total</span>
-                            <span class="font-display font-bold text-lg text-copper">
+                            <span class="font-display font-black text-lg text-retro-orange">
                                 {{ $order->formatted_total }}
                             </span>
                         </div>
 
                         <a href="{{ route('orders.show', $order->order_code) }}"
-                           class="bg-rustic-800 text-parchment border border-copper hover:bg-rustic-700 font-heading text-xs uppercase px-4 py-2.5 shadow-rustic-sm transition font-bold">
+                           class="bg-retro-orange text-parchment border-2 border-rustic-900 hover:bg-[#d85f30] font-heading font-black text-xs uppercase px-4 py-2.5 shadow-rustic transition active:translate-x-0.5 active:translate-y-0.5">
                             LIHAT TIKET & QR →
                         </a>
                     </div>

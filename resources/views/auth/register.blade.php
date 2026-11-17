@@ -4,8 +4,11 @@
 
 @section('content')
     <div class="mb-6 text-center">
-        <h1 class="font-display font-bold text-2xl text-rustic-900">Pendaftaran Pelanggan</h1>
-        <p class="font-body italic text-sm text-rustic-600 mt-1">
+        <span class="inline-block bg-retro-orange text-parchment font-heading text-[10px] font-black uppercase tracking-widest px-2.5 py-0.5 border border-rustic-900 shadow-sm mb-2 -rotate-1">
+            ★ REGISTRASI PELANGGAN BARU ★
+        </span>
+        <h1 class="font-display font-black text-2xl text-rustic-900">Pendaftaran Pelanggan</h1>
+        <p class="font-body italic text-xs text-rustic-600 mt-1">
             Daftar untuk mulai memesan dan meracik minuman kustom Anda
         </p>
     </div>
@@ -14,8 +17,8 @@
         @csrf
 
         <div>
-            <label for="name" class="block font-body italic text-sm text-rustic-700 mb-1">
-                Nama Lengkap
+            <label for="name" class="block font-heading uppercase tracking-wider text-xs text-rustic-900 font-black mb-1">
+                Nama Lengkap <span class="text-brick">*</span>
             </label>
             <input type="text"
                    name="name"
@@ -24,12 +27,12 @@
                    required
                    autofocus
                    placeholder="Contoh: Ahmad Budiman"
-                   class="w-full bg-parchment border-2 border-rustic-400 font-body px-4 py-2.5 text-rustic-900 rounded-sm focus:border-copper focus:outline-none focus:ring-1 focus:ring-copper">
+                   class="w-full bg-parchment border-2 border-rustic-900 font-body px-4 py-2.5 text-rustic-900 rounded-sm shadow-rustic-sm focus:border-retro-orange focus:outline-none">
         </div>
 
         <div>
-            <label for="email" class="block font-body italic text-sm text-rustic-700 mb-1">
-                Alamat Email
+            <label for="email" class="block font-heading uppercase tracking-wider text-xs text-rustic-900 font-black mb-1">
+                Alamat Email <span class="text-brick">*</span>
             </label>
             <input type="email"
                    name="email"
@@ -37,13 +40,13 @@
                    value="{{ old('email') }}"
                    required
                    placeholder="nama@email.com"
-                   class="w-full bg-parchment border-2 border-rustic-400 font-body px-4 py-2.5 text-rustic-900 rounded-sm focus:border-copper focus:outline-none focus:ring-1 focus:ring-copper">
-            <span class="text-xs text-rustic-500 italic mt-0.5 block">Kode OTP verifikasi akan dikirimkan ke email ini.</span>
+                   class="w-full bg-parchment border-2 border-rustic-900 font-body px-4 py-2.5 text-rustic-900 rounded-sm shadow-rustic-sm focus:border-retro-orange focus:outline-none">
+            <span class="text-[11px] text-rustic-600 italic mt-0.5 block">Kode OTP verifikasi akan dikirimkan ke email ini.</span>
         </div>
 
         <div>
-            <label for="phone" class="block font-body italic text-sm text-rustic-700 mb-1">
-                Nomor WhatsApp / HP
+            <label for="phone" class="block font-heading uppercase tracking-wider text-xs text-rustic-900 font-black mb-1">
+                Nomor WhatsApp / HP <span class="text-brick">*</span>
             </label>
             <input type="text"
                    name="phone"
@@ -51,14 +54,14 @@
                    value="{{ old('phone') }}"
                    required
                    placeholder="08xxxxxxxxxx"
-                   class="w-full bg-parchment border-2 border-rustic-400 font-body px-4 py-2.5 text-rustic-900 rounded-sm focus:border-copper focus:outline-none focus:ring-1 focus:ring-copper">
-            <span class="text-xs text-rustic-500 italic mt-0.5 block">Wajib aktif untuk menerima kode verifikasi OTP.</span>
+                   class="w-full bg-parchment border-2 border-rustic-900 font-body px-4 py-2.5 text-rustic-900 rounded-sm shadow-rustic-sm focus:border-retro-orange focus:outline-none">
+            <span class="text-[11px] text-rustic-600 italic mt-0.5 block">Wajib aktif untuk menerima kode verifikasi OTP.</span>
         </div>
 
         <div class="pt-2">
             <button type="submit"
-                    class="w-full bg-rustic-800 text-parchment border-2 border-copper hover:bg-rustic-700 font-heading tracking-widest uppercase text-sm py-3 px-4 shadow-rustic transition duration-150 active:translate-x-0.5 active:translate-y-0.5">
-                DAFTAR & KIRIM OTP
+                    class="w-full bg-retro-orange text-parchment border-2 border-rustic-900 hover:bg-[#d85f30] font-heading font-black tracking-widest uppercase text-xs py-3.5 px-4 shadow-rustic transition duration-150 active:translate-x-1 active:translate-y-1 active:shadow-none">
+                DAFTAR & KIRIM OTP →
             </button>
         </div>
     </form>
