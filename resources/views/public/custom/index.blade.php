@@ -47,18 +47,20 @@
         }
      }">
 
-    <!-- Header Section -->
-    <div class="text-center mb-10">
-        <span class="inline-block bg-rustic-800 text-copper border border-copper font-heading uppercase text-xs tracking-widest px-3 py-1 mb-2">
-            ✦ Studio Barista Mandiri
+    <!-- Header Section with Retro Label -->
+    <div class="text-center mb-12">
+        <span class="inline-block bg-retro-orange text-parchment font-heading text-[11px] font-black uppercase tracking-widest px-3 py-1 border-2 border-rustic-900 shadow-rustic-sm mb-3 -rotate-1">
+            ★ COFFEBAR COFFEE LAB & ROASTERY ★
         </span>
         <h1 class="font-display font-black text-4xl sm:text-5xl text-rustic-900 tracking-tight">
             Racik Minumanmu Sendiri
         </h1>
-        <div class="text-copper text-sm tracking-widest my-2 select-none">
-            ❧ ─────── ✦ ─────── ❧
+        <div class="text-retro-orange text-sm tracking-widest my-2 select-none flex items-center justify-center gap-3">
+            <span class="h-0.5 w-12 bg-retro-orange/60 inline-block"></span>
+            <span class="text-retro-mustard font-bold">❧ ✦ ❧</span>
+            <span class="h-0.5 w-12 bg-retro-orange/60 inline-block"></span>
         </div>
-        <p class="font-body italic text-rustic-600 text-sm sm:text-base max-w-xl mx-auto">
+        <p class="font-body italic text-rustic-700 text-sm sm:text-base max-w-xl mx-auto">
             Eksplorasi kombinasi rasa yang paling pas dengan seleramu. Pilih bahan dasar, sesuaikan manis dan suhu, lalu tambahkan topping favorit.
         </p>
     </div>

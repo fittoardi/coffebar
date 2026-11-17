@@ -20,16 +20,20 @@
         $cartCount = app(\App\Services\Cart\CartService::class)->getCount();
     @endphp
 
-    <!-- Top Rustic Navigation Bar -->
-    <nav class="sticky top-0 z-40 bg-rustic-900 text-parchment border-b-2 border-copper shadow-md">
+    <!-- Top Retro Navigation Bar with 70s Burnt Orange Accent -->
+    <nav class="sticky top-0 z-40 bg-rustic-900 text-parchment border-t-4 border-retro-orange border-b-2 border-rustic-950 shadow-md">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-18 sm:h-20">
 
                 <!-- Logo & Brand -->
                 <div class="flex items-center space-x-3">
-                    <a href="{{ route('home') }}" class="flex items-center space-x-2 text-copper hover:text-copper-light transition group">
-                        <span class="text-2xl sm:text-3xl font-display font-black tracking-wide text-parchment group-hover:text-copper transition">
-                            ☕ COFFEBAR
+                    <a href="{{ route('home') }}" class="flex items-center space-x-3 text-copper hover:text-copper-light transition group">
+                        <span class="text-2xl sm:text-3xl font-display font-black tracking-wide text-parchment group-hover:text-retro-orange transition flex items-center gap-2">
+                            <span>☕</span>
+                            <span class="tracking-tight">COFFEBAR</span>
+                        </span>
+                        <span class="hidden sm:inline-block text-[9px] font-heading tracking-widest text-retro-mustard uppercase font-bold border-l-2 border-rustic-700 pl-3">
+                            ★ ESTD. 2026 ★
                         </span>
                     </a>
                 </div>

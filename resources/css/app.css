@@ -5,33 +5,155 @@
 @source '../views/**/*.blade.php';
 
 @theme {
-    --color-rustic-50: #FDF6EC;
-    --color-rustic-100: #F5E6C8;
-    --color-rustic-200: #EDD9A3;
-    --color-rustic-300: #D4944A;
-    --color-rustic-400: #C4956A;
-    --color-rustic-500: #B87333;
-    --color-rustic-600: #8B3A2A;
-    --color-rustic-700: #6B3A1F;
-    --color-rustic-800: #3E1F0D;
-    --color-rustic-900: #2A1208;
+    --color-rustic-50: #FFFDF8;
+    --color-rustic-100: #FBF4E6;
+    --color-rustic-200: #F3E5CF;
+    --color-rustic-300: #E2A63B;
+    --color-rustic-400: #D87D38;
+    --color-rustic-500: #CF5328;
+    --color-rustic-600: #A83823;
+    --color-rustic-700: #5C2B14;
+    --color-rustic-800: #2E150A;
+    --color-rustic-900: #1B0F07;
 
-    --color-copper: #B87333;
-    --color-copper-light: #D4944A;
-    --color-brick: #8B3A2A;
-    --color-parchment: #F5E6C8;
-    --color-parchment-dark: #EDD9A3;
+    --color-retro-orange: #CF5328;
+    --color-retro-mustard: #E2A63B;
+    --color-retro-sage: #4E6E58;
+    --color-retro-cream: #FBF4E6;
+    --color-retro-dark: #1B0F07;
+
+    --color-copper: #CF5328;
+    --color-copper-light: #E2A63B;
+    --color-brick: #A83823;
+    --color-parchment: #FBF4E6;
+    --color-parchment-dark: #F3E5CF;
 
     --font-display: 'Playfair Display', Georgia, serif;
     --font-heading: 'Libre Baskerville', Georgia, serif;
     --font-body: 'Lora', Georgia, serif;
 
-    --shadow-rustic: 3px 3px 0px #B87333;
-    --shadow-rustic-lg: 6px 6px 0px #6B3A1F;
-    --shadow-rustic-sm: 2px 2px 0px #B87333;
+    --shadow-rustic: 4px 4px 0px #1B0F07;
+    --shadow-rustic-lg: 6px 6px 0px #1B0F07;
+    --shadow-rustic-sm: 2px 2px 0px #1B0F07;
+    --shadow-retro-orange: 4px 4px 0px #CF5328;
+    --shadow-retro-mustard: 4px 4px 0px #E2A63B;
+    --shadow-retro-white: 4px 4px 0px #FFFDF8;
 }
 
 .texture-parchment {
-    background-color: #F5E6C8;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+    background-color: #FBF4E6;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.68' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.07'/%3E%3C/svg%3E");
 }
+
+.texture-halftone {
+    background-image: radial-gradient(#CF5328 1.5px, transparent 1.5px);
+    background-size: 16px 16px;
+}
+
+.texture-grid-retro {
+    background-image: linear-gradient(to right, rgba(207, 83, 40, 0.08) 1px, transparent 1px),
+                      linear-gradient(to bottom, rgba(207, 83, 40, 0.08) 1px, transparent 1px);
+    background-size: 24px 24px;
+}
+
+@keyframes slow-float {
+    0%, 100% {
+        transform: translateY(0px) scale(1);
+    }
+    50% {
+        transform: translateY(-8px) scale(1.015);
+    }
+}
+
+@keyframes ember-rise {
+    0% {
+        transform: translateY(0) scale(0.6);
+        opacity: 0;
+    }
+    30% {
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(-90px) scale(1.2);
+        opacity: 0;
+    }
+}
+
+@keyframes badge-float-1 {
+    0%, 100% {
+        transform: translateY(0px) rotate(-1deg);
+    }
+    50% {
+        transform: translateY(-6px) rotate(1deg);
+    }
+}
+
+@keyframes badge-float-2 {
+    0%, 100% {
+        transform: translateY(0px) rotate(1deg);
+    }
+    50% {
+        transform: translateY(-8px) rotate(-1deg);
+    }
+}
+
+@keyframes float-side-left {
+    0%, 100% {
+        transform: translateY(0px) rotate(-6deg) scale(1);
+    }
+    50% {
+        transform: translateY(-14px) rotate(-2deg) scale(1.04);
+    }
+}
+
+@keyframes float-side-right {
+    0%, 100% {
+        transform: translateY(0px) rotate(8deg) scale(1);
+    }
+    50% {
+        transform: translateY(-16px) rotate(13deg) scale(1.05);
+    }
+}
+
+@keyframes float-side-drift {
+    0%, 100% {
+        transform: translate(0px, 0px) rotate(0deg);
+    }
+    33% {
+        transform: translate(6px, -12px) rotate(5deg);
+    }
+    66% {
+        transform: translate(-5px, -18px) rotate(-4deg);
+    }
+}
+
+@keyframes spin-slow {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.animate-slow-float {
+    animation: slow-float 5s ease-in-out infinite;
+}
+
+.animate-ember-1 { animation: ember-rise 3.2s ease-out infinite; }
+.animate-ember-2 { animation: ember-rise 4.1s ease-out 1.2s infinite; }
+.animate-ember-3 { animation: ember-rise 3.7s ease-out 2.1s infinite; }
+.animate-badge-1 { animation: badge-float-1 4s ease-in-out infinite; }
+.animate-badge-2 { animation: badge-float-2 4.5s ease-in-out 1s infinite; }
+.animate-float-left { animation: float-side-left 6s ease-in-out infinite; }
+.animate-float-right { animation: float-side-right 7s ease-in-out 1s infinite; }
+.animate-float-drift { animation: float-side-drift 8.5s ease-in-out 1.5s infinite; }
+.animate-spin-slow { animation: spin-slow 22s linear infinite; }
+
+/* Retro Ticket Perforation */
+.ticket-edge-bottom {
+    background-image: radial-gradient(circle at 10px 0, transparent 8px, #FBF4E6 8.5px);
+    background-size: 20px 20px;
+    background-repeat: repeat-x;
+}
+

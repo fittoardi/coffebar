@@ -19,7 +19,7 @@
 
         <!-- Email Akun Staf -->
         <div>
-            <label for="email" class="block font-heading uppercase tracking-wider text-xs text-rustic-800 font-bold mb-1">
+            <label for="email" class="block font-heading uppercase tracking-wider text-xs text-rustic-900 font-black mb-1">
                 Email atau No. HP Staf <span class="text-brick">*</span>
             </label>
             <input type="text"
@@ -29,13 +29,13 @@
                    required
                    autofocus
                    placeholder="Contoh: kasir@coffebar.id atau admin@coffebar.id"
-                   class="w-full bg-parchment border-2 border-rustic-400 font-body px-4 py-2.5 text-rustic-900 rounded-sm focus:border-copper focus:outline-none focus:ring-1 focus:ring-copper">
+                   class="w-full bg-parchment border-2 border-rustic-900 font-body px-4 py-2.5 text-rustic-900 rounded-sm shadow-rustic-sm focus:border-retro-orange focus:outline-none">
         </div>
 
         <!-- Kata Sandi -->
         <div>
             <div class="flex items-center justify-between mb-1">
-                <label for="password" class="block font-heading uppercase tracking-wider text-xs text-rustic-800 font-bold">
+                <label for="password" class="block font-heading uppercase tracking-wider text-xs text-rustic-900 font-black">
                     Kata Sandi <span class="text-brick">*</span>
                 </label>
             </div>
@@ -44,23 +44,23 @@
                    id="password"
                    required
                    placeholder="••••••••"
-                   class="w-full bg-parchment border-2 border-rustic-400 font-body px-4 py-2.5 text-rustic-900 rounded-sm focus:border-copper focus:outline-none focus:ring-1 focus:ring-copper">
+                   class="w-full bg-parchment border-2 border-rustic-900 font-body px-4 py-2.5 text-rustic-900 rounded-sm shadow-rustic-sm focus:border-retro-orange focus:outline-none">
         </div>
 
         <!-- Remember Me Checkbox -->
         <div class="flex items-center justify-between pt-1">
             <label class="inline-flex items-center space-x-2 cursor-pointer">
                 <input type="checkbox" name="remember" value="1"
-                       class="w-4 h-4 text-copper border-rustic-400 rounded focus:ring-copper">
-                <span class="text-xs font-heading uppercase tracking-wider text-rustic-700">
+                       class="w-4 h-4 text-retro-orange border-rustic-900 rounded focus:ring-retro-orange">
+                <span class="text-xs font-heading uppercase tracking-wider text-rustic-800 font-bold">
                     Ingat Sesi Saya
                 </span>
             </label>
         </div>
 
         <!-- Demo Accounts Hint Box -->
-        <div class="p-3 bg-rustic-100 border border-rustic-300 rounded-xs text-[11px] font-mono text-rustic-700 space-y-1">
-            <div class="font-heading font-bold text-copper text-[10px] uppercase tracking-wider">
+        <div class="p-3 bg-parchment border-2 border-dashed border-rustic-400 rounded-xs text-[11px] font-mono text-rustic-800 space-y-1">
+            <div class="font-heading font-black text-retro-orange text-[10px] uppercase tracking-wider">
                 💡 Akun Demo Petugas (Sandi: password123)
             </div>
             <div>• Kasir: <strong class="text-rustic-900">kasir@coffebar.id</strong></div>
@@ -70,7 +70,7 @@
         <!-- Submit Button -->
         <div class="pt-2">
             <button type="submit"
-                    class="w-full bg-copper text-rustic-900 border-2 border-rustic-800 hover:bg-copper-light font-heading tracking-widest uppercase text-xs py-3 px-4 shadow-rustic transition duration-150 active:translate-x-0.5 active:translate-y-0.5 font-bold">
+                    class="w-full bg-retro-orange text-parchment border-2 border-rustic-900 hover:bg-[#d85f30] font-heading font-black tracking-widest uppercase text-xs py-3.5 px-4 shadow-rustic transition duration-150 active:translate-x-1 active:translate-y-1 active:shadow-none">
                 MASUK KE PORTAL INTERNAL →
             </button>
         </div>

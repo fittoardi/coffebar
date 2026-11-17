@@ -43,30 +43,35 @@
         }
      }">
 
-    <!-- Page Header -->
-    <div class="text-center mb-10">
+    <!-- Page Header with Retro Badge -->
+    <div class="text-center mb-12">
+        <span class="inline-block bg-retro-orange text-parchment font-heading text-[11px] font-black uppercase tracking-widest px-3 py-1 border-2 border-rustic-900 shadow-rustic-sm mb-3 -rotate-1">
+            ★ DAFTAR SEDUHAN & KUDAPAN ★
+        </span>
         <h1 class="font-display font-black text-4xl sm:text-5xl text-rustic-900 tracking-tight">
             Menu Kami
         </h1>
-        <div class="text-copper text-sm tracking-widest my-2 select-none">
-            ❧ ─────── ✦ ─────── ❧
+        <div class="text-retro-orange text-sm tracking-widest my-2 select-none flex items-center justify-center gap-3">
+            <span class="h-0.5 w-12 bg-retro-orange/60 inline-block"></span>
+            <span class="text-retro-mustard font-bold">❧ ✦ ❧</span>
+            <span class="h-0.5 w-12 bg-retro-orange/60 inline-block"></span>
         </div>
-        <p class="font-body italic text-rustic-600 text-sm sm:text-base max-w-lg mx-auto">
+        <p class="font-body italic text-rustic-700 text-sm sm:text-base max-w-lg mx-auto">
             Semua minuman dan kudapan diracik segar dari bahan-bahan terbaik setiap harinya.
         </p>
     </div>
 
-    <!-- Filter Tabs (Ticket Style) & Search Box -->
-    <div class="flex flex-col lg:flex-row items-center justify-between gap-4 mb-10 pb-6 border-b border-rustic-300">
+    <!-- Filter Tabs (Retro Ticket Style) & Search Box -->
+    <div class="flex flex-col lg:flex-row items-center justify-between gap-4 mb-10 pb-6 border-b-2 border-dashed border-rustic-400">
         <!-- Ticket-style category tabs -->
         <div class="flex flex-wrap gap-2 justify-center">
             <a href="{{ route('menu.index') }}"
-               class="px-4 py-2 text-xs font-heading uppercase tracking-wider border-2 transition {{ empty($selectedCategorySlug) ? 'bg-rustic-800 text-parchment border-copper shadow-rustic-sm' : 'bg-parchment text-rustic-800 border-rustic-400 hover:bg-rustic-200' }}">
-                Semua
+               class="px-4 py-2 text-xs font-heading font-black uppercase tracking-wider border-2 border-rustic-900 transition {{ empty($selectedCategorySlug) ? 'bg-retro-orange text-parchment shadow-rustic-sm -translate-y-0.5' : 'bg-parchment text-rustic-900 hover:bg-parchment-dark' }}">
+                Semua Menu
             </a>
             @foreach ($categories as $cat)
                 <a href="{{ route('menu.index', ['kategori' => $cat->slug]) }}"
-                   class="px-4 py-2 text-xs font-heading uppercase tracking-wider border-2 transition {{ $selectedCategorySlug === $cat->slug ? 'bg-rustic-800 text-parchment border-copper shadow-rustic-sm' : 'bg-parchment text-rustic-800 border-rustic-400 hover:bg-rustic-200' }}">
+                   class="px-4 py-2 text-xs font-heading font-black uppercase tracking-wider border-2 border-rustic-900 transition {{ $selectedCategorySlug === $cat->slug ? 'bg-retro-orange text-parchment shadow-rustic-sm -translate-y-0.5' : 'bg-parchment text-rustic-900 hover:bg-parchment-dark' }}">
                     @if ($cat->icon === 'coffee') ☕ @elseif ($cat->icon === 'cake') 🥐 @else 🥤 @endif
                     {{ $cat->name }} ({{ $cat->products_count }})
                 </a>
@@ -83,10 +88,10 @@
                        name="q"
                        value="{{ $searchQuery }}"
                        placeholder="🔍 Cari menu favorit..."
-                       class="w-full bg-parchment border-2 border-rustic-400 font-body px-3.5 py-2 text-sm text-rustic-900 rounded-sm focus:border-copper focus:outline-none focus:ring-1 focus:ring-copper">
+                       class="w-full bg-parchment border-2 border-rustic-900 font-body px-3.5 py-2 text-sm text-rustic-900 rounded-sm shadow-rustic-sm focus:border-retro-orange focus:outline-none">
                 @if ($searchQuery)
                     <a href="{{ route('menu.index', array_filter(['kategori' => $selectedCategorySlug])) }}"
-                       class="absolute right-2.5 top-2 text-xs text-rustic-500 hover:text-rustic-800">
+                       class="absolute right-2.5 top-2.5 text-xs text-rustic-600 hover:text-rustic-950 font-bold">
                         ✕ Reset
                     </a>
                 @endif
@@ -96,34 +101,42 @@
 
     <!-- Product Grid -->
     @if ($products->isEmpty())
-        <div class="bg-parchment border-2 border-dashed border-rustic-400 rounded-sm p-12 text-center my-8">
-            <span class="text-4xl">☕</span>
-            <h3 class="font-display font-bold text-xl text-rustic-900 mt-3">Menu Tidak Ditemukan</h3>
-            <p class="font-body text-xs text-rustic-600 mt-1">
+        <div class="bg-parchment border-4 border-dashed border-rustic-900 rounded-sm p-12 text-center my-8 shadow-rustic">
+            <span class="text-5xl block">☕</span>
+            <h3 class="font-display font-black text-2xl text-rustic-900 mt-3">Menu Tidak Ditemukan</h3>
+            <p class="font-body text-xs text-rustic-700 mt-1">
                 Silakan coba kata kunci lain atau pilih kategori yang berbeda.
             </p>
             <div class="mt-4">
-                <a href="{{ route('menu.index') }}" class="font-heading text-xs text-copper underline uppercase tracking-wider">
+                <a href="{{ route('menu.index') }}" class="inline-block bg-retro-orange text-parchment border-2 border-rustic-900 font-heading font-bold text-xs uppercase px-4 py-2 shadow-rustic-sm hover:bg-copper-light hover:text-rustic-900 transition">
                     Kembali ke Semua Menu
                 </a>
             </div>
         </div>
     @else
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            @foreach ($products as $product)
-                <div class="bg-parchment-dark border-2 border-rustic-500 rounded-sm p-4 shadow-rustic hover:-translate-y-1 hover:shadow-rustic-lg transition-all duration-300 flex flex-col justify-between relative">
+            @foreach ($products as $idx => $product)
+                <div class="bg-parchment-dark border-2 border-rustic-900 rounded-sm p-4 shadow-rustic hover:-translate-y-1.5 hover:shadow-rustic-lg transition-all duration-300 flex flex-col justify-between relative group">
+                    
+                    <!-- Retro Sticker on Product -->
+                    <div class="absolute -top-3 left-4 z-10 pointer-events-none select-none">
+                        <span class="inline-block {{ $idx % 2 == 0 ? '-rotate-2 bg-retro-mustard text-rustic-950' : 'rotate-2 bg-retro-orange text-parchment' }} font-heading font-black text-[9px] uppercase px-2 py-0.5 border-2 border-rustic-900 shadow-sm">
+                            ★ {{ $product->is_featured ? 'FAVORIT' : 'ORIGINAL' }}
+                        </span>
+                    </div>
+
                     <!-- Out of stock badge overlay if unavailable -->
                     @if (! $product->is_available)
-                        <div class="absolute inset-0 bg-rustic-900/60 z-10 flex items-center justify-center rounded-sm">
-                            <span class="bg-brick text-parchment border border-parchment font-heading text-xs uppercase tracking-widest px-3 py-1 -rotate-6 shadow-md font-bold">
-                                HABIS
+                        <div class="absolute inset-0 bg-rustic-950/75 z-20 flex items-center justify-center rounded-sm">
+                            <span class="bg-brick text-parchment border-2 border-parchment font-heading text-xs uppercase tracking-widest px-4 py-1.5 -rotate-6 shadow-rustic font-black">
+                                HABIS SEMENTARA
                             </span>
                         </div>
                     @endif
 
                     <div>
                         <!-- Product Visual Box -->
-                        <div class="w-full h-44 bg-rustic-800 border border-rustic-600 rounded-sm flex items-center justify-center text-copper mb-4 relative overflow-hidden group">
+                        <div class="w-full h-44 bg-rustic-900 border-2 border-rustic-900 rounded-sm flex items-center justify-center text-retro-mustard mb-4 relative overflow-hidden group">
                             <span class="text-5xl select-none group-hover:scale-110 transition duration-300">
                                 @if (str_contains(strtolower($product->category->name), 'kopi'))
                                     ☕
@@ -133,12 +146,12 @@
                                     🥤
                                 @endif
                             </span>
-                            <span class="absolute top-2 right-2 bg-rustic-900/80 text-parchment text-[10px] font-heading uppercase px-2 py-0.5 border border-copper">
+                            <span class="absolute top-2 right-2 bg-rustic-900/90 text-parchment text-[10px] font-heading font-bold uppercase px-2 py-0.5 border border-retro-orange">
                                 {{ $product->category->name }}
                             </span>
                         </div>
 
-                        <h3 class="font-display font-bold text-lg text-rustic-900 leading-snug">
+                        <h3 class="font-display font-black text-xl text-rustic-900 leading-snug">
                             {{ $product->name }}
                         </h3>
 
@@ -147,19 +160,19 @@
                         </p>
                     </div>
 
-                    <div class="mt-4 pt-3 border-t border-rustic-400/50 flex items-center justify-between">
-                        <span class="font-display font-bold text-lg text-rustic-900">
+                    <div class="mt-4 pt-3 border-t-2 border-dashed border-rustic-400 flex items-center justify-between">
+                        <span class="font-display font-black text-xl text-rustic-900">
                             {{ $product->formatted_price }}
                         </span>
 
                         @if ($product->is_available)
                             <button type="button"
                                     @click="openModal({{ json_encode($product) }})"
-                                    class="bg-rustic-800 text-parchment border border-copper hover:bg-rustic-700 font-heading text-xs uppercase px-3.5 py-1.5 shadow-rustic-sm transition active:translate-x-0.5 active:translate-y-0.5">
+                                    class="bg-retro-orange text-parchment border-2 border-rustic-900 hover:bg-[#d85f30] font-heading font-bold text-xs uppercase px-3.5 py-1.5 shadow-rustic-sm transition active:translate-x-0.5 active:translate-y-0.5 active:shadow-none">
                                 + Pesan
                             </button>
                         @else
-                            <span class="text-xs font-heading uppercase text-brick italic">Tidak Tersedia</span>
+                            <span class="text-xs font-heading font-bold uppercase text-brick italic">Habis</span>
                         @endif
                     </div>
                 </div>

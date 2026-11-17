@@ -30,8 +30,13 @@
             </p>
         </div>
 
-        <!-- Main Card Container -->
-        <div class="bg-[#FFF8F0] border-2 border-copper shadow-rustic rounded-sm p-6 sm:p-8">
+        <!-- Main Card Container (Retro Member Pass) -->
+        <div class="bg-parchment-dark border-4 border-rustic-900 shadow-rustic-lg rounded-sm p-6 sm:p-8 relative">
+            <div class="absolute -top-3.5 right-6 pointer-events-none select-none">
+                <span class="inline-block bg-retro-orange text-parchment font-heading text-[10px] font-black uppercase tracking-widest px-2.5 py-0.5 border-2 border-rustic-900 shadow-sm rotate-2">
+                    ★ MEMBER PASS ★
+                </span>
+            </div>
             @if (session('status'))
                 <div class="mb-5 p-4 bg-rustic-100 border-l-4 border-copper text-rustic-800 text-sm font-body">
                     {{ session('status') }}

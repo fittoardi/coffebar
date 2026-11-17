@@ -121,14 +121,14 @@
                 @endforeach
             </div>
 
-            <!-- Cart Summary & Actions -->
-            <div class="bg-[#FFF8F0] border-2 border-copper rounded-sm p-6 shadow-rustic flex flex-col sm:flex-row items-center justify-between gap-6">
+            <!-- Cart Summary & Actions (Retro Diner Bill) -->
+            <div class="bg-parchment-dark border-2 border-rustic-900 rounded-sm p-6 shadow-rustic flex flex-col sm:flex-row items-center justify-between gap-6">
                 <!-- Total Amount -->
                 <div>
-                    <span class="block font-heading text-xs uppercase tracking-widest text-rustic-600">
-                        Total Pembayaran
+                    <span class="block font-heading text-xs uppercase tracking-widest text-rustic-700 font-bold">
+                        ★ TOTAL PEMBAYARAN ★
                     </span>
-                    <span class="font-display font-bold text-3xl sm:text-4xl text-rustic-900 text-copper">
+                    <span class="font-display font-black text-3xl sm:text-4xl text-retro-orange">
                         Rp {{ number_format($total, 0, ',', '.') }}
                     </span>
                 </div>
@@ -139,13 +139,13 @@
                         @csrf
                         <button type="submit"
                                 onclick="return confirm('Apakah Anda yakin ingin mengosongkan keranjang?')"
-                                class="px-4 py-3 border-2 border-rustic-400 text-rustic-700 hover:bg-rustic-200 font-heading text-xs uppercase tracking-wider transition">
+                                class="px-4 py-3 border-2 border-rustic-900 text-rustic-900 hover:bg-parchment font-heading font-bold text-xs uppercase tracking-wider transition shadow-rustic-sm">
                             Kosongkan
                         </button>
                     </form>
 
                     <a href="{{ route('checkout.show') }}"
-                       class="flex-1 sm:flex-none text-center bg-rustic-800 text-parchment border-2 border-copper hover:bg-rustic-700 font-heading tracking-widest uppercase text-xs py-3.5 px-8 shadow-rustic transition duration-150 active:translate-x-0.5 active:translate-y-0.5 font-bold">
+                       class="flex-1 sm:flex-none text-center bg-retro-orange text-parchment border-2 border-rustic-900 hover:bg-[#d85f30] font-heading font-black tracking-widest uppercase text-xs py-3.5 px-8 shadow-rustic transition duration-150 active:translate-x-1 active:translate-y-1 active:shadow-none">
                         LANJUT KE PEMBAYARAN →
                     </a>
                 </div>
