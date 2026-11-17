@@ -52,14 +52,17 @@
 
 .texture-grid-retro {
     background-image: linear-gradient(to right, rgba(207, 83, 40, 0.08) 1px, transparent 1px),
-                      linear-gradient(to bottom, rgba(207, 83, 40, 0.08) 1px, transparent 1px);
+        linear-gradient(to bottom, rgba(207, 83, 40, 0.08) 1px, transparent 1px);
     background-size: 24px 24px;
 }
 
 @keyframes slow-float {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translateY(0px) scale(1);
     }
+
     50% {
         transform: translateY(-8px) scale(1.015);
     }
@@ -70,9 +73,11 @@
         transform: translateY(0) scale(0.6);
         opacity: 0;
     }
+
     30% {
         opacity: 0.8;
     }
+
     100% {
         transform: translateY(-90px) scale(1.2);
         opacity: 0;
@@ -80,48 +85,64 @@
 }
 
 @keyframes badge-float-1 {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translateY(0px) rotate(-1deg);
     }
+
     50% {
         transform: translateY(-6px) rotate(1deg);
     }
 }
 
 @keyframes badge-float-2 {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translateY(0px) rotate(1deg);
     }
+
     50% {
         transform: translateY(-8px) rotate(-1deg);
     }
 }
 
 @keyframes float-side-left {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translateY(0px) rotate(-6deg) scale(1);
     }
+
     50% {
         transform: translateY(-14px) rotate(-2deg) scale(1.04);
     }
 }
 
 @keyframes float-side-right {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translateY(0px) rotate(8deg) scale(1);
     }
+
     50% {
         transform: translateY(-16px) rotate(13deg) scale(1.05);
     }
 }
 
 @keyframes float-side-drift {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translate(0px, 0px) rotate(0deg);
     }
+
     33% {
         transform: translate(6px, -12px) rotate(5deg);
     }
+
     66% {
         transform: translate(-5px, -18px) rotate(-4deg);
     }
@@ -131,6 +152,7 @@
     from {
         transform: rotate(0deg);
     }
+
     to {
         transform: rotate(360deg);
     }
@@ -140,15 +162,41 @@
     animation: slow-float 5s ease-in-out infinite;
 }
 
-.animate-ember-1 { animation: ember-rise 3.2s ease-out infinite; }
-.animate-ember-2 { animation: ember-rise 4.1s ease-out 1.2s infinite; }
-.animate-ember-3 { animation: ember-rise 3.7s ease-out 2.1s infinite; }
-.animate-badge-1 { animation: badge-float-1 4s ease-in-out infinite; }
-.animate-badge-2 { animation: badge-float-2 4.5s ease-in-out 1s infinite; }
-.animate-float-left { animation: float-side-left 6s ease-in-out infinite; }
-.animate-float-right { animation: float-side-right 7s ease-in-out 1s infinite; }
-.animate-float-drift { animation: float-side-drift 8.5s ease-in-out 1.5s infinite; }
-.animate-spin-slow { animation: spin-slow 22s linear infinite; }
+.animate-ember-1 {
+    animation: ember-rise 3.2s ease-out infinite;
+}
+
+.animate-ember-2 {
+    animation: ember-rise 4.1s ease-out 1.2s infinite;
+}
+
+.animate-ember-3 {
+    animation: ember-rise 3.7s ease-out 2.1s infinite;
+}
+
+.animate-badge-1 {
+    animation: badge-float-1 4s ease-in-out infinite;
+}
+
+.animate-badge-2 {
+    animation: badge-float-2 4.5s ease-in-out 1s infinite;
+}
+
+.animate-float-left {
+    animation: float-side-left 6s ease-in-out infinite;
+}
+
+.animate-float-right {
+    animation: float-side-right 7s ease-in-out 1s infinite;
+}
+
+.animate-float-drift {
+    animation: float-side-drift 8.5s ease-in-out 1.5s infinite;
+}
+
+.animate-spin-slow {
+    animation: spin-slow 22s linear infinite;
+}
 
 /* Retro Ticket Perforation */
 .ticket-edge-bottom {
@@ -156,4 +204,3 @@
     background-size: 20px 20px;
     background-repeat: repeat-x;
 }
-

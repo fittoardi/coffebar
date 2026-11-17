@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +13,7 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
+
 <body class="texture-parchment min-h-screen font-body text-rustic-800 flex flex-col justify-center items-center py-10 px-4 sm:px-6">
 
     <div class="w-full max-w-md">
@@ -38,25 +40,25 @@
                 </span>
             </div>
             @if (session('status'))
-                <div class="mb-5 p-4 bg-rustic-100 border-l-4 border-copper text-rustic-800 text-sm font-body">
-                    {{ session('status') }}
-                </div>
+            <div class="mb-5 p-4 bg-rustic-100 border-l-4 border-copper text-rustic-800 text-sm font-body">
+                {{ session('status') }}
+            </div>
             @endif
 
             @if (session('success'))
-                <div class="mb-5 p-4 bg-[#2D6A4F]/10 border-l-4 border-[#2D6A4F] text-[#2D6A4F] text-sm font-body">
-                    {{ session('success') }}
-                </div>
+            <div class="mb-5 p-4 bg-[#2D6A4F]/10 border-l-4 border-[#2D6A4F] text-[#2D6A4F] text-sm font-body">
+                {{ session('success') }}
+            </div>
             @endif
 
             @if ($errors->any())
-                <div class="mb-5 p-4 bg-brick/10 border-l-4 border-brick text-brick text-sm font-body">
-                    <ul class="list-disc list-inside space-y-1">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
+            <div class="mb-5 p-4 bg-brick/10 border-l-4 border-brick text-brick text-sm font-body">
+                <ul class="list-disc list-inside space-y-1">
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
             @endif
 
             @yield('content')
@@ -69,4 +71,5 @@
     </div>
 
 </body>
+
 </html>
