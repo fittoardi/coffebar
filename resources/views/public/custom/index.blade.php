@@ -54,14 +54,14 @@
         }
      }">
 
-    <!-- Pinggiran Biji Kopi Meja Barista: Kiri & Kanan -->
-    <img src="{{ asset('images/beans-falling.png') }}" class="absolute -left-10 top-16 w-28 h-auto object-contain pointer-events-none opacity-45 -rotate-12 drop-shadow-md select-none hidden xl:block" alt="" />
-    <img src="{{ asset('images/beans-cluster.png') }}" class="absolute -right-6 top-12 w-24 h-24 object-contain pointer-events-none opacity-50 rotate-45 select-none hidden xl:block" alt="" />
-    <img src="{{ asset('images/beans-falling.png') }}" class="absolute -right-10 bottom-24 w-28 h-auto object-contain pointer-events-none opacity-45 rotate-6 drop-shadow-md select-none hidden xl:block" alt="" />
-    <img src="{{ asset('images/beans-cluster.png') }}" class="absolute -left-6 bottom-16 w-24 h-24 object-contain pointer-events-none opacity-40 -rotate-12 select-none hidden xl:block" alt="" />
+    <!-- Pinggiran Biji Kopi Meja Barista: Kiri & Kanan Melayang -->
+    <img src="{{ asset('images/beans-falling.png') }}" class="absolute -left-10 top-16 w-28 h-auto object-contain pointer-events-none opacity-45 -rotate-12 drop-shadow-md select-none hidden xl:block animate-float-slow" alt="" />
+    <img src="{{ asset('images/beans-cluster.png') }}" class="absolute -right-6 top-12 w-24 h-24 object-contain pointer-events-none opacity-50 rotate-45 select-none hidden xl:block animate-float-reverse" alt="" />
+    <img src="{{ asset('images/beans-falling.png') }}" class="absolute -right-10 bottom-24 w-28 h-auto object-contain pointer-events-none opacity-45 rotate-6 drop-shadow-md select-none hidden xl:block animate-float" alt="" />
+    <img src="{{ asset('images/beans-cluster.png') }}" class="absolute -left-6 bottom-16 w-24 h-24 object-contain pointer-events-none opacity-40 -rotate-12 select-none hidden xl:block animate-float-drift" alt="" />
 
     <!-- Page Header (Rustic Modern) -->
-    <div class="mb-10 border-b border-dashed border-[#CDB48F] pb-6 relative z-10">
+    <div class="mb-10 border-b border-dashed border-[#CDB48F] pb-6 relative z-10 reveal-on-scroll">
         <span class="font-hand text-2xl text-[#B5753A]">Meja Barista Interaktif</span>
         <h1 class="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#2B1D14] tracking-tight mt-1">
             Racik Minumanmu Sendiri
@@ -76,7 +76,7 @@
 
         <!-- LEFT COLUMN: SUMMARY & PREVIEW (STICKY MEJA BARISTA) -->
         <div class="lg:col-span-5 lg:sticky lg:top-24 order-2 lg:order-1">
-            <div class="bg-[#FFFDF8] border border-[#CDB48F] rounded-2xl p-6 sm:p-7 space-y-6 shadow-warm relative overflow-hidden">
+            <div class="bg-[#FFFDF8] border border-[#CDB48F] rounded-2xl p-6 sm:p-7 space-y-6 shadow-warm relative overflow-hidden motion-frame">
                 <img src="{{ asset('images/beans-cluster.png') }}" class="absolute -bottom-4 -right-4 w-20 h-20 object-contain pointer-events-none drop-shadow-sm opacity-60 z-0" alt="Biji Kopi" />
 
                 <!-- Subtle kraft tag header -->

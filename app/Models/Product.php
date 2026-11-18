@@ -65,19 +65,31 @@ class Product extends Model
     public function getImageUrlAttribute(): ?string
     {
         if ($this->image) {
-            return str_starts_with($this->image, 'http')
-                ? $this->image
-                : asset('storage/'.$this->image);
+            if (str_starts_with($this->image, 'http')) {
+                return $this->image;
+            }
+            if (file_exists(public_path('images/'.$this->image))) {
+                return asset('images/'.$this->image);
+            }
+
+            return asset('storage/'.$this->image);
         }
 
         $name = strtolower($this->name);
-        $catName = strtolower($this->category?->name ?? '');
 
-        // Food & Snack items should not show coffee beans or cups
-        if ($catName === 'makanan' || $catName === 'snack'
-            || str_contains($name, 'croissant') || str_contains($name, 'roti')
-            || str_contains($name, 'nasi') || str_contains($name, 'fries')
-            || str_contains($name, 'singkong') || str_contains($name, 'churros')) {
+        if (str_contains($name, 'croissant')) {
+            return asset('images/croissant.png');
+        }
+
+        if (str_contains($name, 'fries') || str_contains($name, 'singkong')) {
+            return asset('images/french-fries.png');
+        }
+
+        if (str_contains($name, 'roti') || str_contains($name, 'churros') || str_contains($name, 'coklat') || str_contains($name, 'pastry') || str_contains($name, 'cromboloni')) {
+            return asset('images/chocolate-pastry.png');
+        }
+
+        if (str_contains($name, 'nasi')) {
             return null;
         }
 

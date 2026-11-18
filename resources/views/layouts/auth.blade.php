@@ -17,11 +17,11 @@
 
 <body class="bg-[#F4ECDD] min-h-screen text-[#2B1D14] flex flex-col justify-center items-center py-12 px-4 sm:px-6 font-sans antialiased selection:bg-[#B5753A] selection:text-white relative overflow-hidden">
 
-    <!-- Pinggiran Biji Kopi Layar: 4 Sudut Layar Luar -->
-    <img src="{{ asset('images/beans-falling.png') }}" class="fixed left-6 top-8 w-28 h-auto object-contain pointer-events-none opacity-40 -rotate-12 select-none hidden md:block" alt="" />
-    <img src="{{ asset('images/beans-cluster.png') }}" class="fixed right-10 top-10 w-24 h-24 object-contain pointer-events-none opacity-45 rotate-45 select-none hidden md:block" alt="" />
-    <img src="{{ asset('images/beans-falling.png') }}" class="fixed right-6 bottom-8 w-28 h-auto object-contain pointer-events-none opacity-40 rotate-12 select-none hidden md:block" alt="" />
-    <img src="{{ asset('images/beans-cluster.png') }}" class="fixed left-10 bottom-12 w-24 h-24 object-contain pointer-events-none opacity-40 -rotate-12 select-none hidden md:block" alt="" />
+    <!-- Pinggiran Biji Kopi Layar: 4 Sudut Layar Luar Melayang -->
+    <img src="{{ asset('images/beans-falling.png') }}" class="fixed left-6 top-8 w-28 h-auto object-contain pointer-events-none opacity-40 -rotate-12 select-none hidden md:block animate-float-slow" alt="" />
+    <img src="{{ asset('images/beans-cluster.png') }}" class="fixed right-10 top-10 w-24 h-24 object-contain pointer-events-none opacity-45 rotate-45 select-none hidden md:block animate-float-reverse" alt="" />
+    <img src="{{ asset('images/beans-falling.png') }}" class="fixed right-6 bottom-8 w-28 h-auto object-contain pointer-events-none opacity-40 rotate-12 select-none hidden md:block animate-float" alt="" />
+    <img src="{{ asset('images/beans-cluster.png') }}" class="fixed left-10 bottom-12 w-24 h-24 object-contain pointer-events-none opacity-40 -rotate-12 select-none hidden md:block animate-float-drift" alt="" />
 
     <div class="w-full max-w-[440px] relative z-10">
         <!-- Brand Header (03-DESIGN.md Section 16.1) -->
@@ -37,8 +37,8 @@
             </p>
         </div>
 
-        <!-- Main Card Container (Paper card with Kraft border) -->
-        <div class="bg-[#FFFDF8] border border-[#CDB48F] shadow-warm rounded-2xl p-7 sm:p-9 relative">
+        <!-- Main Card Container (Paper card with Kraft border & subtle Motion Frame) -->
+        <div class="bg-[#FFFDF8] border border-[#CDB48F] shadow-warm rounded-2xl p-7 sm:p-9 relative motion-frame">
             <img src="{{ asset('images/beans-cluster.png') }}" class="absolute -bottom-5 -right-5 w-20 h-20 object-contain pointer-events-none drop-shadow-sm opacity-80 hidden sm:block z-0" alt="Biji Kopi" />
             @if (session('status'))
             <div class="mb-5 p-3.5 bg-[#E8DCC4] border border-[#CDB48F] text-[#4A3224] text-xs font-semibold rounded-xl">

@@ -75,6 +75,7 @@ class CartController extends Controller
             'quantity' => (int) ($validated['quantity'] ?? 1),
             'options' => $options,
             'notes' => $validated['notes'] ?? null,
+            'image' => $product->image_url,
         ]);
 
         if ($request->wantsJson()) {
