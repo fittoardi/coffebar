@@ -53,9 +53,6 @@
                     <a href="{{ route('home') }}#tentang" class="hover:text-[#B5753A] transition">
                         Tentang
                     </a>
-                    <a href="{{ route('home') }}#kontak" class="hover:text-[#B5753A] transition">
-                        Lokasi & Kontak
-                    </a>
                 </div>
 
                 <!-- Right Action Icons: Cart & Auth -->
@@ -173,10 +170,6 @@
             <a href="{{ route('home') }}#tentang" @click="mobileMenuOpen = false"
                class="block text-xl text-[#E8DCC4] hover:text-[#B5753A] border-b border-[#4A3224] pb-2">
                 Tentang
-            </a>
-            <a href="{{ route('home') }}#kontak" @click="mobileMenuOpen = false"
-               class="block text-xl text-[#E8DCC4] hover:text-[#B5753A] border-b border-[#4A3224] pb-2">
-                Lokasi & Kontak
             </a>
 
             @auth
