@@ -17,10 +17,10 @@
             <source src="{{ asset('images/coffee-story.mp4') }}" type="video/mp4">
         </video>
 
-        <!-- Cinematic Gradient Overlays (Rustic Dark Roast & Warmth) -->
-        <div class="absolute inset-0 bg-gradient-to-r from-[#1E1A17]/95 via-[#2B1D14]/85 to-[#2B1D14]/65 z-0 pointer-events-none"></div>
-        <div class="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-[#1E1A17] via-[#1E1A17]/60 to-transparent z-0 pointer-events-none"></div>
-        <div class="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#1E1A17]/70 to-transparent z-0 pointer-events-none"></div>
+        <!-- Cinematic Gradient Overlays (Clearer Video Transparency with Protected Text Readability) -->
+        <div class="absolute inset-0 bg-gradient-to-r from-[#1E1A17]/80 via-[#1E1A17]/45 to-black/20 z-0 pointer-events-none"></div>
+        <div class="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#1E1A17] via-[#1E1A17]/40 to-transparent z-0 pointer-events-none"></div>
+        <div class="absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-[#1E1A17]/50 to-transparent z-0 pointer-events-none"></div>
 
         <!-- Pinggiran Luar Hero: Taburan Biji Kopi Organik Melayang di Tepi Kiri & Kanan Layar -->
         <img src="{{ asset('images/beans-falling.png') }}" class="absolute -left-3 sm:left-2 lg:left-6 xl:left-10 top-6 sm:top-10 w-20 sm:w-28 lg:w-32 xl:w-36 h-auto object-contain pointer-events-none opacity-45 lg:opacity-70 -rotate-12 drop-shadow-xl select-none hidden sm:block animate-float-slow z-10" alt="" />
@@ -39,16 +39,16 @@
                         <span>{{ $settings['shop_tagline'] ?? 'Kedai Kopi Autentik Nusantara' }}</span>
                     </div>
 
-                    <h1 class="font-display text-4xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold text-[#FFFDF8] leading-[1.08] tracking-tight drop-shadow-md">
+                    <h1 class="font-display text-4xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold text-[#FFFDF8] leading-[1.08] tracking-tight drop-shadow-[0_4px_16px_rgba(0,0,0,0.85)]">
                         Disangrai pelan,<br>
                         <span class="italic font-normal text-[#CDB48F]">diseduh dengan hati.</span>
                     </h1>
 
                     <div class="space-y-3">
-                        <p class="font-display text-xl sm:text-2xl xl:text-3xl font-medium text-[#F4ECDD] drop-shadow-sm">
+                        <p class="font-display text-xl sm:text-2xl xl:text-3xl font-medium text-[#F4ECDD] drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
                             COFFEBAR — {{ $settings['hero_title'] ?? 'Kopi Terbaik, Diracik Untukmu' }}
                         </p>
-                        <p class="text-[#E8DCC4]/90 text-base sm:text-lg xl:text-xl max-w-2xl leading-relaxed">
+                        <p class="text-[#E8DCC4] text-base sm:text-lg xl:text-xl max-w-2xl leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
                             {{ $settings['hero_subtitle'] ?? 'Cita Rasa Juara Dari Bumi Nusantara' }}
                         </p>
                     </div>
