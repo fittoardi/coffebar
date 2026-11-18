@@ -66,12 +66,22 @@
         getCupHeightClass() {
             const s = this.selectedSize.toLowerCase();
             if (s.includes('18') || s.includes('large') || s.includes('l')) {
-                return 'h-52 sm:h-56';
+                return 'h-56 sm:h-60';
             }
             if (s.includes('12') || s.includes('regular') || s.includes('medium') || s.includes('m')) {
-                return 'h-44 sm:h-48';
+                return 'h-48 sm:h-52';
             }
-            return 'h-36 sm:h-40';
+            return 'h-40 sm:h-44';
+        },
+        getLiquidClipPath() {
+            const s = this.selectedSize.toLowerCase();
+            if (s.includes('18') || s.includes('large') || s.includes('l')) {
+                return 'polygon(6.5% 25%, 93.5% 25%, 81% 96%, 19% 96%)';
+            }
+            if (s.includes('12') || s.includes('regular') || s.includes('medium') || s.includes('m')) {
+                return 'polygon(7% 28%, 93% 28%, 81% 95.5%, 19% 95.5%)';
+            }
+            return 'polygon(7.5% 32%, 92.5% 32%, 81% 95%, 19% 95%)';
         }
      }">
 
@@ -108,23 +118,28 @@
 
                 <!-- Interactive Cup Preview (Realistic Clear Plastic Cup with CoffeBar Kraft Sticker) -->
                 <div class="bg-[#F4ECDD] border border-[#CDB48F] rounded-2xl p-6 text-center space-y-4">
-                    <div class="relative w-48 h-60 mx-auto flex items-end justify-center">
-                        <!-- Liquid & Ice layer behind/inside the clear cup -->
-                        <div class="absolute bottom-4 w-28 rounded-b-2xl transition-all duration-500 overflow-hidden shadow-inner"
-                             :style="'height: ' + (selectedSize.toLowerCase().includes('18') ? '72%' : (selectedSize.toLowerCase().includes('12') ? '65%' : '58%')) + '; background-color: ' + getLiquidColor() + '; opacity: 0.88;'">
-                            <!-- Ice cubes inside liquid -->
-                            <div x-show="selectedIce.includes('Dingin')" class="absolute inset-x-2 top-2 flex flex-wrap gap-1.5 justify-center opacity-85 pointer-events-none">
-                                <span class="w-3.5 h-3.5 bg-white/80 border border-white rounded-sm rotate-6 shadow-sm"></span>
-                                <span class="w-3.5 h-3.5 bg-white/80 border border-white rounded-sm -rotate-12 shadow-sm"></span>
-                                <span class="w-3 h-3 bg-white/80 border border-white rounded-sm rotate-45 shadow-sm"></span>
+                    <div class="relative h-60 mx-auto flex items-end justify-center">
+                        <!-- Single Cup Wrapper: exactly bounds the cup image and liquid together -->
+                        <div class="relative inline-flex items-end justify-center" :class="getCupHeightClass()">
+                            <!-- Liquid & Ice Layer (Clipped to cup trapezoid slope, sits directly behind transparent cup body) -->
+                            <div class="absolute inset-0 transition-all duration-500 pointer-events-none overflow-hidden"
+                                 :style="'background-color: ' + getLiquidColor() + '; clip-path: ' + getLiquidClipPath() + '; opacity: 0.94;'">
+                                <!-- Ice cubes floating at liquid surface -->
+                                <div x-show="selectedIce.includes('Dingin')"
+                                     class="absolute inset-x-3 top-[30%] flex flex-wrap gap-1.5 justify-center opacity-90 pointer-events-none">
+                                    <span class="w-3.5 h-3.5 bg-white/85 border border-white/70 rounded-sm rotate-6 shadow-sm"></span>
+                                    <span class="w-3.5 h-3.5 bg-white/85 border border-white/70 rounded-sm -rotate-12 shadow-sm"></span>
+                                    <span class="w-3 h-3 bg-white/85 border border-white/70 rounded-sm rotate-45 shadow-sm"></span>
+                                </div>
+                                <!-- Foam / Crema layer at liquid surface -->
+                                <div class="absolute inset-x-0 top-[26%] h-2 bg-white/20 blur-[1px]"></div>
                             </div>
-                        </div>
 
-                        <!-- Realistic Clear Plastic Cup Image with CoffeBar Kraft Sticker -->
-                        <img :src="getCupImage()"
-                             :class="getCupHeightClass()"
-                             class="relative z-10 w-auto object-contain drop-shadow-xl transition-all duration-300 pointer-events-none select-none"
-                             alt="Gelas CoffeBar">
+                            <!-- Realistic Transparent Cup Image with CoffeBar Kraft Sticker (Foreground) -->
+                            <img :src="getCupImage()"
+                                 class="relative z-10 h-full w-auto object-contain drop-shadow-lg transition-all duration-300 pointer-events-none select-none"
+                                 alt="Gelas CoffeBar">
+                        </div>
                     </div>
 
                     <!-- Drink Name (Caveat Styled) -->
