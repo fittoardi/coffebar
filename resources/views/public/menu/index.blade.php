@@ -109,7 +109,7 @@
     @else
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         @foreach ($products as $product)
-        <div class="bg-[#FFFDF8] border border-[#CDB48F] rounded-2xl p-6 flex flex-col justify-between hover:-translate-y-1 hover:shadow-warm transition duration-200 relative group">
+        <div class="bg-[#FFFDF8] border border-[#CDB48F] rounded-2xl p-5 sm:p-6 flex flex-col justify-between hover:-translate-y-1 hover:shadow-warm transition duration-200 relative group">
 
             <!-- Out of stock badge overlay if unavailable -->
             @if (! $product->is_available)
@@ -122,8 +122,15 @@
             @endif
 
             <div>
+                <!-- Product Thumbnail with Saucer & Shadow -->
+                <div class="w-full h-40 bg-[#F4ECDD]/70 rounded-xl mb-4 flex items-center justify-center p-3 overflow-hidden border border-[#CDB48F]/40 group-hover:bg-[#E8DCC4]/50 transition">
+                    <img src="{{ $product->image_url }}"
+                         alt="{{ $product->name }}"
+                         class="h-32 w-32 object-contain drop-shadow-md group-hover:scale-105 transition transform duration-300">
+                </div>
+
                 <!-- Category pill & favorite flag -->
-                <div class="flex items-center justify-between text-xs text-[#6B5646] mb-3">
+                <div class="flex items-center justify-between text-xs text-[#6B5646] mb-2.5">
                     <span class="uppercase tracking-wider font-semibold text-[11px] bg-[#E8DCC4] text-[#4A3224] px-2.5 py-0.5 rounded-md">
                         {{ $product->category->name }}
                     </span>
@@ -187,14 +194,21 @@
                 ✕
             </button>
 
-            <!-- Product Header -->
-            <div class="border-b border-dashed border-[#CDB48F] pb-5 mb-5">
-                <span class="text-xs uppercase tracking-wider font-semibold text-[#B5753A] block mb-1"
-                    x-text="selectedProduct ? selectedProduct.category?.name : ''"></span>
-                <h3 class="font-display font-bold text-2xl text-[#2B1D14]"
-                    x-text="selectedProduct ? selectedProduct.name : ''"></h3>
-                <p class="text-xs sm:text-sm text-[#6B5646] mt-1.5 leading-relaxed"
-                    x-text="selectedProduct ? selectedProduct.description : ''"></p>
+            <!-- Product Header with Real Image Thumbnail -->
+            <div class="border-b border-dashed border-[#CDB48F] pb-5 mb-5 flex items-start gap-4">
+                <div class="w-16 h-16 sm:w-20 sm:h-20 bg-[#F4ECDD] rounded-xl flex items-center justify-center p-2 flex-shrink-0 border border-[#CDB48F]/50">
+                    <img :src="selectedProduct ? selectedProduct.image_url : '{{ asset('images/cup-latte.png') }}'"
+                         :alt="selectedProduct ? selectedProduct.name : ''"
+                         class="w-full h-full object-contain drop-shadow-sm">
+                </div>
+                <div class="flex-1 pr-6">
+                    <span class="text-xs uppercase tracking-wider font-semibold text-[#B5753A] block mb-1"
+                        x-text="selectedProduct ? selectedProduct.category?.name : ''"></span>
+                    <h3 class="font-display font-bold text-xl sm:text-2xl text-[#2B1D14]"
+                        x-text="selectedProduct ? selectedProduct.name : ''"></h3>
+                    <p class="text-xs sm:text-sm text-[#6B5646] mt-1 leading-relaxed line-clamp-2"
+                        x-text="selectedProduct ? selectedProduct.description : ''"></p>
+                </div>
             </div>
 
             <form method="POST" action="{{ route('cart.add') }}" class="space-y-5">

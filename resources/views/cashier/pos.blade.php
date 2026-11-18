@@ -107,13 +107,16 @@
                              @click="addToCart({{ json_encode($p) }})"
                              class="bg-[#FFFDF8] border border-[#CDB48F] p-3.5 rounded-2xl cursor-pointer shadow-sm hover:shadow-warm hover:border-[#B5753A] transition flex flex-col justify-between h-32 relative group">
                             @if (! $p->is_available)
-                                <div class="absolute inset-0 bg-[#2B1D14]/75 text-white flex items-center justify-center text-[10px] font-bold uppercase rounded-2xl backdrop-blur-[1px]">
+                                <div class="absolute inset-0 bg-[#2B1D14]/75 text-white flex items-center justify-center text-[10px] font-bold uppercase rounded-2xl backdrop-blur-[1px] z-10">
                                     HABIS
                                 </div>
                             @endif
-                            <div>
-                                <span class="text-[10px] uppercase font-bold text-[#B5753A] block">{{ $cat->name }}</span>
-                                <strong class="font-display text-sm text-[#2B1D14] leading-tight block truncate mt-1 group-hover:text-[#B5753A] transition">{{ $p->name }}</strong>
+                            <div class="flex items-start justify-between gap-2">
+                                <div class="min-w-0 flex-1">
+                                    <span class="text-[10px] uppercase font-bold text-[#B5753A] block">{{ $cat->name }}</span>
+                                    <strong class="font-display text-sm text-[#2B1D14] leading-tight block truncate mt-1 group-hover:text-[#B5753A] transition">{{ $p->name }}</strong>
+                                </div>
+                                <img src="{{ $p->image_url }}" class="w-8 h-8 object-contain flex-shrink-0 drop-shadow-sm" alt="{{ $p->name }}">
                             </div>
                             <div class="font-display font-bold text-sm text-[#2B1D14] pt-2 border-t border-dashed border-[#CDB48F]/60">
                                 {{ $p->formatted_price }}

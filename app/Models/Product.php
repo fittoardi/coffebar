@@ -25,6 +25,15 @@ class Product extends Model
     use HasFactory;
 
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var list<string>
+     */
+    protected $appends = [
+        'image_url',
+    ];
+
+    /**
      * Get the attributes that should be cast.
      *
      * @return array<string, string>
@@ -51,5 +60,25 @@ class Product extends Model
     public function getFormattedPriceAttribute(): string
     {
         return 'Rp '.number_format((float) $this->price, 0, ',', '.');
+    }
+
+    public function getImageUrlAttribute(): string
+    {
+        if ($this->image) {
+            return str_starts_with($this->image, 'http')
+                ? $this->image
+                : asset('storage/'.$this->image);
+        }
+
+        $name = strtolower($this->name);
+        if (str_contains($name, 'latte') || str_contains($name, 'susu') || str_contains($name, 'cappuccino') || str_contains($name, 'tea') || str_contains($name, 'chocolate') || str_contains($name, 'cokelat') || str_contains($name, 'fusion')) {
+            return asset('images/cup-latte.png');
+        }
+
+        if (str_contains($name, 'espresso') || str_contains($name, 'americano') || str_contains($name, 'cold brew') || str_contains($name, 'kopi') || str_contains($name, 'black')) {
+            return asset('images/cup-black.png');
+        }
+
+        return asset('images/beans-cluster.png');
     }
 }

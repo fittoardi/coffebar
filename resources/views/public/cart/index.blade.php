@@ -19,7 +19,7 @@
     @if ($items->isEmpty())
     <!-- Empty Cart State (03-DESIGN.md Section 20) -->
     <div class="bg-[#FFFDF8] border border-dashed border-[#CDB48F] rounded-2xl p-16 text-center space-y-4 shadow-sm">
-        <span class="text-5xl block select-none">☕</span>
+        <img src="{{ asset('images/cup-black.png') }}" class="w-24 h-24 object-contain mx-auto drop-shadow-md select-none" alt="Cangkir Kosong" />
         <h2 class="font-display font-semibold text-2xl text-[#2B1D14]">
             Keranjang Anda Masih Kosong
         </h2>
@@ -45,38 +45,51 @@
     <div class="space-y-6">
         <div class="bg-[#FFFDF8] border border-[#CDB48F] rounded-2xl shadow-warm divide-y divide-dashed divide-[#CDB48F]/70 overflow-hidden">
             @foreach ($items as $rowId => $item)
+            @php
+                $itemName = strtolower($item['name'] ?? '');
+                $itemImg = (str_contains($itemName, 'latte') || str_contains($itemName, 'susu') || str_contains($itemName, 'cappuccino') || str_contains($itemName, 'fusion') || str_contains($itemName, 'matcha'))
+                    ? asset('images/cup-latte.png')
+                    : ((str_contains($itemName, 'espresso') || str_contains($itemName, 'americano') || str_contains($itemName, 'cold brew') || str_contains($itemName, 'kopi'))
+                        ? asset('images/cup-black.png')
+                        : asset('images/beans-cluster.png'));
+            @endphp
             <div class="p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 hover:bg-[#F4ECDD]/30 transition">
                 <!-- Left: Item Info & Options -->
-                <div class="flex-1 space-y-1.5">
-                    <h3 class="font-display font-semibold text-lg text-[#2B1D14]">
-                        {{ $item['name'] }}
-                    </h3>
-
-                    @if (! empty($item['options']))
-                    <div class="text-xs text-[#6B5646] space-y-0.5">
-                        @if (! empty($item['options']['size']))
-                        <div>Ukuran: <strong class="text-[#4A3224]">{{ $item['options']['size'] }}</strong></div>
-                        @endif
-                        @if (! empty($item['options']['sugar']))
-                        <div>Gula: <strong class="text-[#4A3224]">{{ $item['options']['sugar'] }}</strong></div>
-                        @endif
-                        @if (! empty($item['options']['ice']))
-                        <div>Suhu: <strong class="text-[#4A3224]">{{ $item['options']['ice'] }}</strong></div>
-                        @endif
-                        @if (! empty($item['options']['toppings']) && is_array($item['options']['toppings']))
-                        <div>Topping: <strong class="text-[#4A3224]">{{ implode(', ', $item['options']['toppings']) }}</strong></div>
-                        @endif
+                <div class="flex items-start gap-4 flex-1">
+                    <div class="w-12 h-12 bg-[#F4ECDD] rounded-xl flex items-center justify-center p-1.5 flex-shrink-0 border border-[#CDB48F]/50 mt-0.5">
+                        <img src="{{ $itemImg }}" class="w-full h-full object-contain" alt="{{ $item['name'] }}">
                     </div>
-                    @endif
+                    <div class="space-y-1.5 flex-1">
+                        <h3 class="font-display font-semibold text-lg text-[#2B1D14]">
+                            {{ $item['name'] }}
+                        </h3>
 
-                    @if (! empty($item['notes']))
-                    <div class="text-xs font-hand text-xl text-[#B5753A]">
-                        Catatan: "{{ $item['notes'] }}"
-                    </div>
-                    @endif
+                        @if (! empty($item['options']))
+                        <div class="text-xs text-[#6B5646] space-y-0.5">
+                            @if (! empty($item['options']['size']))
+                            <div>Ukuran: <strong class="text-[#4A3224]">{{ $item['options']['size'] }}</strong></div>
+                            @endif
+                            @if (! empty($item['options']['sugar']))
+                            <div>Gula: <strong class="text-[#4A3224]">{{ $item['options']['sugar'] }}</strong></div>
+                            @endif
+                            @if (! empty($item['options']['ice']))
+                            <div>Suhu: <strong class="text-[#4A3224]">{{ $item['options']['ice'] }}</strong></div>
+                            @endif
+                            @if (! empty($item['options']['toppings']) && is_array($item['options']['toppings']))
+                            <div>Topping: <strong class="text-[#4A3224]">{{ implode(', ', $item['options']['toppings']) }}</strong></div>
+                            @endif
+                        </div>
+                        @endif
 
-                    <div class="text-xs text-[#6B5646] pt-1">
-                        Satuan: Rp {{ number_format($item['price'], 0, ',', '.') }}
+                        @if (! empty($item['notes']))
+                        <div class="text-xs font-hand text-xl text-[#B5753A]">
+                            Catatan: "{{ $item['notes'] }}"
+                        </div>
+                        @endif
+
+                        <div class="text-xs text-[#6B5646] pt-1">
+                            Satuan: Rp {{ number_format($item['price'], 0, ',', '.') }}
+                        </div>
                     </div>
                 </div>
 

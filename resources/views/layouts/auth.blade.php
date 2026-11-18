@@ -10,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=DM+Sans:wght@400;500;700&family=Fraunces:opsz,wght,SOFT@9..144,400..700,50&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="{{ asset('images/bean-single.png') }}">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -20,7 +21,7 @@
         <!-- Brand Header (03-DESIGN.md Section 16.1) -->
         <div class="text-center mb-8">
             <a href="{{ route('home') }}" class="inline-block group transition">
-                <span class="text-3xl block mb-1">☕</span>
+                <img src="{{ asset('images/bean-single.png') }}" class="w-10 h-10 object-contain mx-auto mb-2 drop-shadow-sm group-hover:rotate-12 transition transform duration-300" alt="Biji Kopi" />
                 <span class="font-display font-bold text-3xl tracking-tight text-[#2B1D14] group-hover:text-[#B5753A] transition">
                     COFFEBAR
                 </span>
@@ -32,6 +33,7 @@
 
         <!-- Main Card Container (Paper card with Kraft border) -->
         <div class="bg-[#FFFDF8] border border-[#CDB48F] shadow-warm rounded-2xl p-7 sm:p-9 relative">
+            <img src="{{ asset('images/beans-cluster.png') }}" class="absolute -bottom-5 -right-5 w-20 h-20 object-contain pointer-events-none drop-shadow-sm opacity-80 hidden sm:block z-0" alt="Biji Kopi" />
             @if (session('status'))
             <div class="mb-5 p-3.5 bg-[#E8DCC4] border border-[#CDB48F] text-[#4A3224] text-xs font-semibold rounded-xl">
                 {{ session('status') }}

@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=DM+Sans:wght@400;500;700&family=Fraunces:opsz,wght,SOFT@9..144,400..700,50&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="{{ asset('images/bean-single.png') }}">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('styles')
@@ -22,8 +23,8 @@
             <!-- Brand & Status -->
             <div class="border-b border-[#4A3224] pb-4">
                 <a href="{{ route('cashier.dashboard') }}" class="block group">
-                    <div class="flex items-center space-x-2">
-                        <span class="text-2xl">☕</span>
+                    <div class="flex items-center space-x-2.5">
+                        <img src="{{ asset('images/bean-single.png') }}" class="w-6 h-6 object-contain inline-block -mt-0.5 group-hover:rotate-12 transition duration-300" alt="Kopi" />
                         <span class="font-display font-bold text-xl text-[#F4ECDD] tracking-tight group-hover:text-[#B5753A] transition">
                             COFFEBAR
                         </span>

@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=DM+Sans:wght@400;500;700&family=Fraunces:opsz,wght,SOFT@9..144,400..700,50&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="{{ asset('images/bean-single.png') }}">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('styles')
@@ -27,8 +28,8 @@
 
                 <!-- Logo & Brand (Wordmark Serif) -->
                 <div class="flex items-center space-x-3">
-                    <a href="{{ route('home') }}" class="flex items-center space-x-2 text-[#2B1D14] hover:text-[#B5753A] transition group">
-                        <span class="text-2xl">☕</span>
+                    <a href="{{ route('home') }}" class="flex items-center space-x-2.5 text-[#2B1D14] hover:text-[#B5753A] transition group">
+                        <img src="{{ asset('images/bean-single.png') }}" class="w-7 h-7 object-contain inline-block -mt-0.5 group-hover:rotate-12 transition transform duration-300 drop-shadow-sm" alt="Biji Kopi" />
                         <span class="font-display font-bold text-2xl tracking-tight text-[#2B1D14] group-hover:text-[#B5753A] transition">
                             COFFEBAR
                         </span>
@@ -211,7 +212,7 @@
                 <!-- Col 1: Brand & Tagline -->
                 <div class="md:col-span-1 space-y-3">
                     <span class="font-display font-bold text-2xl tracking-tight text-[#F4ECDD] flex items-center gap-2">
-                        <span>☕</span>
+                        <img src="{{ asset('images/bean-single.png') }}" class="w-6 h-6 object-contain inline-block -mt-0.5" alt="Kopi" />
                         <span>COFFEBAR</span>
                     </span>
                     <p class="text-[#CDB48F] text-xs font-hand text-lg">
@@ -220,6 +221,7 @@
                     <p class="text-[#E8DCC4]/80 text-xs leading-relaxed">
                         Kehangatan kedai kopi tradisional dengan biji kopi pilihan nusantara dan roti hangat setiap hari.
                     </p>
+                    <img src="{{ asset('images/beans-cluster.png') }}" class="w-14 h-14 object-contain opacity-75 pt-1 drop-shadow-sm" alt="Biji Kopi Nusantara" />
                 </div>
 
                 <!-- Col 2: Jam Buka -->

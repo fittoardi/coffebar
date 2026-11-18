@@ -70,7 +70,8 @@
 
         <!-- LEFT COLUMN: SUMMARY & PREVIEW (STICKY MEJA BARISTA) -->
         <div class="lg:col-span-5 lg:sticky lg:top-24 order-2 lg:order-1">
-            <div class="bg-[#FFFDF8] border border-[#CDB48F] rounded-2xl p-6 sm:p-7 space-y-6 shadow-warm relative">
+            <div class="bg-[#FFFDF8] border border-[#CDB48F] rounded-2xl p-6 sm:p-7 space-y-6 shadow-warm relative overflow-hidden">
+                <img src="{{ asset('images/beans-cluster.png') }}" class="absolute -bottom-4 -right-4 w-20 h-20 object-contain pointer-events-none drop-shadow-sm opacity-60 z-0" alt="Biji Kopi" />
 
                 <!-- Subtle kraft tag header -->
                 <div class="flex items-center justify-between border-b border-dashed border-[#CDB48F] pb-4">
@@ -244,7 +245,12 @@
                         <div @click="selectBase('{{ $base->name }}', {{ (float) $base->price }})"
                              class="p-4 border rounded-xl cursor-pointer transition flex items-center justify-between"
                              :class="selectedBase === '{{ $base->name }}' ? 'bg-[#E8DCC4] border-[#B5753A] ring-1 ring-[#B5753A] text-[#2B1D14]' : 'bg-[#FFFDF8] border-[#CDB48F] text-[#4A3224] hover:bg-[#E8DCC4]/50'">
-                            <div class="font-display font-semibold text-sm">{{ $base->name }}</div>
+                            <div class="font-display font-semibold text-sm flex items-center gap-2">
+                                @if(str_contains(strtolower($base->name), 'espresso') || str_contains(strtolower($base->name), 'kopi'))
+                                    <img src="{{ asset('images/bean-single.png') }}" class="w-4 h-4 object-contain inline-block" alt="Kopi">
+                                @endif
+                                <span>{{ $base->name }}</span>
+                            </div>
                             <div class="font-bold text-xs text-[#2B1D14]">
                                 {{ $base->formatted_price }}
                             </div>
