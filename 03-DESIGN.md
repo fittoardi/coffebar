@@ -570,4 +570,3 @@ Garis vertikal dengan titik status:
 
 ---
 
-*Versi 1.1 · Rustic Modern Coffeeshop Design System · selaras dengan Implementation Plan (Laravel, OTP, Kasir, Admin)*

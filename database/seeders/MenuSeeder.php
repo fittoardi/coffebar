@@ -165,10 +165,10 @@ class MenuSeeder extends Seeder
 
         // Global Product Options (Size, Sugar, Ice, Toppings, Bases)
         $options = [
-            // Size
-            ['type' => 'size', 'name' => 'Regular (S)', 'price' => 0, 'sort_order' => 1],
-            ['type' => 'size', 'name' => 'Medium (M)', 'price' => 4000, 'sort_order' => 2],
-            ['type' => 'size', 'name' => 'Large (L)', 'price' => 8000, 'sort_order' => 3],
+            // Size (18 oz, 12 oz, 8 oz)
+            ['type' => 'size', 'name' => '18 oz (Large)', 'price' => 8000, 'sort_order' => 1],
+            ['type' => 'size', 'name' => '12 oz (Regular)', 'price' => 4000, 'sort_order' => 2],
+            ['type' => 'size', 'name' => '8 oz (Small)', 'price' => 0, 'sort_order' => 3],
 
             // Base for Custom Menu
             ['type' => 'base', 'name' => 'Espresso Blend', 'price' => 16000, 'sort_order' => 1],

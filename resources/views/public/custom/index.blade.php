@@ -8,8 +8,8 @@
         name: 'Racikan Pilihan Saya',
         selectedBase: 'Espresso Blend',
         basePrice: 16000,
-        selectedSize: 'Regular (S)',
-        sizePrice: 0,
+        selectedSize: '{{ $sizes->first()?->name ?? '18 oz (Large)' }}',
+        sizePrice: {{ (float) ($sizes->first()?->price ?? 8000) }},
         selectedSugar: 'Normal (100%)',
         selectedIce: 'Dingin (Es Batu)',
         selectedToppings: [],
@@ -50,7 +50,28 @@
             if (b.includes('matcha')) return '#7A8467';
             if (b.includes('chocolate') || b.includes('cokelat')) return '#4A3224';
             if (b.includes('latte') || b.includes('milk') || b.includes('susu')) return '#CDB48F';
+            if (b.includes('tea') || b.includes('earl')) return '#B5753A';
             return '#2B1D14';
+        },
+        getCupImage() {
+            const s = this.selectedSize.toLowerCase();
+            if (s.includes('18') || s.includes('large') || s.includes('l')) {
+                return '{{ asset('images/cup-18oz.png') }}';
+            }
+            if (s.includes('12') || s.includes('regular') || s.includes('medium') || s.includes('m')) {
+                return '{{ asset('images/cup-12oz.png') }}';
+            }
+            return '{{ asset('images/cup-8oz.png') }}';
+        },
+        getCupHeightClass() {
+            const s = this.selectedSize.toLowerCase();
+            if (s.includes('18') || s.includes('large') || s.includes('l')) {
+                return 'h-52 sm:h-56';
+            }
+            if (s.includes('12') || s.includes('regular') || s.includes('medium') || s.includes('m')) {
+                return 'h-44 sm:h-48';
+            }
+            return 'h-36 sm:h-40';
         }
      }">
 
@@ -85,29 +106,25 @@
                     <span class="font-hand text-xl text-[#B5753A]">"Diracik segar"</span>
                 </div>
 
-                <!-- Interactive Cup Preview (SVG Line-Art) -->
+                <!-- Interactive Cup Preview (Realistic Clear Plastic Cup with CoffeBar Kraft Sticker) -->
                 <div class="bg-[#F4ECDD] border border-[#CDB48F] rounded-2xl p-6 text-center space-y-4">
-                    <div class="relative w-28 h-36 mx-auto flex items-end justify-center">
-                        <!-- Glass Cup Outline SVG -->
-                        <svg class="w-28 h-36 relative z-10" viewBox="0 0 100 130" fill="none">
-                            <!-- Cup Body -->
-                            <path d="M 18,15 L 82,15 L 72,120 C 72,125 68,128 62,128 L 38,128 C 32,128 28,125 28,120 Z"
-                                  stroke="#4A3224" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-                            <!-- Rim -->
-                            <ellipse cx="50" cy="15" rx="32" ry="6" stroke="#4A3224" stroke-width="2.5" />
-                        </svg>
-
-                        <!-- Liquid Fill Layer (changes color reactively) -->
-                        <div class="absolute bottom-2 left-7 right-7 rounded-b-xl transition-all duration-300 z-0"
-                             :style="'height: 75%; background-color: ' + getLiquidColor() + '; opacity: 0.85;'">
+                    <div class="relative w-48 h-60 mx-auto flex items-end justify-center">
+                        <!-- Liquid & Ice layer behind/inside the clear cup -->
+                        <div class="absolute bottom-4 w-28 rounded-b-2xl transition-all duration-500 overflow-hidden shadow-inner"
+                             :style="'height: ' + (selectedSize.toLowerCase().includes('18') ? '72%' : (selectedSize.toLowerCase().includes('12') ? '65%' : '58%')) + '; background-color: ' + getLiquidColor() + '; opacity: 0.88;'">
+                            <!-- Ice cubes inside liquid -->
+                            <div x-show="selectedIce.includes('Dingin')" class="absolute inset-x-2 top-2 flex flex-wrap gap-1.5 justify-center opacity-85 pointer-events-none">
+                                <span class="w-3.5 h-3.5 bg-white/80 border border-white rounded-sm rotate-6 shadow-sm"></span>
+                                <span class="w-3.5 h-3.5 bg-white/80 border border-white rounded-sm -rotate-12 shadow-sm"></span>
+                                <span class="w-3 h-3 bg-white/80 border border-white rounded-sm rotate-45 shadow-sm"></span>
+                            </div>
                         </div>
 
-                        <!-- Ice Cubes (show if cold) -->
-                        <div x-show="selectedIce.includes('Dingin')" class="absolute inset-x-8 top-12 z-10 flex flex-wrap gap-1 justify-center opacity-80 pointer-events-none">
-                            <span class="w-3.5 h-3.5 bg-white/70 border border-white rounded-sm rotate-6"></span>
-                            <span class="w-3.5 h-3.5 bg-white/70 border border-white rounded-sm -rotate-12"></span>
-                            <span class="w-3 h-3 bg-white/70 border border-white rounded-sm rotate-45"></span>
-                        </div>
+                        <!-- Realistic Clear Plastic Cup Image with CoffeBar Kraft Sticker -->
+                        <img :src="getCupImage()"
+                             :class="getCupHeightClass()"
+                             class="relative z-10 w-auto object-contain drop-shadow-xl transition-all duration-300 pointer-events-none select-none"
+                             alt="Gelas CoffeBar">
                     </div>
 
                     <!-- Drink Name (Caveat Styled) -->
@@ -265,19 +282,52 @@
                 </div>
             </div>
 
-            <!-- 3. Ukuran Cup -->
+            <!-- 3. Ukuran Cup (18 oz, 12 oz, 8 oz dengan Visual Gelas Asli CoffeBar) -->
             <div class="bg-[#FFFDF8] border border-[#CDB48F] rounded-2xl p-6 shadow-sm">
-                <label class="block font-display font-semibold text-base text-[#2B1D14] mb-3">
-                    3. Pilih Ukuran Gelas
-                </label>
-                <div class="grid grid-cols-3 gap-3">
+                <div class="flex items-center justify-between mb-4">
+                    <div>
+                        <label class="block font-display font-semibold text-base text-[#2B1D14]">
+                            3. Pilih Ukuran Gelas
+                        </label>
+                        <p class="text-xs text-[#6B5646]">Tersedia dalam 3 ukuran cup CoffeBar: 18 oz, 12 oz, dan 8 oz.</p>
+                    </div>
+                    <span class="font-hand text-xl text-[#B5753A]">Cup CoffeBar</span>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     @foreach ($sizes as $size)
+                        @php
+                            $sName = strtolower($size->name);
+                            $cupImg = str_contains($sName, '18') || str_contains($sName, 'large') || str_contains($sName, 'l')
+                                ? asset('images/cup-18oz.png')
+                                : (str_contains($sName, '12') || str_contains($sName, 'medium') || str_contains($sName, 'regular') || str_contains($sName, 'm')
+                                    ? asset('images/cup-12oz.png')
+                                    : asset('images/cup-8oz.png'));
+                            $cupHeight = str_contains($sName, '18') || str_contains($sName, 'large') || str_contains($sName, 'l')
+                                ? 'h-28'
+                                : (str_contains($sName, '12') || str_contains($sName, 'medium') || str_contains($sName, 'regular') || str_contains($sName, 'm')
+                                    ? 'h-24'
+                                    : 'h-20');
+                            $ozLabel = str_contains($sName, '18') ? '18 oz' : (str_contains($sName, '12') ? '12 oz' : '8 oz');
+                            $typeLabel = str_contains($sName, '18') ? 'Large (Besar)' : (str_contains($sName, '12') ? 'Regular (Sedang)' : 'Small (Kecil)');
+                        @endphp
                         <div @click="selectSize('{{ $size->name }}', {{ (float) $size->price }})"
-                             class="p-3.5 border text-center rounded-xl cursor-pointer transition"
-                             :class="selectedSize === '{{ $size->name }}' ? 'bg-[#E8DCC4] border-[#B5753A] ring-1 ring-[#B5753A] text-[#2B1D14]' : 'bg-[#FFFDF8] border-[#CDB48F] text-[#4A3224] hover:bg-[#E8DCC4]/50'">
-                            <div class="font-display font-semibold text-xs">{{ $size->name }}</div>
-                            <div class="text-[11px] text-[#6B5646] mt-0.5">
-                                {{ (float) $size->price > 0 ? '+ ' . $size->formatted_price : '+ Rp 0' }}
+                             class="p-4 border rounded-2xl cursor-pointer transition flex flex-col items-center justify-between text-center group hover:-translate-y-1 hover:shadow-warm"
+                             :class="selectedSize === '{{ $size->name }}' ? 'bg-[#E8DCC4] border-[#B5753A] ring-2 ring-[#B5753A] text-[#2B1D14]' : 'bg-[#FFFDF8] border-[#CDB48F] text-[#4A3224] hover:bg-[#E8DCC4]/40'">
+
+                            <!-- Cup Thumbnail Visual -->
+                            <div class="h-32 w-full flex items-end justify-center pb-2 mb-1">
+                                <img src="{{ $cupImg }}"
+                                     class="{{ $cupHeight }} w-auto object-contain drop-shadow-md group-hover:scale-105 transition transform duration-300 pointer-events-none select-none"
+                                     alt="{{ $size->name }}">
+                            </div>
+
+                            <div class="w-full pt-3 border-t border-dashed border-[#CDB48F]/70">
+                                <div class="font-display font-bold text-base text-[#2B1D14]">{{ $ozLabel }}</div>
+                                <div class="text-[11px] text-[#6B5646] font-medium">{{ $typeLabel }}</div>
+                                <div class="text-xs font-bold text-[#B5753A] mt-1.5">
+                                    {{ (float) $size->price > 0 ? '+ ' . $size->formatted_price : '+ Rp 0' }}
+                                </div>
                             </div>
                         </div>
                     @endforeach
