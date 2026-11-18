@@ -5,40 +5,10 @@
 @section('content')
 
     <!-- 1. FULLSCREEN HERO VIDEO SECTION (03-DESIGN.md Section 7 & Section 6.1) -->
-    <section class="relative min-h-[90vh] lg:min-h-screen flex items-center overflow-hidden border-b border-dashed border-[#CDB48F]"
-             x-data="{
-                isPlaying: true,
-                isMuted: true,
-                togglePlay() {
-                    const v = this.$refs.heroVideo;
-                    if (v.paused) {
-                        v.play();
-                        this.isPlaying = true;
-                    } else {
-                        v.pause();
-                        this.isPlaying = false;
-                    }
-                },
-                toggleMute() {
-                    const v = this.$refs.heroVideo;
-                    v.muted = !v.muted;
-                    this.isMuted = v.muted;
-                },
-                goFullscreen() {
-                    const v = this.$refs.heroVideo;
-                    if (v.requestFullscreen) {
-                        v.requestFullscreen();
-                    } else if (v.webkitRequestFullscreen) {
-                        v.webkitRequestFullscreen();
-                    } else if (v.msRequestFullscreen) {
-                        v.msRequestFullscreen();
-                    }
-                }
-             }">
+    <section class="relative min-h-[90vh] lg:min-h-screen flex items-center overflow-hidden border-b border-dashed border-[#CDB48F]">
 
-        <!-- Fullscreen Video Background -->
-        <video x-ref="heroVideo"
-               autoplay
+        <!-- Fullscreen Video Background (Autoplay & Continuous Loop) -->
+        <video autoplay
                loop
                muted
                playsinline
@@ -122,38 +92,6 @@
                 </div>
 
             </div>
-        </div>
-
-        <!-- Video Control Bar (Bottom-Right: Play/Pause, Mute/Unmute, & Native Fullscreen Toggle) -->
-        <div class="absolute bottom-6 right-4 sm:right-8 lg:right-12 z-20 flex items-center space-x-2 bg-[#1E1A17]/85 backdrop-blur-md border border-[#CDB48F]/50 px-3.5 py-2 rounded-xl text-white shadow-xl text-xs">
-            <!-- Play/Pause -->
-            <button @click="togglePlay()"
-                    type="button"
-                    class="p-1.5 hover:text-[#B5753A] transition cursor-pointer"
-                    :title="isPlaying ? 'Jeda Video' : 'Putar Video'">
-                <span x-show="isPlaying">⏸</span>
-                <span x-show="!isPlaying">▶</span>
-            </button>
-
-            <!-- Mute/Unmute -->
-            <button @click="toggleMute()"
-                    type="button"
-                    class="p-1.5 hover:text-[#B5753A] transition cursor-pointer"
-                    :title="isMuted ? 'Nyalakan Suara' : 'Matikan Suara'">
-                <span x-show="!isMuted">🔊</span>
-                <span x-show="isMuted">🔇</span>
-            </button>
-
-            <span class="text-[#CDB48F]/40 select-none">|</span>
-
-            <!-- Native Fullscreen -->
-            <button @click="goFullscreen()"
-                    type="button"
-                    class="flex items-center space-x-1.5 px-2.5 py-1 bg-[#B5753A] hover:bg-[#B4552F] rounded-lg font-bold text-[11px] uppercase tracking-wider transition shadow-sm cursor-pointer"
-                    title="Buka Layar Penuh (Fullscreen)">
-                <span>⛶</span>
-                <span class="hidden sm:inline">Layar Penuh</span>
-            </button>
         </div>
     </section>
 
