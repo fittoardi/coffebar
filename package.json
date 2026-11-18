@@ -18,6 +18,7 @@
     },
     "dependencies": {
         "alpinejs": "^3.17.5",
+        "framer-motion": "^14.14.0",
         "motion": "^14.14.0"
     }
 }
