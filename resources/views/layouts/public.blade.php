@@ -14,7 +14,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('styles')
 </head>
-<body class="bg-[#F4ECDD] text-[#2B1D14] min-h-screen flex flex-col font-sans antialiased selection:bg-[#B5753A] selection:text-white"
+<body class="bg-[#F4ECDD] text-[#2B1D14] min-h-screen flex flex-col font-sans antialiased selection:bg-[#B5753A] selection:text-white overflow-x-hidden"
       x-data="{ mobileMenuOpen: false }">
 
     @php
@@ -23,7 +23,7 @@
 
     <!-- Rustic Modern Navigation Bar (03-DESIGN.md Section 6.1) -->
     <nav class="sticky top-0 z-40 bg-[#F4ECDD]/95 backdrop-blur-sm border-b border-dashed border-[#CDB48F] transition-all">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="w-full px-4 sm:px-8 lg:px-12 xl:px-16 2xl:px-24">
             <div class="flex items-center justify-between h-20">
 
                 <!-- Logo & Brand (Wordmark Serif) -->
@@ -151,34 +151,63 @@
         <!-- Mobile Drawer Navigation (Section 6.1: Charcoal Background with Large Fraunces Links) -->
         <div x-show="mobileMenuOpen"
              x-cloak
-             class="md:hidden bg-[#1E1A17] text-[#F4ECDD] px-6 pt-6 pb-8 space-y-4 font-display">
-            <a href="{{ route('home') }}"
+             x-transition:enter="transition ease-out duration-200"
+             x-transition:enter-start="opacity-0 -translate-y-2"
+             x-transition:enter-end="opacity-100 translate-y-0"
+             x-transition:leave="transition ease-in duration-150"
+             x-transition:leave-start="opacity-100 translate-y-0"
+             x-transition:leave-end="opacity-0 -translate-y-2"
+             class="md:hidden bg-[#1E1A17] text-[#F4ECDD] px-6 pt-6 pb-8 space-y-4 font-display border-b border-[#4A3224]">
+            <a href="{{ route('home') }}" @click="mobileMenuOpen = false"
                class="block text-2xl text-[#F4ECDD] hover:text-[#B5753A] border-b border-[#4A3224] pb-2">
                 Beranda
             </a>
-            <a href="{{ route('menu.index') }}"
+            <a href="{{ route('menu.index') }}" @click="mobileMenuOpen = false"
                class="block text-2xl text-[#F4ECDD] hover:text-[#B5753A] border-b border-[#4A3224] pb-2">
                 Menu Kami
             </a>
-            <a href="{{ route('custom.index') }}"
+            <a href="{{ route('custom.index') }}" @click="mobileMenuOpen = false"
                class="block text-2xl text-[#F4ECDD] hover:text-[#B5753A] border-b border-[#4A3224] pb-2">
                 Berkreasi ✦
             </a>
+            <a href="{{ route('home') }}#tentang" @click="mobileMenuOpen = false"
+               class="block text-xl text-[#E8DCC4] hover:text-[#B5753A] border-b border-[#4A3224] pb-2">
+                Tentang
+            </a>
+            <a href="{{ route('home') }}#kontak" @click="mobileMenuOpen = false"
+               class="block text-xl text-[#E8DCC4] hover:text-[#B5753A] border-b border-[#4A3224] pb-2">
+                Lokasi & Kontak
+            </a>
 
-            @guest
+            @auth
+                <div class="pt-3 font-sans space-y-2 text-sm">
+                    <div class="text-xs text-[#CDB48F]">Masuk sebagai: <strong>{{ Auth::user()->name }}</strong></div>
+                    <a href="{{ route('orders.index') }}" class="block py-2 text-[#E8DCC4] hover:text-[#B5753A]">📋 Pesanan Saya</a>
+                    @if (Auth::user()->isCashier())
+                        <a href="{{ route('cashier.dashboard') }}" class="block py-2 text-[#E8DCC4] hover:text-[#B5753A]">🛒 Panel Kasir</a>
+                    @endif
+                    @if (Auth::user()->isAdmin())
+                        <a href="{{ route('admin.dashboard') }}" class="block py-2 text-[#E8DCC4] hover:text-[#B5753A]">⚙️ Panel Admin</a>
+                    @endif
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit" class="w-full text-left py-2 text-[#B4552F]">Keluar</button>
+                    </form>
+                </div>
+            @else
                 <div class="pt-4 font-sans">
                     <a href="{{ route('login') }}"
                        class="block text-center w-full bg-[#B5753A] text-white font-bold py-3 rounded-xl hover:bg-[#B4552F] transition">
                         Masuk ke Akun
                     </a>
                 </div>
-            @endguest
+            @endauth
         </div>
     </nav>
 
     <!-- Flash Alerts Container -->
     @if (session('status') || session('success') || session('error'))
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4 w-full">
+        <div class="w-full px-4 sm:px-8 lg:px-12 xl:px-16 2xl:px-24 mt-4">
             @if (session('status'))
                 <div class="p-4 bg-[#FFFDF8] border-l-4 border-[#B5753A] text-[#2B1D14] text-sm rounded-r-xl shadow-warm-sm">
                     {{ session('status') }}
@@ -206,8 +235,8 @@
 
     <!-- Rustic Modern Footer (03-DESIGN.md Section 6.7: Charcoal, Cream, Kraft) -->
     <footer class="bg-[#1E1A17] text-[#F4ECDD] border-t-2 border-[#CDB48F]/30 mt-20 pt-16 pb-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+        <div class="w-full px-4 sm:px-8 lg:px-12 xl:px-16 2xl:px-24">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 xl:gap-14 mb-12">
 
                 <!-- Col 1: Brand & Tagline -->
                 <div class="md:col-span-1 space-y-3">
