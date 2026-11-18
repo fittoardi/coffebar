@@ -116,12 +116,9 @@
                     <span class="font-hand text-xl text-[#B5753A]">"Diracik segar"</span>
                 </div>
 
-                <!-- Interactive Cup Preview (Realistic Clear Plastic Cup on Dark Roasted Contrast Stage) -->
-                <div class="bg-gradient-to-b from-[#2B1D14] to-[#1E1A17] border border-[#4A3224] rounded-2xl p-6 text-center space-y-4 shadow-warm relative overflow-hidden">
-                    <!-- Subtle barista spotlight glow behind the cup -->
-                    <div class="absolute inset-0 bg-[radial-gradient(circle_at_center_top,#3D2A1C_0%,transparent_65%)] pointer-events-none"></div>
-
-                    <div class="relative h-60 mx-auto flex items-end justify-center z-10">
+                <!-- Interactive Cup Preview (Realistic Clear Plastic Cup with CoffeBar Kraft Sticker) -->
+                <div class="bg-[#F4ECDD] border border-[#CDB48F] rounded-2xl p-6 text-center space-y-4">
+                    <div class="relative h-60 mx-auto flex items-end justify-center">
                         <!-- Single Cup Wrapper: exactly bounds the cup image and liquid together -->
                         <div class="relative inline-flex items-end justify-center" :class="getCupHeightClass()">
                             <!-- Liquid & Ice Layer (Clipped to cup trapezoid slope, sits directly behind transparent cup body) -->
@@ -130,9 +127,9 @@
                                 <!-- Ice cubes floating at liquid surface -->
                                 <div x-show="selectedIce.includes('Dingin')"
                                      class="absolute inset-x-3 top-[30%] flex flex-wrap gap-1.5 justify-center opacity-90 pointer-events-none">
-                                    <span class="w-3.5 h-3.5 bg-white/90 border border-white/70 rounded-sm rotate-6 shadow-sm"></span>
-                                    <span class="w-3.5 h-3.5 bg-white/90 border border-white/70 rounded-sm -rotate-12 shadow-sm"></span>
-                                    <span class="w-3 h-3 bg-white/90 border border-white/70 rounded-sm rotate-45 shadow-sm"></span>
+                                    <span class="w-3.5 h-3.5 bg-white/85 border border-white/70 rounded-sm rotate-6 shadow-sm"></span>
+                                    <span class="w-3.5 h-3.5 bg-white/85 border border-white/70 rounded-sm -rotate-12 shadow-sm"></span>
+                                    <span class="w-3 h-3 bg-white/85 border border-white/70 rounded-sm rotate-45 shadow-sm"></span>
                                 </div>
                                 <!-- Foam / Crema layer at liquid surface -->
                                 <div class="absolute inset-x-0 top-[26%] h-2 bg-white/20 blur-[1px]"></div>
@@ -140,45 +137,42 @@
 
                             <!-- Realistic Transparent Cup Image with CoffeBar Kraft Sticker (Foreground) -->
                             <img :src="getCupImage()"
-                                 class="relative z-10 h-full w-auto object-contain drop-shadow-2xl transition-all duration-300 pointer-events-none select-none"
+                                 class="relative z-10 h-full w-auto object-contain drop-shadow-lg transition-all duration-300 pointer-events-none select-none"
                                  alt="Gelas CoffeBar">
                         </div>
                     </div>
 
-                    <!-- Drink Name (Caveat Styled) & Base -->
-                    <div class="relative z-10">
-                        <div class="font-hand text-3xl font-semibold text-[#F4ECDD] truncate" x-text="name"></div>
-                        <div class="font-display font-medium text-sm text-[#E8A967] mt-0.5" x-text="selectedBase"></div>
+                    <!-- Drink Name (Caveat Styled) -->
+                    <div>
+                        <div class="font-hand text-3xl font-semibold text-[#2B1D14] truncate" x-text="name"></div>
+                        <div class="font-display font-medium text-sm text-[#B5753A] mt-0.5" x-text="selectedBase"></div>
                     </div>
 
                     <!-- Config Breakdown List -->
-                    <div class="pt-3 border-t border-dashed border-[#4A3224] text-xs text-[#CDB48F] space-y-1.5 text-left relative z-10">
+                    <div class="pt-3 border-t border-dashed border-[#CDB48F]/70 text-xs text-[#6B5646] space-y-1 text-left">
                         <div class="flex justify-between">
                             <span>Ukuran:</span>
-                            <strong class="text-[#F4ECDD]" x-text="selectedSize"></strong>
+                            <strong class="text-[#2B1D14]" x-text="selectedSize"></strong>
                         </div>
                         <div class="flex justify-between">
                             <span>Tingkat Gula:</span>
-                            <strong class="text-[#F4ECDD]" x-text="selectedSugar"></strong>
+                            <strong class="text-[#2B1D14]" x-text="selectedSugar"></strong>
                         </div>
                         <div class="flex justify-between">
                             <span>Suhu:</span>
-                            <strong class="text-[#F4ECDD]" x-text="selectedIce"></strong>
+                            <strong class="text-[#2B1D14]" x-text="selectedIce"></strong>
                         </div>
                     </div>
 
                     <!-- Toppings Chips in Preview -->
-                    <div class="pt-3 border-t border-dashed border-[#4A3224] text-left text-xs relative z-10">
-                        <span class="text-[#CDB48F] block mb-1.5 font-medium">Topping Terpilih:</span>
+                    <div class="pt-3 border-t border-dashed border-[#CDB48F]/70 text-left text-xs">
+                        <span class="text-[#6B5646] block mb-1.5 font-medium">Topping Terpilih:</span>
                         <template x-if="selectedToppings.length === 0">
-                            <span class="text-[#CDB48F]/60 italic">Tanpa topping tambahan</span>
+                            <span class="text-[#6B5646]/60 italic">Tanpa topping tambahan</span>
                         </template>
                         <div class="flex flex-wrap gap-1.5">
                             <template x-for="t in selectedToppings" :key="t.name">
-                                <span class="bg-[#382618] border border-[#5A3E2B] text-[#F4ECDD] font-semibold px-2 py-0.5 rounded text-[11px]" x-text="t.name"></span>
-                            </template>
-                        </div>
-                    </div>
+                                <span class="bg-[#E8DCC4] border border-[#CDB48F] text-[#4A3224] font-semibold px-2 py-0.5 rounded text-[11px]" x-text="t.name"></span>
                             </template>
                         </div>
                     </div>
@@ -336,12 +330,10 @@
                              class="p-4 border rounded-2xl cursor-pointer transition flex flex-col items-center justify-between text-center group hover:-translate-y-1 hover:shadow-warm"
                              :class="selectedSize === '{{ $size->name }}' ? 'bg-[#E8DCC4] border-[#B5753A] ring-2 ring-[#B5753A] text-[#2B1D14]' : 'bg-[#FFFDF8] border-[#CDB48F] text-[#4A3224] hover:bg-[#E8DCC4]/40'">
 
-                            <!-- Cup Thumbnail Visual with Contrast Roasted Stage -->
-                            <div class="h-36 w-full rounded-xl bg-gradient-to-b from-[#2B1D14] to-[#1E1A17] flex items-end justify-center pb-3 mb-2 shadow-inner border border-[#4A3224]/50 relative overflow-hidden">
-                                <!-- Subtle warm radial spotlight behind the cup -->
-                                <div class="absolute inset-0 bg-[radial-gradient(circle_at_center_bottom,#3D2A1C_0%,transparent_70%)] pointer-events-none"></div>
+                            <!-- Cup Thumbnail Visual -->
+                            <div class="h-32 w-full flex items-end justify-center pb-2 mb-1">
                                 <img src="{{ $cupImg }}"
-                                     class="{{ $cupHeight }} w-auto object-contain drop-shadow-xl group-hover:scale-105 transition transform duration-300 pointer-events-none select-none relative z-10"
+                                     class="{{ $cupHeight }} w-auto object-contain drop-shadow-md group-hover:scale-105 transition transform duration-300 pointer-events-none select-none"
                                      alt="{{ $size->name }}">
                             </div>
 

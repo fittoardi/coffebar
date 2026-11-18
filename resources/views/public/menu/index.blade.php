@@ -249,31 +249,31 @@
                             Pilihan Ukuran Cup CoffeBar
                         </label>
                         <div class="grid grid-cols-3 gap-2.5">
-                            <label class="border p-2 flex flex-col items-center justify-between text-center cursor-pointer rounded-xl text-xs font-semibold transition group"
+                            <label class="border p-2.5 flex flex-col items-center justify-between text-center cursor-pointer rounded-xl text-xs font-semibold transition group"
                                 :class="selectedSize === '8 oz (Small)' ? 'bg-[#E8DCC4] border-[#B5753A] text-[#2B1D14] ring-2 ring-[#B5753A]' : 'bg-[#FFFDF8] border-[#CDB48F] text-[#4A3224] hover:bg-[#E8DCC4]/50'">
                                 <input type="radio" name="size" value="8 oz (Small)" x-model="selectedSize" class="hidden">
-                                <div class="h-16 w-full rounded-lg bg-gradient-to-b from-[#2B1D14] to-[#1E1A17] flex items-center justify-center mb-1.5 shadow-inner border border-[#4A3224]/50">
-                                    <img src="{{ asset('images/cup-8oz.png') }}" alt="8 oz" class="h-12 w-auto object-contain drop-shadow-md transition-transform group-hover:scale-105" />
+                                <div class="h-14 w-full flex items-center justify-center mb-1">
+                                    <img src="{{ asset('images/cup-8oz.png') }}" alt="8 oz" class="h-11 w-auto object-contain drop-shadow-sm transition-transform group-hover:scale-105" />
                                 </div>
                                 <div class="font-bold text-[#2B1D14] text-[11px] sm:text-xs">8 oz</div>
                                 <div class="text-[10px] text-[#6B5646]">Small · +Rp 0</div>
                             </label>
 
-                            <label class="border p-2 flex flex-col items-center justify-between text-center cursor-pointer rounded-xl text-xs font-semibold transition group"
+                            <label class="border p-2.5 flex flex-col items-center justify-between text-center cursor-pointer rounded-xl text-xs font-semibold transition group"
                                 :class="selectedSize === '12 oz (Regular)' ? 'bg-[#E8DCC4] border-[#B5753A] text-[#2B1D14] ring-2 ring-[#B5753A]' : 'bg-[#FFFDF8] border-[#CDB48F] text-[#4A3224] hover:bg-[#E8DCC4]/50'">
                                 <input type="radio" name="size" value="12 oz (Regular)" x-model="selectedSize" class="hidden">
-                                <div class="h-16 w-full rounded-lg bg-gradient-to-b from-[#2B1D14] to-[#1E1A17] flex items-center justify-center mb-1.5 shadow-inner border border-[#4A3224]/50">
-                                    <img src="{{ asset('images/cup-12oz.png') }}" alt="12 oz" class="h-14 w-auto object-contain drop-shadow-md transition-transform group-hover:scale-105" />
+                                <div class="h-14 w-full flex items-center justify-center mb-1">
+                                    <img src="{{ asset('images/cup-12oz.png') }}" alt="12 oz" class="h-13 w-auto object-contain drop-shadow-sm transition-transform group-hover:scale-105" />
                                 </div>
                                 <div class="font-bold text-[#2B1D14] text-[11px] sm:text-xs">12 oz</div>
                                 <div class="text-[10px] text-[#B5753A] font-semibold">Regular · +Rp 4rb</div>
                             </label>
 
-                            <label class="border p-2 flex flex-col items-center justify-between text-center cursor-pointer rounded-xl text-xs font-semibold transition group"
+                            <label class="border p-2.5 flex flex-col items-center justify-between text-center cursor-pointer rounded-xl text-xs font-semibold transition group"
                                 :class="selectedSize === '18 oz (Large)' ? 'bg-[#E8DCC4] border-[#B5753A] text-[#2B1D14] ring-2 ring-[#B5753A]' : 'bg-[#FFFDF8] border-[#CDB48F] text-[#4A3224] hover:bg-[#E8DCC4]/50'">
                                 <input type="radio" name="size" value="18 oz (Large)" x-model="selectedSize" class="hidden">
-                                <div class="h-16 w-full rounded-lg bg-gradient-to-b from-[#2B1D14] to-[#1E1A17] flex items-center justify-center mb-1.5 shadow-inner border border-[#4A3224]/50">
-                                    <img src="{{ asset('images/cup-18oz.png') }}" alt="18 oz" class="h-15 w-auto object-contain drop-shadow-md transition-transform group-hover:scale-105" />
+                                <div class="h-14 w-full flex items-center justify-center mb-1">
+                                    <img src="{{ asset('images/cup-18oz.png') }}" alt="18 oz" class="h-14 w-auto object-contain drop-shadow-sm transition-transform group-hover:scale-105" />
                                 </div>
                                 <div class="font-bold text-[#2B1D14] text-[11px] sm:text-xs">18 oz</div>
                                 <div class="text-[10px] text-[#B5753A] font-semibold">Large · +Rp 8rb</div>
