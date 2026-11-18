@@ -6,40 +6,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Autentikasi') — CoffeBar</title>
 
+    <!-- Google Fonts: Rustic Modern (Fraunces, DM Sans, Caveat) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=DM+Sans:wght@400;500;700&family=Fraunces:opsz,wght,SOFT@9..144,400..700,50&display=swap" rel="stylesheet">
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="bg-gray-50 min-h-screen text-gray-900 flex flex-col justify-center items-center py-10 px-4 sm:px-6 font-sans antialiased">
+<body class="bg-[#F4ECDD] min-h-screen text-[#2B1D14] flex flex-col justify-center items-center py-12 px-4 sm:px-6 font-sans antialiased selection:bg-[#B5753A] selection:text-white">
 
-    <div class="w-full max-w-md">
-        <!-- Brand Header -->
-        <div class="text-center mb-6">
-            <a href="{{ route('home') }}" class="inline-block hover:opacity-80 transition">
-                <span class="text-3xl font-bold tracking-tight text-gray-900">
-                    ☕ COFFEBAR
+    <div class="w-full max-w-[440px]">
+        <!-- Brand Header (03-DESIGN.md Section 16.1) -->
+        <div class="text-center mb-8">
+            <a href="{{ route('home') }}" class="inline-block group transition">
+                <span class="text-3xl block mb-1">☕</span>
+                <span class="font-display font-bold text-3xl tracking-tight text-[#2B1D14] group-hover:text-[#B5753A] transition">
+                    COFFEBAR
                 </span>
             </a>
-            <p class="text-xs text-gray-500 mt-1">
-                Kedai Kopi & Cerita Autentik
+            <p class="font-hand text-2xl text-[#B5753A] mt-1">
+                "Seduhan hangat, cerita autentik"
             </p>
         </div>
 
-        <!-- Main Card Container -->
-        <div class="bg-white border border-gray-200 shadow-sm rounded-lg p-6 sm:p-8">
+        <!-- Main Card Container (Paper card with Kraft border) -->
+        <div class="bg-[#FFFDF8] border border-[#CDB48F] shadow-warm rounded-2xl p-7 sm:p-9 relative">
             @if (session('status'))
-            <div class="mb-4 p-3 bg-blue-50 border border-blue-200 text-blue-800 text-xs rounded-md">
+            <div class="mb-5 p-3.5 bg-[#E8DCC4] border border-[#CDB48F] text-[#4A3224] text-xs font-semibold rounded-xl">
                 {{ session('status') }}
             </div>
             @endif
 
             @if (session('success'))
-            <div class="mb-4 p-3 bg-green-50 border border-green-200 text-green-800 text-xs font-medium rounded-md">
-                {{ session('success') }}
+            <div class="mb-5 p-3.5 bg-[#7A8467]/15 border border-[#7A8467] text-[#4F5A3E] text-xs font-semibold rounded-xl flex items-center space-x-2">
+                <span>✓</span>
+                <span>{{ session('success') }}</span>
             </div>
             @endif
 
             @if ($errors->any())
-            <div class="mb-4 p-3 bg-red-50 border border-red-200 text-red-800 text-xs rounded-md">
+            <div class="mb-5 p-3.5 bg-[#B4552F]/15 border border-[#B4552F] text-[#B4552F] text-xs font-semibold rounded-xl">
                 <ul class="list-disc list-inside space-y-1">
                     @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
@@ -52,8 +59,8 @@
         </div>
 
         <!-- Footer Notice -->
-        <div class="text-center mt-6 text-xs text-gray-400">
-            &copy; {{ date('Y') }} CoffeBar. Semua hak cipta dilindungi.
+        <div class="text-center mt-8 text-xs text-[#6B5646]">
+            &copy; {{ date('Y') }} CoffeBar · Rasa Nusantara Diracik Untukmu
         </div>
     </div>
 

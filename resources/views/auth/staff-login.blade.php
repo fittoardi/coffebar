@@ -4,11 +4,11 @@
 
 @section('content')
     <div class="mb-6 text-center">
-        <span class="inline-block bg-gray-100 text-gray-700 text-xs font-semibold px-2.5 py-0.5 rounded mb-2">
+        <span class="inline-block bg-[#E8DCC4] border border-[#CDB48F] text-[#4A3224] text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full mb-3">
             Portal Internal Staf
         </span>
-        <h1 class="text-xl font-bold text-gray-900">Masuk Portal Staf</h1>
-        <p class="text-xs text-gray-500 mt-1">
+        <h1 class="font-display text-2xl font-semibold text-[#2B1D14]">Masuk Portal Staf</h1>
+        <p class="text-xs text-[#6B5646] mt-1.5 leading-relaxed">
             Akses khusus petugas kasir dan administrator CoffeBar.
         </p>
     </div>
@@ -19,8 +19,8 @@
 
         <!-- Email Akun Staf -->
         <div>
-            <label for="email" class="block text-xs font-semibold text-gray-700 mb-1">
-                Email atau No. HP Staf <span class="text-red-500">*</span>
+            <label for="email" class="block text-xs font-bold uppercase tracking-wider text-[#4A3224] mb-1.5">
+                Email atau No. HP Staf <span class="text-[#B4552F]">*</span>
             </label>
             <input type="text"
                    name="email"
@@ -29,14 +29,14 @@
                    required
                    autofocus
                    placeholder="Contoh: kasir@coffebar.id atau admin@coffebar.id"
-                   class="w-full bg-white border border-gray-300 px-3.5 py-2 text-sm text-gray-900 rounded-md focus:border-blue-500 focus:outline-none">
+                   class="w-full bg-[#FFFDF8] border border-[#CDB48F] px-4 py-2.5 text-sm text-[#2B1D14] rounded-xl focus:border-[#B5753A] focus:outline-none focus:ring-1 focus:ring-[#B5753A]">
         </div>
 
         <!-- Kata Sandi -->
         <div>
-            <div class="flex items-center justify-between mb-1">
-                <label for="password" class="block text-xs font-semibold text-gray-700">
-                    Kata Sandi <span class="text-red-500">*</span>
+            <div class="flex items-center justify-between mb-1.5">
+                <label for="password" class="block text-xs font-bold uppercase tracking-wider text-[#4A3224]">
+                    Kata Sandi <span class="text-[#B4552F]">*</span>
                 </label>
             </div>
             <input type="password"
@@ -44,41 +44,42 @@
                    id="password"
                    required
                    placeholder="••••••••"
-                   class="w-full bg-white border border-gray-300 px-3.5 py-2 text-sm text-gray-900 rounded-md focus:border-blue-500 focus:outline-none">
+                   class="w-full bg-[#FFFDF8] border border-[#CDB48F] px-4 py-2.5 text-sm text-[#2B1D14] rounded-xl focus:border-[#B5753A] focus:outline-none focus:ring-1 focus:ring-[#B5753A]">
         </div>
 
         <!-- Remember Me Checkbox -->
         <div class="flex items-center justify-between">
             <label class="inline-flex items-center space-x-2 cursor-pointer">
                 <input type="checkbox" name="remember" value="1"
-                       class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
-                <span class="text-xs text-gray-700">
+                       class="w-4 h-4 text-[#B5753A] border-[#CDB48F] rounded focus:ring-[#B5753A]">
+                <span class="text-xs text-[#4A3224] font-medium">
                     Ingat Sesi Saya
                 </span>
             </label>
         </div>
 
         <!-- Demo Accounts Hint Box -->
-        <div class="p-3 bg-gray-50 border border-gray-200 rounded-md text-xs text-gray-600 space-y-1">
-            <div class="font-semibold text-gray-800">
-                Akun Demo Petugas (Sandi: password123)
+        <div class="p-3.5 bg-[#E8DCC4]/60 border border-[#CDB48F] rounded-xl text-xs text-[#4A3224] space-y-1">
+            <div class="font-bold text-[#2B1D14] flex items-center space-x-1">
+                <span>🔑</span>
+                <span>Akun Demo Petugas (Sandi: password123)</span>
             </div>
-            <div>• Kasir: <strong class="text-gray-900">kasir@coffebar.id</strong></div>
-            <div>• Admin: <strong class="text-gray-900">admin@coffebar.id</strong></div>
+            <div>• Kasir: <strong class="text-[#2B1D14]">kasir@coffebar.id</strong></div>
+            <div>• Admin: <strong class="text-[#2B1D14]">admin@coffebar.id</strong></div>
         </div>
 
         <!-- Submit Button -->
-        <div>
+        <div class="pt-2">
             <button type="submit"
-                    class="w-full bg-blue-600 text-white hover:bg-blue-700 font-medium text-xs uppercase tracking-wider py-2.5 px-4 rounded-md transition cursor-pointer">
+                    class="w-full bg-[#4A3224] text-[#F4ECDD] hover:bg-[#2B1D14] font-bold text-xs uppercase tracking-wider py-3.5 px-4 rounded-xl transition shadow-warm cursor-pointer">
                 Masuk ke Portal Internal
             </button>
         </div>
     </form>
 
     <!-- Switch back to Customer Login -->
-    <div class="mt-6 pt-4 border-t border-gray-100 text-center text-xs">
-        <a href="{{ route('login') }}" class="text-blue-600 hover:underline">
+    <div class="mt-6 pt-5 border-t border-dashed border-[#CDB48F] text-center text-xs">
+        <a href="{{ route('login') }}" class="text-[#B5753A] hover:text-[#B4552F] font-bold">
             ← Kembali ke Halaman Login Pelanggan
         </a>
     </div>

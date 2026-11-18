@@ -1,75 +1,88 @@
 @extends('layouts.public')
 
-@section('title', 'Pesanan ' . $order->order_code)
+@section('title', 'Tiket Pesanan ' . $order->order_code)
 
 @section('content')
-<div class="max-w-md mx-auto px-4 sm:px-6 py-10">
+<div class="max-w-md mx-auto px-4 sm:px-6 py-12">
 
-    <!-- Top Alert -->
-    <div class="text-center mb-6">
-        <span class="inline-block bg-green-100 text-green-800 text-xs font-semibold px-3 py-1 rounded-full mb-2">
-            ✓ Pesanan Berhasil Didaftarkan
+    <!-- Top Alert & Greeting -->
+    <div class="text-center mb-8">
+        <span class="inline-flex items-center space-x-1.5 bg-[#E8DCC4] text-[#7A8467] border border-[#CDB48F] text-xs font-bold uppercase tracking-wider px-3.5 py-1 rounded-full mb-3 shadow-sm">
+            <span>✓</span>
+            <span>Pesanan Berhasil Didaftarkan</span>
         </span>
-        <h1 class="text-2xl font-bold text-gray-900">
-            Detail Pesanan
+        <h1 class="font-display text-3xl font-semibold text-[#2B1D14]">
+            Tiket Pesanan
         </h1>
-        <p class="text-xs text-gray-500 mt-1">
-            Tunjukkan kode atau QR Code ini kepada kasir saat mengambil/membayar pesanan.
+        <p class="font-hand text-2xl text-[#B5753A] mt-1">
+            "Tunjukkan kode ini ke kasir"
         </p>
     </div>
 
-    <!-- CLEAN TICKET CONTAINER -->
-    <div class="bg-white border border-gray-200 rounded-lg p-6 space-y-6"
+    <!-- KRAFT TICKET CONTAINER (03-DESIGN.md Section 17.4: Tiket/Kupon Kraft) -->
+    <div class="bg-[#FFFDF8] border-2 border-dashed border-[#CDB48F] rounded-2xl p-6 sm:p-8 space-y-6 shadow-warm relative"
          x-data="{ copied: false }">
 
         <!-- Header -->
-        <div class="text-center pb-4 border-b border-gray-100">
-            <span class="text-xl font-bold text-gray-900">
+        <div class="text-center pb-4 border-b border-dashed border-[#CDB48F]">
+            <span class="font-display font-bold text-2xl text-[#2B1D14] tracking-tight">
                 ☕ COFFEBAR
             </span>
-            <p class="text-xs text-gray-500 mt-1">
+            <p class="text-xs text-[#6B5646] mt-1">
                 {{ $order->created_at->translatedFormat('d F Y, H:i') }} WIB
             </p>
         </div>
 
         <!-- QR Code Centerpiece -->
         <div class="text-center space-y-4">
-            <div class="inline-block p-3 bg-white border border-gray-200 rounded-md">
+            <div class="inline-block p-4 bg-[#FFFDF8] border-2 border-[#CDB48F] rounded-2xl shadow-sm">
                 {!! $qrCodeSvg !!}
             </div>
 
-            <!-- Clickable Order Code -->
+            <!-- Clickable Order Code (Fraunces Display) -->
             <div>
                 <button type="button"
                         @click="navigator.clipboard.writeText('{{ $order->order_code }}'); copied = true; setTimeout(() => copied = false, 2000)"
-                        class="inline-flex flex-col items-center focus:outline-none">
-                    <span class="font-bold text-3xl text-blue-600 hover:text-blue-800 tracking-wider transition">
+                        class="inline-flex flex-col items-center focus:outline-none group">
+                    <span class="font-display font-bold text-3xl sm:text-4xl text-[#B5753A] group-hover:text-[#B4552F] tracking-widest transition">
                         {{ $order->order_code }}
                     </span>
-                    <span class="text-xs text-gray-400 mt-1"
+                    <span class="text-xs text-[#6B5646] mt-1 font-medium"
                           x-text="copied ? '✓ Kode berhasil disalin!' : 'Klik untuk menyalin kode'"></span>
                 </button>
             </div>
 
-            <!-- Status Badge -->
+            <!-- Status Pill (Section 20) -->
             <div>
-                <span class="inline-block bg-gray-100 text-gray-800 text-xs font-semibold px-3 py-1 rounded-full">
-                    Status: {{ ucfirst($order->status) }}
+                @php
+                    $statusConfig = [
+                        'menunggu' => ['bg' => 'bg-[#E8DCC4]', 'text' => 'text-[#2B1D14]', 'icon' => '⏳', 'label' => 'Menunggu Pembayaran'],
+                        'diterima' => ['bg' => 'bg-[#B5753A]/20', 'text' => 'text-[#4A3224]', 'icon' => '📥', 'label' => 'Pesanan Diterima'],
+                        'diproses' => ['bg' => 'bg-[#B4552F]/20', 'text' => 'text-[#B4552F]', 'icon' => '🔥', 'label' => 'Sedang Diproses'],
+                        'siap' => ['bg' => 'bg-[#7A8467]/25', 'text' => 'text-[#4F5A3E]', 'icon' => '✓', 'label' => 'Siap Diambil'],
+                        'selesai' => ['bg' => 'bg-[#7A8467]', 'text' => 'text-white', 'icon' => '✓✓', 'label' => 'Selesai'],
+                        'dibatalkan' => ['bg' => 'bg-[#1E1A17]/10', 'text' => 'text-[#1E1A17]', 'icon' => '✕', 'label' => 'Dibatalkan'],
+                    ];
+                    $currentStatus = $statusConfig[$order->status] ?? ['bg' => 'bg-[#E8DCC4]', 'text' => 'text-[#2B1D14]', 'icon' => '•', 'label' => ucfirst($order->status)];
+                @endphp
+                <span class="inline-flex items-center space-x-1.5 {{ $currentStatus['bg'] }} {{ $currentStatus['text'] }} text-xs font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full">
+                    <span>{{ $currentStatus['icon'] }}</span>
+                    <span>Status: {{ $currentStatus['label'] }}</span>
                 </span>
             </div>
         </div>
 
         <!-- Items Breakdown -->
-        <div class="border-t border-gray-100 pt-4 space-y-3 text-xs">
-            <div class="space-y-2 divide-y divide-gray-100">
+        <div class="border-t border-dashed border-[#CDB48F] pt-4 space-y-3 text-xs">
+            <div class="space-y-2.5 divide-y divide-dashed divide-[#CDB48F]/60">
                 @foreach ($order->items as $item)
-                    <div class="pt-2 first:pt-0 flex justify-between items-start">
+                    <div class="pt-2.5 first:pt-0 flex justify-between items-start">
                         <div>
-                            <span class="font-semibold text-gray-900">{{ $item->name }}</span>
-                            <span class="text-gray-500">× {{ $item->quantity }}</span>
+                            <span class="font-display font-semibold text-[#2B1D14] text-sm">{{ $item->name }}</span>
+                            <span class="text-[#6B5646] font-bold">× {{ $item->quantity }}</span>
                             @if (! empty($item->options))
-                                <div class="text-[11px] text-gray-500">
-                                    {{ implode(', ', array_filter([
+                                <div class="text-[11px] text-[#6B5646] mt-0.5">
+                                    {{ implode(' · ', array_filter([
                                         $item->options['size'] ?? null,
                                         $item->options['sugar'] ?? null,
                                         $item->options['ice'] ?? null,
@@ -78,7 +91,7 @@
                                 </div>
                             @endif
                         </div>
-                        <span class="font-semibold text-gray-900">
+                        <span class="font-display font-bold text-sm text-[#2B1D14]">
                             {{ $item->formatted_subtotal }}
                         </span>
                     </div>
@@ -86,23 +99,23 @@
             </div>
 
             <!-- Total & Payment Method -->
-            <div class="border-t border-gray-200 pt-3 space-y-1">
-                <div class="flex justify-between text-xs text-gray-500">
+            <div class="border-t border-dashed border-[#CDB48F] pt-3.5 space-y-1.5">
+                <div class="flex justify-between text-xs text-[#6B5646]">
                     <span>Metode Bayar:</span>
-                    <strong class="text-gray-900">
+                    <strong class="text-[#2B1D14]">
                         {{ $order->payment_method === 'cash' ? 'Bayar di Kasir' : 'Online Gateway' }}
                     </strong>
                 </div>
                 <div class="flex justify-between items-center text-sm">
-                    <span class="font-semibold text-gray-900">Total:</span>
-                    <span class="font-bold text-lg text-gray-900">
+                    <span class="font-bold uppercase tracking-wider text-xs text-[#4A3224]">Total Tagihan:</span>
+                    <span class="font-display font-bold text-xl text-[#2B1D14]">
                         {{ $order->formatted_total }}
                     </span>
                 </div>
             </div>
 
             @if ($order->notes)
-                <div class="p-2 bg-gray-50 border border-gray-200 rounded text-xs text-gray-600">
+                <div class="p-3 bg-[#E8DCC4]/60 border border-[#CDB48F] rounded-xl text-xs text-[#4A3224]">
                     Catatan: "{{ $order->notes }}"
                 </div>
             @endif
@@ -110,16 +123,16 @@
     </div>
 
     <!-- Actions -->
-    <div class="mt-6 flex flex-col sm:flex-row gap-3 text-center">
+    <div class="mt-8 flex flex-col sm:flex-row gap-3 text-center">
         @auth
             <a href="{{ route('orders.index') }}"
-               class="flex-1 bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 text-xs font-medium py-2.5 rounded-md transition">
+               class="flex-1 bg-[#FFFDF8] text-[#4A3224] border border-[#CDB48F] hover:bg-[#E8DCC4] text-xs uppercase tracking-wider font-semibold py-3 rounded-xl transition">
                 ← Daftar Pesanan
             </a>
         @endauth
         <a href="{{ route('orders.receipt', $order->order_code) }}"
            target="_blank"
-           class="flex-1 bg-blue-600 text-white hover:bg-blue-700 text-xs font-medium py-2.5 rounded-md transition">
+           class="flex-1 bg-[#B5753A] text-white hover:bg-[#B4552F] text-xs uppercase tracking-wider font-bold py-3 rounded-xl transition shadow-warm">
             Cetak Struk →
         </a>
     </div>

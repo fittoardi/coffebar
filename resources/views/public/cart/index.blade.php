@@ -3,75 +3,79 @@
 @section('title', 'Keranjang Pesanan')
 
 @section('content')
-<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
-    <!-- Header -->
-    <div class="mb-8">
-        <h1 class="text-3xl font-bold text-gray-900 tracking-tight">
+    <!-- Header (Rustic Modern) -->
+    <div class="mb-10 border-b border-dashed border-[#CDB48F] pb-6">
+        <span class="font-hand text-2xl text-[#B5753A]">Struk Pilihanmu</span>
+        <h1 class="font-display text-3xl sm:text-4xl font-semibold text-[#2B1D14] tracking-tight mt-1">
             Keranjang Pesanan
         </h1>
-        <p class="text-gray-500 text-sm mt-1">
+        <p class="text-[#6B5646] text-sm sm:text-base mt-2">
             Periksa kembali pesanan Anda sebelum melanjutkan ke pembayaran.
         </p>
     </div>
 
     @if ($items->isEmpty())
-    <!-- Empty Cart State -->
-    <div class="bg-white border border-gray-200 rounded-lg p-12 text-center space-y-4">
-        <span class="text-4xl block">🛒</span>
-        <h2 class="font-bold text-xl text-gray-900">
+    <!-- Empty Cart State (03-DESIGN.md Section 20) -->
+    <div class="bg-[#FFFDF8] border border-dashed border-[#CDB48F] rounded-2xl p-16 text-center space-y-4 shadow-sm">
+        <span class="text-5xl block select-none">☕</span>
+        <h2 class="font-display font-semibold text-2xl text-[#2B1D14]">
             Keranjang Anda Masih Kosong
         </h2>
-        <p class="text-sm text-gray-500 max-w-sm mx-auto">
-            Belum ada menu yang Anda masukkan ke keranjang.
+        <p class="font-hand text-2xl text-[#B5753A]">
+            "Cangkirmu masih kosong. Yuk pilih sesuatu."
         </p>
-        <div class="pt-2 flex flex-col sm:flex-row justify-center gap-3">
+        <p class="text-xs sm:text-sm text-[#6B5646] max-w-sm mx-auto">
+            Belum ada menu yang Anda masukkan ke keranjang. Jelajahi menu kami atau racik minuman impianmu.
+        </p>
+        <div class="pt-4 flex flex-col sm:flex-row justify-center gap-3">
             <a href="{{ route('menu.index') }}"
-                class="bg-blue-600 text-white hover:bg-blue-700 text-sm font-medium px-5 py-2.5 rounded-md transition">
+                class="bg-[#B5753A] text-white hover:bg-[#B4552F] text-xs uppercase tracking-wider font-bold px-6 py-3 rounded-xl transition shadow-warm">
                 Lihat Menu
             </a>
             <a href="{{ route('custom.index') }}"
-                class="bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 text-sm font-medium px-5 py-2.5 rounded-md transition">
-                Racik Minuman Sendiri
+                class="bg-[#FFFDF8] text-[#4A3224] border border-[#CDB48F] hover:bg-[#E8DCC4] text-xs uppercase tracking-wider font-semibold px-6 py-3 rounded-xl transition">
+                Racik Minuman Sendiri ✦
             </a>
         </div>
     </div>
     @else
-    <!-- Cart Items List -->
+    <!-- Cart Items List (03-DESIGN.md Section 17.3: Struk Kertas) -->
     <div class="space-y-6">
-        <div class="bg-white border border-gray-200 rounded-lg divide-y divide-gray-100">
+        <div class="bg-[#FFFDF8] border border-[#CDB48F] rounded-2xl shadow-warm divide-y divide-dashed divide-[#CDB48F]/70 overflow-hidden">
             @foreach ($items as $rowId => $item)
-            <div class="p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div class="p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 hover:bg-[#F4ECDD]/30 transition">
                 <!-- Left: Item Info & Options -->
-                <div class="flex-1 space-y-1">
-                    <h3 class="font-bold text-base text-gray-900">
+                <div class="flex-1 space-y-1.5">
+                    <h3 class="font-display font-semibold text-lg text-[#2B1D14]">
                         {{ $item['name'] }}
                     </h3>
 
                     @if (! empty($item['options']))
-                    <div class="text-xs text-gray-500 space-y-0.5">
+                    <div class="text-xs text-[#6B5646] space-y-0.5">
                         @if (! empty($item['options']['size']))
-                        <div>Ukuran: {{ $item['options']['size'] }}</div>
+                        <div>Ukuran: <strong class="text-[#4A3224]">{{ $item['options']['size'] }}</strong></div>
                         @endif
                         @if (! empty($item['options']['sugar']))
-                        <div>Gula: {{ $item['options']['sugar'] }}</div>
+                        <div>Gula: <strong class="text-[#4A3224]">{{ $item['options']['sugar'] }}</strong></div>
                         @endif
                         @if (! empty($item['options']['ice']))
-                        <div>Suhu: {{ $item['options']['ice'] }}</div>
+                        <div>Suhu: <strong class="text-[#4A3224]">{{ $item['options']['ice'] }}</strong></div>
                         @endif
                         @if (! empty($item['options']['toppings']) && is_array($item['options']['toppings']))
-                        <div>Topping: {{ implode(', ', $item['options']['toppings']) }}</div>
+                        <div>Topping: <strong class="text-[#4A3224]">{{ implode(', ', $item['options']['toppings']) }}</strong></div>
                         @endif
                     </div>
                     @endif
 
                     @if (! empty($item['notes']))
-                    <div class="text-xs text-blue-600">
+                    <div class="text-xs font-hand text-xl text-[#B5753A]">
                         Catatan: "{{ $item['notes'] }}"
                     </div>
                     @endif
 
-                    <div class="text-xs text-gray-500 pt-1">
+                    <div class="text-xs text-[#6B5646] pt-1">
                         Satuan: Rp {{ number_format($item['price'], 0, ',', '.') }}
                     </div>
                 </div>
@@ -79,26 +83,26 @@
                 <!-- Right: Quantity Form & Subtotal & Delete -->
                 <div class="flex items-center justify-between sm:justify-end w-full sm:w-auto space-x-6">
                     <!-- Qty Stepper Form -->
-                    <form method="POST" action="{{ route('cart.update') }}" class="flex items-center border border-gray-300 rounded-md bg-white">
+                    <form method="POST" action="{{ route('cart.update') }}" class="flex items-center border border-[#CDB48F] rounded-xl bg-[#FFFDF8]">
                         @csrf
                         <input type="hidden" name="row_id" value="{{ $rowId }}">
                         <button type="submit" name="quantity" value="{{ $item['quantity'] - 1 }}"
-                            class="px-2.5 py-1 text-sm font-bold text-gray-600 hover:bg-gray-100">
+                            class="px-3 py-1.5 text-sm font-bold text-[#4A3224] hover:bg-[#E8DCC4] rounded-l-xl transition">
                             -
                         </button>
-                        <span class="px-3 py-1 text-xs font-semibold text-gray-900">
+                        <span class="px-3 py-1.5 text-xs font-bold text-[#2B1D14]">
                             {{ $item['quantity'] }}
                         </span>
                         <button type="submit" name="quantity" value="{{ $item['quantity'] + 1 }}"
-                            class="px-2.5 py-1 text-sm font-bold text-gray-600 hover:bg-gray-100">
+                            class="px-3 py-1.5 text-sm font-bold text-[#4A3224] hover:bg-[#E8DCC4] rounded-r-xl transition">
                             +
                         </button>
                     </form>
 
                     <!-- Subtotal -->
-                    <div class="text-right min-w-[100px]">
-                        <span class="block text-[10px] text-gray-400 uppercase">Subtotal</span>
-                        <span class="font-bold text-sm text-gray-900">
+                    <div class="text-right min-w-[110px]">
+                        <span class="block text-[10px] text-[#6B5646] uppercase font-bold tracking-wider">Subtotal</span>
+                        <span class="font-display font-bold text-base text-[#2B1D14]">
                             Rp {{ number_format($item['subtotal'], 0, ',', '.') }}
                         </span>
                     </div>
@@ -109,7 +113,7 @@
                         @method('DELETE')
                         <button type="submit"
                             title="Hapus Item"
-                            class="text-red-500 hover:text-red-700 p-1 text-sm font-bold">
+                            class="text-[#B4552F] hover:text-[#2B1D14] p-1.5 rounded-lg hover:bg-[#E8DCC4] text-sm font-bold transition">
                             ✕
                         </button>
                     </form>
@@ -118,14 +122,14 @@
             @endforeach
         </div>
 
-        <!-- Cart Summary & Actions -->
-        <div class="bg-white border border-gray-200 rounded-lg p-6 flex flex-col sm:flex-row items-center justify-between gap-6">
+        <!-- Cart Summary & Actions (Section 17.3) -->
+        <div class="bg-[#FFFDF8] border border-[#CDB48F] rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-warm">
             <!-- Total Amount -->
             <div>
-                <span class="block text-xs uppercase text-gray-500 font-medium">
+                <span class="block text-xs uppercase text-[#6B5646] font-bold tracking-wider">
                     Total Pembayaran
                 </span>
-                <span class="font-bold text-2xl sm:text-3xl text-gray-900">
+                <span class="font-display font-bold text-3xl sm:text-4xl text-[#2B1D14] mt-1 block">
                     Rp {{ number_format($total, 0, ',', '.') }}
                 </span>
             </div>
@@ -136,13 +140,13 @@
                     @csrf
                     <button type="submit"
                         onclick="return confirm('Apakah Anda yakin ingin mengosongkan keranjang?')"
-                        class="px-4 py-2.5 border border-gray-300 text-gray-700 hover:bg-gray-50 text-xs font-medium rounded-md transition">
+                        class="px-4 py-3 border border-[#CDB48F] text-[#4A3224] hover:bg-[#E8DCC4] text-xs uppercase tracking-wider font-semibold rounded-xl transition">
                         Kosongkan
                     </button>
                 </form>
 
                 <a href="{{ route('checkout.show') }}"
-                    class="flex-1 sm:flex-none text-center bg-blue-600 text-white hover:bg-blue-700 font-medium text-xs uppercase tracking-wider py-2.5 px-6 rounded-md transition">
+                    class="flex-1 sm:flex-none text-center bg-[#B5753A] text-white hover:bg-[#B4552F] font-bold text-xs uppercase tracking-wider py-3.5 px-7 rounded-xl transition shadow-warm">
                     Lanjut ke Pembayaran →
                 </a>
             </div>

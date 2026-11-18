@@ -5,15 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Struk Pesanan {{ $order->order_code }} — CoffeBar</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=DM+Sans:wght@400;500;700&family=Fraunces:opsz,wght,SOFT@9..144,400..700,50&display=swap" rel="stylesheet">
+
     <style>
         * {
             box-sizing: border-box;
         }
         body {
-            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: #f3f4f6;
-            color: #111827;
-            padding: 30px 15px;
+            font-family: 'DM Sans', system-ui, sans-serif;
+            background-color: #F4ECDD;
+            color: #2B1D14;
+            padding: 40px 15px;
             margin: 0;
             display: flex;
             flex-direction: column;
@@ -22,37 +26,42 @@
             min-height: 100vh;
         }
         .receipt-card {
-            background: #ffffff;
-            width: 360px;
+            background: #FFFDF8;
+            width: 380px;
             max-width: 100%;
-            border: 1px solid #e5e7eb;
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-            padding: 24px;
-            border-radius: 8px;
+            border: 1px dashed #CDB48F;
+            box-shadow: 0 8px 24px rgba(43, 29, 20, 0.12);
+            padding: 32px 24px;
+            border-radius: 16px;
+            position: relative;
         }
         .brand-header {
-            font-size: 20px;
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 24px;
             font-weight: 700;
             text-align: center;
-            color: #111827;
+            color: #2B1D14;
+            letter-spacing: -0.5px;
         }
         .meta-text {
-            font-size: 12px;
-            color: #6b7280;
+            font-size: 11px;
+            color: #6B5646;
             text-align: center;
             margin-top: 4px;
+            line-height: 1.5;
         }
         .order-code-display {
-            font-size: 24px;
-            font-weight: 800;
-            letter-spacing: 1px;
-            color: #2563eb;
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #B5753A;
             text-align: center;
             margin: 12px 0 4px 0;
         }
         .divider {
-            border-top: 1px dashed #d1d5db;
-            margin: 14px 0;
+            border-top: 1px dashed #CDB48F;
+            margin: 16px 0;
         }
         .info-row {
             display: flex;
@@ -61,24 +70,25 @@
             margin-bottom: 6px;
         }
         .info-label {
-            color: #6b7280;
+            color: #6B5646;
         }
         .info-value {
             font-weight: 600;
-            color: #111827;
+            color: #2B1D14;
         }
         .item-row {
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             font-size: 13px;
         }
         .item-main {
             display: flex;
             justify-content: space-between;
             font-weight: 600;
+            color: #2B1D14;
         }
         .item-sub {
             font-size: 11px;
-            color: #6b7280;
+            color: #6B5646;
             margin-top: 2px;
         }
         .total-row {
@@ -90,32 +100,46 @@
             margin-top: 10px;
         }
         .total-amount {
-            font-size: 18px;
-            color: #111827;
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 22px;
+            color: #2B1D14;
         }
         .btn-print {
-            margin-top: 20px;
-            background: #2563eb;
-            color: #ffffff;
+            margin-top: 24px;
+            background: #B5753A;
+            color: #FFFDF8;
             border: none;
-            padding: 10px 24px;
-            font-size: 14px;
-            font-weight: 600;
-            border-radius: 6px;
+            padding: 12px 28px;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 12px;
             cursor: pointer;
+            box-shadow: 0 4px 12px rgba(181, 117, 58, 0.3);
+            transition: all 0.2s ease;
         }
         .btn-print:hover {
-            background: #1d4ed8;
+            background: #B4552F;
+            transform: translateY(-1px);
+        }
+        .handwritten-footer {
+            font-family: 'Caveat', cursive;
+            font-size: 20px;
+            color: #4A3224;
+            text-align: center;
+            margin-top: 16px;
         }
         @media print {
             body {
-                background: #ffffff;
+                background: #FFFDF8;
                 padding: 0;
             }
             .receipt-card {
                 box-shadow: none;
-                border: none;
+                border: 1px dashed #000;
                 width: 100%;
+                border-radius: 0;
             }
             .btn-print {
                 display: none;
@@ -126,22 +150,22 @@
 <body>
 
     <div class="receipt-card">
-        <!-- Brand Header -->
+        <!-- Brand Header (03-DESIGN.md Section 17.4) -->
         <div class="brand-header">
             ☕ COFFEBAR
         </div>
         <div class="meta-text">
             Jl. Senopati No. 88, Jakarta Selatan<br>
-            Telp / WA: 0812-3456-7890
+            Kedai Kopi Autentik Nusantara · Telp: 0812-3456-7890
         </div>
 
         <div class="divider"></div>
 
         <!-- Order Code -->
         <div style="text-align: center;">
-            <div style="font-size: 11px; color: #6b7280; text-transform: uppercase;">Kode Pesanan</div>
+            <div style="font-size: 10px; color: #6B5646; text-transform: uppercase; letter-spacing: 1px; font-weight: 700;">Kode Pesanan</div>
             <div class="order-code-display">{{ $order->order_code }}</div>
-            <div style="font-size: 11px; color: #6b7280;">
+            <div style="font-size: 11px; color: #6B5646;">
                 {{ $order->created_at->translatedFormat('d F Y, H:i') }} WIB
             </div>
         </div>
@@ -161,9 +185,9 @@
             <span class="info-label">Status Bayar:</span>
             <span class="info-value">
                 @if ($order->payment_status === 'paid')
-                    LUNAS ({{ ucfirst($order->payment?->payment_method ?? 'Kasir') }})
+                    <span style="color: #7A8467;">LUNAS ({{ ucfirst($order->payment?->payment_method ?? 'Kasir') }})</span>
                 @else
-                    MENUNGGU PEMBAYARAN
+                    <span style="color: #B4552F;">MENUNGGU PEMBAYARAN</span>
                 @endif
             </span>
         </div>
@@ -171,7 +195,7 @@
         <div class="divider"></div>
 
         <!-- Items -->
-        <div style="margin: 12px 0;">
+        <div style="margin: 14px 0;">
             @foreach ($order->items as $item)
                 <div class="item-row">
                     <div class="item-main">
@@ -180,7 +204,7 @@
                     </div>
                     @if (! empty($item->options))
                         <div class="item-sub">
-                            {{ implode(' | ', array_filter([
+                            {{ implode(' · ', array_filter([
                                 $item->options['size'] ?? null,
                                 $item->options['sugar'] ?? null,
                                 $item->options['ice'] ?? null,
@@ -196,20 +220,20 @@
 
         <!-- Grand Total -->
         <div class="total-row">
-            <span>TOTAL:</span>
+            <span style="color: #4A3224; text-transform: uppercase; font-size: 12px; letter-spacing: 1px;">TOTAL:</span>
             <span class="total-amount">{{ $order->formatted_total }}</span>
         </div>
 
         @if (! empty($order->notes))
-            <div style="margin-top: 10px; font-size: 11px; color: #2563eb; background: #eff6ff; padding: 6px 10px; border-radius: 4px;">
+            <div style="margin-top: 12px; font-size: 11px; color: #4A3224; background: #E8DCC4; padding: 8px 12px; border-radius: 8px; border: 1px solid #CDB48F;">
                 Catatan: "{{ $order->notes }}"
             </div>
         @endif
 
         <div class="divider"></div>
 
-        <div style="text-align: center; font-size: 11px; color: #6b7280; margin-top: 12px;">
-            Terima kasih atas kunjungan Anda ke CoffeBar!
+        <div class="handwritten-footer">
+            "Terima kasih atas kehangatan obrolanmu di CoffeBar!"
         </div>
     </div>
 

@@ -1,9 +1,9 @@
 @extends('layouts.public')
 
-@section('title', 'Katalog Menu')
+@section('title', 'Katalog Menu Autentik')
 
 @section('content')
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10"
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"
     x-data="{
         selectedProduct: null,
         modalOpen: false,
@@ -43,34 +43,35 @@
         }
      }">
 
-    <!-- Page Header -->
-    <div class="mb-8">
-        <h1 class="text-3xl font-bold text-gray-900 tracking-tight">
+    <!-- Page Header (Rustic Modern: Fraunces + Caveat) -->
+    <div class="mb-10 border-b border-dashed border-[#CDB48F] pb-6">
+        <span class="font-hand text-2xl text-[#B5753A]">Seduhan Hari Ini</span>
+        <h1 class="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#2B1D14] tracking-tight mt-1">
             Menu Kami
         </h1>
-        <p class="text-gray-500 text-sm mt-1">
+        <p class="text-[#6B5646] text-sm sm:text-base mt-2 max-w-2xl">
             Pilih dan pesan langsung menu kopi, minuman segar, dan kudapan favoritmu.
         </p>
     </div>
 
-    <!-- Filter Tabs & Search Box -->
-    <div class="flex flex-col md:flex-row items-center justify-between gap-4 mb-8">
+    <!-- Filter Tabs & Search Box (03-DESIGN.md Section 6.3 & 6.4) -->
+    <div class="flex flex-col md:flex-row items-center justify-between gap-4 mb-10">
         <!-- Category Tabs -->
         <div class="flex flex-wrap gap-2 w-full md:w-auto">
             <a href="{{ route('menu.index') }}"
-                class="px-4 py-2 text-sm font-medium rounded-md transition {{ empty($selectedCategorySlug) ? 'bg-blue-600 text-white' : 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50' }}">
-                Semua
+                class="px-4 py-2 text-xs sm:text-sm font-semibold rounded-xl transition duration-200 {{ empty($selectedCategorySlug) ? 'bg-[#B5753A] text-white shadow-sm' : 'bg-[#FFFDF8] border border-[#CDB48F] text-[#4A3224] hover:bg-[#E8DCC4]' }}">
+                Semua Menu
             </a>
             @foreach ($categories as $cat)
             <a href="{{ route('menu.index', ['kategori' => $cat->slug]) }}"
-                class="px-4 py-2 text-sm font-medium rounded-md transition {{ $selectedCategorySlug === $cat->slug ? 'bg-blue-600 text-white' : 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50' }}">
-                {{ $cat->name }} ({{ $cat->products_count }})
+                class="px-4 py-2 text-xs sm:text-sm font-semibold rounded-xl transition duration-200 {{ $selectedCategorySlug === $cat->slug ? 'bg-[#B5753A] text-white shadow-sm' : 'bg-[#FFFDF8] border border-[#CDB48F] text-[#4A3224] hover:bg-[#E8DCC4]' }}">
+                {{ $cat->name }} <span class="text-xs opacity-75">({{ $cat->products_count }})</span>
             </a>
             @endforeach
         </div>
 
         <!-- Search Form -->
-        <form method="GET" action="{{ route('menu.index') }}" class="w-full md:w-72">
+        <form method="GET" action="{{ route('menu.index') }}" class="w-full md:w-80">
             @if ($selectedCategorySlug)
             <input type="hidden" name="kategori" value="{{ $selectedCategorySlug }}">
             @endif
@@ -78,11 +79,11 @@
                 <input type="text"
                     name="q"
                     value="{{ $searchQuery }}"
-                    placeholder="Cari menu..."
-                    class="w-full bg-white border border-gray-300 px-3.5 py-2 text-sm text-gray-900 rounded-md focus:border-blue-500 focus:outline-none">
+                    placeholder="Cari seduhan atau kudapan..."
+                    class="w-full bg-[#FFFDF8] border border-[#CDB48F] px-4 py-2.5 text-sm text-[#2B1D14] rounded-xl focus:border-[#B5753A] focus:outline-none focus:ring-1 focus:ring-[#B5753A] placeholder-[#6B5646]/60">
                 @if ($searchQuery)
                 <a href="{{ route('menu.index', array_filter(['kategori' => $selectedCategorySlug])) }}"
-                    class="absolute right-2.5 top-2.5 text-xs text-gray-400 hover:text-gray-600">
+                    class="absolute right-3 top-2.5 text-xs text-[#6B5646] hover:text-[#2B1D14]">
                     ✕
                 </a>
                 @endif
@@ -90,15 +91,17 @@
         </form>
     </div>
 
-    <!-- Product Grid -->
+    <!-- Product Grid (03-DESIGN.md Section 6.3: Kartu Menu) -->
     @if ($products->isEmpty())
-    <div class="bg-white border border-gray-200 rounded-lg p-12 text-center my-8">
-        <h3 class="font-bold text-lg text-gray-900">Menu Tidak Ditemukan</h3>
-        <p class="text-sm text-gray-500 mt-1">
+    <div class="bg-[#FFFDF8] border border-dashed border-[#CDB48F] rounded-2xl p-16 text-center my-8">
+        <span class="text-4xl mb-3 block">☕</span>
+        <h3 class="font-display font-semibold text-2xl text-[#2B1D14]">Menu Tidak Ditemukan</h3>
+        <p class="text-sm text-[#6B5646] mt-2 max-w-md mx-auto">
             Silakan coba kata kunci lain atau pilih kategori yang berbeda.
         </p>
-        <div class="mt-4">
-            <a href="{{ route('menu.index') }}" class="inline-block bg-blue-600 text-white text-xs font-medium px-4 py-2 rounded-md hover:bg-blue-700 transition">
+        <div class="mt-6">
+            <a href="{{ route('menu.index') }}"
+               class="inline-block bg-[#B5753A] text-white text-xs uppercase tracking-wider font-bold px-6 py-3 rounded-xl hover:bg-[#B4552F] transition shadow-sm">
                 Kembali ke Semua Menu
             </a>
         </div>
@@ -106,47 +109,56 @@
     @else
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         @foreach ($products as $product)
-        <div class="bg-white border border-gray-200 rounded-lg p-5 flex flex-col justify-between hover:shadow-sm transition relative">
+        <div class="bg-[#FFFDF8] border border-[#CDB48F] rounded-2xl p-6 flex flex-col justify-between hover:-translate-y-1 hover:shadow-warm transition duration-200 relative group">
 
             <!-- Out of stock badge overlay if unavailable -->
             @if (! $product->is_available)
-            <div class="absolute inset-0 bg-white/80 z-10 flex items-center justify-center rounded-lg">
-                <span class="bg-red-100 text-red-800 text-xs font-bold px-3 py-1 rounded-md">
+            <div class="absolute inset-0 bg-[#F4ECDD]/85 z-10 flex flex-col items-center justify-center rounded-2xl backdrop-blur-[1px]">
+                <span class="bg-[#4A3224] text-[#F4ECDD] text-xs font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-lg shadow-sm">
                     Habis Sementara
                 </span>
+                <span class="text-[11px] text-[#6B5646] mt-1 font-medium">Restock segera</span>
             </div>
             @endif
 
             <div>
-                <div class="flex items-center justify-between text-xs text-gray-500 mb-2">
-                    <span>{{ $product->category->name }}</span>
+                <!-- Category pill & favorite flag -->
+                <div class="flex items-center justify-between text-xs text-[#6B5646] mb-3">
+                    <span class="uppercase tracking-wider font-semibold text-[11px] bg-[#E8DCC4] text-[#4A3224] px-2.5 py-0.5 rounded-md">
+                        {{ $product->category->name }}
+                    </span>
                     @if ($product->is_featured)
-                        <span class="bg-blue-50 text-blue-700 text-[10px] font-semibold px-2 py-0.5 rounded">Favorit</span>
+                        <span class="bg-[#B5753A]/15 text-[#B5753A] text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md">
+                            ★ Favorit
+                        </span>
                     @endif
                 </div>
 
-                <h3 class="font-bold text-gray-900 text-lg">
+                <!-- Product Name (Fraunces) -->
+                <h3 class="font-display font-semibold text-[#2B1D14] text-xl leading-snug group-hover:text-[#B5753A] transition">
                     {{ $product->name }}
                 </h3>
 
-                <p class="text-gray-500 text-sm mt-1 line-clamp-2 leading-relaxed">
+                <!-- Product Description -->
+                <p class="text-[#6B5646] text-xs sm:text-sm mt-2 line-clamp-2 leading-relaxed">
                     {{ $product->description }}
                 </p>
             </div>
 
-            <div class="mt-6 pt-3 border-t border-gray-100 flex items-center justify-between">
-                <span class="font-bold text-gray-900">
+            <!-- Price with Dotted Leader & Order Action -->
+            <div class="mt-6 pt-4 border-t border-dashed border-[#CDB48F] flex items-baseline justify-between">
+                <span class="font-display font-bold text-lg text-[#2B1D14]">
                     {{ $product->formatted_price }}
                 </span>
 
                 @if ($product->is_available)
                 <button type="button"
                     @click="openModal({{ json_encode($product) }})"
-                    class="bg-blue-600 text-white hover:bg-blue-700 text-xs font-medium px-3.5 py-1.5 rounded-md transition cursor-pointer">
+                    class="bg-[#B5753A] text-white hover:bg-[#B4552F] text-xs uppercase tracking-wider font-bold px-4 py-2 rounded-xl transition shadow-sm cursor-pointer">
                     + Pesan
                 </button>
                 @else
-                <span class="text-xs font-medium text-red-600">Habis</span>
+                <span class="text-xs font-bold text-[#B4552F] uppercase tracking-wider">Habis</span>
                 @endif
             </div>
         </div>
@@ -154,65 +166,65 @@
     </div>
     @endif
 
-    <!-- CUSTOMIZE / ADD TO CART MODAL -->
+    <!-- CUSTOMIZE / ADD TO CART MODAL (03-DESIGN.md Section 17.2: Detail Produk & Add-on) -->
     <div x-show="modalOpen"
         x-cloak
-        class="fixed inset-0 z-50 overflow-y-auto bg-black/50 flex items-center justify-center p-4"
-        x-transition:enter="transition ease-out duration-150"
+        class="fixed inset-0 z-50 overflow-y-auto bg-[#1E1A17]/60 backdrop-blur-sm flex items-center justify-center p-4"
+        x-transition:enter="transition ease-out duration-200"
         x-transition:enter-start="opacity-0"
         x-transition:enter-end="opacity-100"
-        x-transition:leave="transition ease-in duration-100"
+        x-transition:leave="transition ease-in duration-150"
         x-transition:leave-start="opacity-100"
         x-transition:leave-end="opacity-0">
 
-        <div class="bg-white border border-gray-200 shadow-xl rounded-lg w-full max-w-lg p-6 relative max-h-[90vh] overflow-y-auto"
+        <div class="bg-[#FFFDF8] border border-[#CDB48F] shadow-warm rounded-2xl w-full max-w-lg p-6 sm:p-8 relative max-h-[90vh] overflow-y-auto"
             @click.outside="modalOpen = false">
 
             <!-- Close Button -->
             <button @click="modalOpen = false"
                 type="button"
-                class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl font-bold">
+                class="absolute top-5 right-5 text-[#6B5646] hover:text-[#2B1D14] text-xl font-bold p-1 rounded-lg hover:bg-[#E8DCC4] transition">
                 ✕
             </button>
 
             <!-- Product Header -->
-            <div class="border-b border-gray-200 pb-4 mb-4">
-                <span class="text-xs font-medium text-blue-600 block"
+            <div class="border-b border-dashed border-[#CDB48F] pb-5 mb-5">
+                <span class="text-xs uppercase tracking-wider font-semibold text-[#B5753A] block mb-1"
                     x-text="selectedProduct ? selectedProduct.category?.name : ''"></span>
-                <h3 class="font-bold text-xl text-gray-900"
+                <h3 class="font-display font-bold text-2xl text-[#2B1D14]"
                     x-text="selectedProduct ? selectedProduct.name : ''"></h3>
-                <p class="text-xs text-gray-500 mt-1"
+                <p class="text-xs sm:text-sm text-[#6B5646] mt-1.5 leading-relaxed"
                     x-text="selectedProduct ? selectedProduct.description : ''"></p>
             </div>
 
-            <form method="POST" action="{{ route('cart.add') }}" class="space-y-4">
+            <form method="POST" action="{{ route('cart.add') }}" class="space-y-5">
                 @csrf
                 <input type="hidden" name="product_id" :value="selectedProduct ? selectedProduct.id : ''">
 
                 <!-- 1. Pilihan Ukuran (Jika produk minuman) -->
                 <template x-if="selectedProduct && !selectedProduct.category?.name?.toLowerCase().includes('makanan')">
                     <div>
-                        <label class="block text-xs font-semibold text-gray-700 mb-2">
+                        <label class="block text-xs font-bold uppercase tracking-wider text-[#4A3224] mb-2">
                             Pilihan Ukuran
                         </label>
-                        <div class="grid grid-cols-3 gap-2">
-                            <label class="border p-2.5 text-center cursor-pointer rounded-md text-xs font-medium transition"
-                                :class="selectedSize === 'Regular (S)' ? 'bg-blue-50 border-blue-600 text-blue-700' : 'bg-white border-gray-200 text-gray-700 hover:bg-gray-50'">
+                        <div class="grid grid-cols-3 gap-2.5">
+                            <label class="border p-3 text-center cursor-pointer rounded-xl text-xs font-semibold transition"
+                                :class="selectedSize === 'Regular (S)' ? 'bg-[#E8DCC4] border-[#B5753A] text-[#2B1D14] ring-1 ring-[#B5753A]' : 'bg-[#FFFDF8] border-[#CDB48F] text-[#4A3224] hover:bg-[#E8DCC4]/50'">
                                 <input type="radio" name="size" value="Regular (S)" x-model="selectedSize" class="hidden">
                                 <div>Regular (S)</div>
-                                <div class="text-[10px] text-gray-500">+Rp 0</div>
+                                <div class="text-[11px] text-[#6B5646] mt-0.5">+Rp 0</div>
                             </label>
-                            <label class="border p-2.5 text-center cursor-pointer rounded-md text-xs font-medium transition"
-                                :class="selectedSize === 'Medium (M)' ? 'bg-blue-50 border-blue-600 text-blue-700' : 'bg-white border-gray-200 text-gray-700 hover:bg-gray-50'">
+                            <label class="border p-3 text-center cursor-pointer rounded-xl text-xs font-semibold transition"
+                                :class="selectedSize === 'Medium (M)' ? 'bg-[#E8DCC4] border-[#B5753A] text-[#2B1D14] ring-1 ring-[#B5753A]' : 'bg-[#FFFDF8] border-[#CDB48F] text-[#4A3224] hover:bg-[#E8DCC4]/50'">
                                 <input type="radio" name="size" value="Medium (M)" x-model="selectedSize" class="hidden">
                                 <div>Medium (M)</div>
-                                <div class="text-[10px] text-gray-500">+Rp 4.000</div>
+                                <div class="text-[11px] text-[#6B5646] mt-0.5">+Rp 4.000</div>
                             </label>
-                            <label class="border p-2.5 text-center cursor-pointer rounded-md text-xs font-medium transition"
-                                :class="selectedSize === 'Large (L)' ? 'bg-blue-50 border-blue-600 text-blue-700' : 'bg-white border-gray-200 text-gray-700 hover:bg-gray-50'">
+                            <label class="border p-3 text-center cursor-pointer rounded-xl text-xs font-semibold transition"
+                                :class="selectedSize === 'Large (L)' ? 'bg-[#E8DCC4] border-[#B5753A] text-[#2B1D14] ring-1 ring-[#B5753A]' : 'bg-[#FFFDF8] border-[#CDB48F] text-[#4A3224] hover:bg-[#E8DCC4]/50'">
                                 <input type="radio" name="size" value="Large (L)" x-model="selectedSize" class="hidden">
                                 <div>Large (L)</div>
-                                <div class="text-[10px] text-gray-500">+Rp 8.000</div>
+                                <div class="text-[11px] text-[#6B5646] mt-0.5">+Rp 8.000</div>
                             </label>
                         </div>
                     </div>
@@ -222,11 +234,11 @@
                 <template x-if="selectedProduct && !selectedProduct.category?.name?.toLowerCase().includes('makanan')">
                     <div class="grid grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-xs font-semibold text-gray-700 mb-1">
+                            <label class="block text-xs font-bold uppercase tracking-wider text-[#4A3224] mb-1.5">
                                 Tingkat Gula
                             </label>
                             <select name="sugar" x-model="selectedSugar"
-                                class="w-full bg-white border border-gray-300 text-xs p-2 rounded-md focus:border-blue-500 focus:outline-none">
+                                class="w-full bg-[#FFFDF8] border border-[#CDB48F] text-xs p-2.5 rounded-xl text-[#2B1D14] focus:border-[#B5753A] focus:outline-none">
                                 <option value="Normal (100%)">Normal (100%)</option>
                                 <option value="Sedikit Manis (50%)">Sedikit Manis (50%)</option>
                                 <option value="Tanpa Gula (0%)">Tanpa Gula (0%)</option>
@@ -234,11 +246,11 @@
                         </div>
 
                         <div>
-                            <label class="block text-xs font-semibold text-gray-700 mb-1">
+                            <label class="block text-xs font-bold uppercase tracking-wider text-[#4A3224] mb-1.5">
                                 Suhu Minuman
                             </label>
                             <select name="ice" x-model="selectedIce"
-                                class="w-full bg-white border border-gray-300 text-xs p-2 rounded-md focus:border-blue-500 focus:outline-none">
+                                class="w-full bg-[#FFFDF8] border border-[#CDB48F] text-xs p-2.5 rounded-xl text-[#2B1D14] focus:border-[#B5753A] focus:outline-none">
                                 <option value="Dingin (Es Batu)">Dingin (Es Batu)</option>
                                 <option value="Hangat / Panas">Hangat / Panas</option>
                             </select>
@@ -249,29 +261,29 @@
                 <!-- 3. Add-on / Topping Tambahan (Minuman) -->
                 <template x-if="selectedProduct && !selectedProduct.category?.name?.toLowerCase().includes('makanan')">
                     <div>
-                        <label class="block text-xs font-semibold text-gray-700 mb-2">
+                        <label class="block text-xs font-bold uppercase tracking-wider text-[#4A3224] mb-2">
                             Topping Tambahan (Opsional)
                         </label>
                         <div class="grid grid-cols-2 gap-2 text-xs">
-                            <label class="flex items-center space-x-2 bg-white p-2 border border-gray-200 rounded-md cursor-pointer hover:bg-gray-50">
+                            <label class="flex items-center space-x-2 bg-[#FFFDF8] p-2.5 border border-[#CDB48F] rounded-xl cursor-pointer hover:bg-[#E8DCC4]/50 transition">
                                 <input type="checkbox" name="toppings[]" value="Boba Brown Sugar" x-model="selectedToppings"
-                                    class="rounded text-blue-600 focus:ring-blue-500">
-                                <span class="text-gray-700">Boba (+Rp 5.000)</span>
+                                    class="rounded text-[#B5753A] focus:ring-[#B5753A]">
+                                <span class="text-[#4A3224] font-medium">Boba (+Rp 5.000)</span>
                             </label>
-                            <label class="flex items-center space-x-2 bg-white p-2 border border-gray-200 rounded-md cursor-pointer hover:bg-gray-50">
+                            <label class="flex items-center space-x-2 bg-[#FFFDF8] p-2.5 border border-[#CDB48F] rounded-xl cursor-pointer hover:bg-[#E8DCC4]/50 transition">
                                 <input type="checkbox" name="toppings[]" value="Grass Jelly" x-model="selectedToppings"
-                                    class="rounded text-blue-600 focus:ring-blue-500">
-                                <span class="text-gray-700">Grass Jelly (+Rp 4.000)</span>
+                                    class="rounded text-[#B5753A] focus:ring-[#B5753A]">
+                                <span class="text-[#4A3224] font-medium">Grass Jelly (+Rp 4.000)</span>
                             </label>
-                            <label class="flex items-center space-x-2 bg-white p-2 border border-gray-200 rounded-md cursor-pointer hover:bg-gray-50">
+                            <label class="flex items-center space-x-2 bg-[#FFFDF8] p-2.5 border border-[#CDB48F] rounded-xl cursor-pointer hover:bg-[#E8DCC4]/50 transition">
                                 <input type="checkbox" name="toppings[]" value="Whipped Cream" x-model="selectedToppings"
-                                    class="rounded text-blue-600 focus:ring-blue-500">
-                                <span class="text-gray-700">Whipped Cream (+Rp 5.000)</span>
+                                    class="rounded text-[#B5753A] focus:ring-[#B5753A]">
+                                <span class="text-[#4A3224] font-medium">Whipped Cream (+Rp 5.000)</span>
                             </label>
-                            <label class="flex items-center space-x-2 bg-white p-2 border border-gray-200 rounded-md cursor-pointer hover:bg-gray-50">
+                            <label class="flex items-center space-x-2 bg-[#FFFDF8] p-2.5 border border-[#CDB48F] rounded-xl cursor-pointer hover:bg-[#E8DCC4]/50 transition">
                                 <input type="checkbox" name="toppings[]" value="Extra Espresso Shot" x-model="selectedToppings"
-                                    class="rounded text-blue-600 focus:ring-blue-500">
-                                <span class="text-gray-700">Extra Shot (+Rp 6.000)</span>
+                                    class="rounded text-[#B5753A] focus:ring-[#B5753A]">
+                                <span class="text-[#4A3224] font-medium">Extra Shot (+Rp 6.000)</span>
                             </label>
                         </div>
                     </div>
@@ -280,42 +292,42 @@
                 <!-- 4. Jumlah & Catatan -->
                 <div class="grid grid-cols-3 gap-4 items-end">
                     <div>
-                        <label class="block text-xs font-semibold text-gray-700 mb-1">
+                        <label class="block text-xs font-bold uppercase tracking-wider text-[#4A3224] mb-1.5">
                             Jumlah
                         </label>
-                        <div class="flex items-center border border-gray-300 rounded-md bg-white">
+                        <div class="flex items-center border border-[#CDB48F] rounded-xl bg-[#FFFDF8]">
                             <button type="button" @click="if (quantity > 1) quantity--"
-                                class="px-3 py-1.5 font-bold text-gray-600 hover:bg-gray-100">
+                                class="px-3.5 py-2 font-bold text-[#4A3224] hover:bg-[#E8DCC4] rounded-l-xl transition">
                                 -
                             </button>
                             <input type="number" name="quantity" x-model="quantity" min="1"
-                                class="w-full text-center bg-transparent text-sm font-semibold border-0 focus:ring-0 p-1">
+                                class="w-full text-center bg-transparent text-sm font-semibold border-0 focus:ring-0 p-1 text-[#2B1D14]">
                             <button type="button" @click="quantity++"
-                                class="px-3 py-1.5 font-bold text-gray-600 hover:bg-gray-100">
+                                class="px-3.5 py-2 font-bold text-[#4A3224] hover:bg-[#E8DCC4] rounded-r-xl transition">
                                 +
                             </button>
                         </div>
                     </div>
 
                     <div class="col-span-2">
-                        <label class="block text-xs font-semibold text-gray-700 mb-1">
+                        <label class="block text-xs font-bold uppercase tracking-wider text-[#4A3224] mb-1.5">
                             Catatan Khusus
                         </label>
-                        <input type="text" name="notes" x-model="notes" placeholder="Contoh: Kurangi es, dll."
-                            class="w-full bg-white border border-gray-300 text-xs p-2 rounded-md focus:border-blue-500 focus:outline-none">
+                        <input type="text" name="notes" x-model="notes" placeholder="Contoh: Kurangi es, tanpa sedotan..."
+                            class="w-full bg-[#FFFDF8] border border-[#CDB48F] text-xs p-2.5 rounded-xl text-[#2B1D14] focus:border-[#B5753A] focus:outline-none">
                     </div>
                 </div>
 
                 <!-- Total & Submit Button -->
-                <div class="pt-4 border-t border-gray-200 flex items-center justify-between">
+                <div class="pt-5 border-t border-dashed border-[#CDB48F] flex items-center justify-between">
                     <div>
-                        <div class="text-xs text-gray-500">Total Harga</div>
-                        <div class="font-bold text-xl text-gray-900"
+                        <div class="text-xs text-[#6B5646]">Total Harga</div>
+                        <div class="font-display font-bold text-2xl text-[#2B1D14]"
                             x-text="formatRupiah(calculateTotal())"></div>
                     </div>
 
                     <button type="submit"
-                            class="bg-blue-600 text-white hover:bg-blue-700 text-sm font-medium py-2 px-5 rounded-md transition cursor-pointer">
+                            class="bg-[#B5753A] text-white hover:bg-[#B4552F] text-xs uppercase tracking-wider font-bold py-3 px-6 rounded-xl transition shadow-warm cursor-pointer">
                         Tambah ke Keranjang
                     </button>
                 </div>

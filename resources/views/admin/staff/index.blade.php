@@ -4,73 +4,73 @@
 
 @section('content')
 <div class="space-y-6">
-    <!-- Header -->
-    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b-2 border-copper/30 pb-4 gap-4">
+    <!-- Header (03-DESIGN.md Section 19) -->
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-dashed border-[#CDB48F] pb-4 gap-4">
         <div>
-            <span class="text-xs uppercase font-heading tracking-widest text-copper block">Otoritas & Akses Internal</span>
-            <h1 class="text-3xl font-display font-black text-rustic-900 tracking-tight">Akun Staf & Kasir</h1>
+            <span class="text-xs uppercase tracking-widest text-[#B5753A] font-bold block">Otoritas & Akses Internal</span>
+            <h1 class="text-3xl font-display font-semibold text-[#2B1D14] tracking-tight mt-1">Akun Staf & Kasir</h1>
         </div>
         <div>
             <a href="{{ route('admin.staff.create') }}"
-               class="px-4 py-2.5 bg-copper text-parchment font-heading text-xs uppercase tracking-wider font-bold shadow-rustic-sm hover:bg-copper-dark transition inline-flex items-center space-x-2">
+               class="px-5 py-2.5 bg-[#B5753A] text-white text-xs uppercase tracking-wider font-bold rounded-xl shadow-warm hover:bg-[#B4552F] transition inline-flex items-center space-x-2">
                 <span>+</span>
                 <span>Tambah Akun Staf Baru</span>
             </a>
         </div>
     </div>
 
-    <!-- Table Card -->
-    <div class="bg-[#FFFDF9] border-2 border-rustic-300 shadow-rustic-sm overflow-hidden">
+    <!-- Table Card (Oat table header, Paper body, Kraft border) -->
+    <div class="bg-[#FFFDF8] border border-[#CDB48F] rounded-2xl shadow-sm overflow-hidden">
         <div class="overflow-x-auto">
-            <table class="w-full text-left border-collapse text-xs">
+            <table class="w-full text-left text-xs">
                 <thead>
-                    <tr class="border-b-2 border-rustic-800 bg-rustic-100 font-heading uppercase tracking-wider text-rustic-800">
-                        <th class="p-3">Nama Pegawai</th>
-                        <th class="p-3">Peran (Role)</th>
-                        <th class="p-3">Email & No. HP</th>
-                        <th class="p-3 text-center">Status Akun</th>
-                        <th class="p-3 text-right">Aksi</th>
+                    <tr class="bg-[#E8DCC4] uppercase tracking-wider text-[#4A3224] text-[10px] font-bold">
+                        <th class="p-3.5">Nama Pegawai</th>
+                        <th class="p-3.5">Peran (Role)</th>
+                        <th class="p-3.5">Email & No. HP</th>
+                        <th class="p-3.5 text-center">Status Akun</th>
+                        <th class="p-3.5 text-right">Aksi</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-rustic-200">
+                <tbody class="divide-y divide-dashed divide-[#CDB48F]/60">
                     @foreach ($staffMembers as $staff)
-                        <tr class="hover:bg-rustic-50/70 transition">
-                            <td class="p-3">
+                        <tr class="hover:bg-[#F4ECDD]/50 transition">
+                            <td class="p-3.5">
                                 <div class="flex items-center space-x-3">
-                                    <div class="w-8 h-8 rounded-full bg-rustic-800 text-parchment font-heading font-black text-xs flex items-center justify-center">
+                                    <div class="w-8 h-8 rounded-full bg-[#2B1D14] text-[#F4ECDD] font-display font-bold text-xs flex items-center justify-center">
                                         {{ strtoupper(substr($staff->name, 0, 1)) }}
                                     </div>
                                     <div>
-                                        <strong class="text-rustic-900 font-display text-sm">{{ $staff->name }}</strong>
+                                        <strong class="text-[#2B1D14] font-display text-sm font-semibold">{{ $staff->name }}</strong>
                                         @if ($staff->id === Auth::id())
-                                            <span class="ml-1 text-[10px] text-copper font-heading uppercase font-bold">(Akun Anda)</span>
+                                            <span class="ml-1 text-[10px] text-[#B5753A] uppercase font-bold">(Akun Anda)</span>
                                         @endif
                                     </div>
                                 </div>
                             </td>
-                            <td class="p-3">
+                            <td class="p-3.5">
                                 @if ($staff->role === 'admin')
-                                    <span class="px-2.5 py-1 bg-brick text-parchment font-heading uppercase text-[10px] font-bold">
+                                    <span class="px-2.5 py-1 bg-[#B4552F] text-white uppercase text-[10px] font-bold rounded-full">
                                         Owner / Admin
                                     </span>
                                 @else
-                                    <span class="px-2.5 py-1 bg-copper text-parchment font-heading uppercase text-[10px] font-bold">
+                                    <span class="px-2.5 py-1 bg-[#B5753A] text-white uppercase text-[10px] font-bold rounded-full">
                                         Kasir / Barista
                                     </span>
                                 @endif
                             </td>
-                            <td class="p-3">
-                                <div class="font-mono text-rustic-900">{{ $staff->email }}</div>
-                                <div class="text-[11px] text-rustic-600 font-mono">{{ $staff->phone }}</div>
+                            <td class="p-3.5">
+                                <div class="font-mono text-[#2B1D14] font-medium">{{ $staff->email }}</div>
+                                <div class="text-[11px] text-[#6B5646] font-mono">{{ $staff->phone }}</div>
                             </td>
-                            <td class="p-3 text-center">
-                                <span class="px-2 py-0.5 bg-emerald-100 text-emerald-800 border border-emerald-300 font-heading text-[10px] uppercase font-bold">
+                            <td class="p-3.5 text-center">
+                                <span class="px-2.5 py-0.5 bg-[#7A8467]/20 text-[#4F5A3E] border border-[#7A8467] text-[10px] uppercase font-bold rounded-full">
                                     ✓ Aktif & Terverifikasi
                                 </span>
                             </td>
-                            <td class="p-3 text-right space-x-2">
+                            <td class="p-3.5 text-right space-x-2">
                                 <a href="{{ route('admin.staff.edit', $staff) }}"
-                                   class="px-2.5 py-1 bg-rustic-100 text-rustic-800 border border-rustic-300 font-heading text-[11px] font-bold hover:bg-copper hover:text-parchment hover:border-copper transition">
+                                   class="px-3 py-1.5 bg-[#FFFDF8] text-[#4A3224] border border-[#CDB48F] text-[11px] font-bold uppercase rounded-lg hover:bg-[#E8DCC4] transition">
                                     Ubah
                                 </a>
 
@@ -80,7 +80,7 @@
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit"
-                                                class="px-2.5 py-1 bg-brick/10 text-brick border border-brick/40 font-heading text-[11px] font-bold hover:bg-brick hover:text-parchment transition">
+                                                class="px-3 py-1.5 bg-transparent text-[#B4552F] border border-[#B4552F] text-[11px] font-bold uppercase rounded-lg hover:bg-[#B4552F] hover:text-white transition cursor-pointer">
                                             Hapus
                                         </button>
                                     </form>

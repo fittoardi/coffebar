@@ -4,15 +4,17 @@
 
 @section('content')
     <div class="mb-6 text-center">
-        <h1 class="text-xl font-bold text-gray-900">Verifikasi Kode</h1>
-        <p class="text-xs text-gray-500 mt-1">
-            Kami telah mengirimkan 6 digit kode verifikasi ke:
+        <span class="font-hand text-2xl text-[#B5753A]">Keamanan Akun</span>
+        <h1 class="font-display text-2xl font-semibold text-[#2B1D14] mt-1">Verifikasi Kode</h1>
+        <p class="text-xs text-[#6B5646] mt-1.5 leading-relaxed">
+            Kode sudah meluncur. Cek email dan WhatsApp-mu ya:
         </p>
-        <div class="font-semibold text-blue-600 text-sm mt-1 select-all">
+        <div class="font-bold text-[#B5753A] text-sm mt-1.5 select-all font-mono">
             {{ $identifier ?? 'Kontak Anda' }}
         </div>
     </div>
 
+    <!-- OTP Form (03-DESIGN.md Section 16.2) -->
     <form method="POST" action="{{ route('otp.verify') }}" id="otp-form" class="space-y-6">
         @csrf
         <input type="hidden" name="identifier" value="{{ $identifier }}">
@@ -20,8 +22,8 @@
         <!-- Combined Hidden Input that holds the 6 digits -->
         <input type="hidden" name="code" id="final-otp-code">
 
-        <!-- 6 OTP Input Boxes -->
-        <div class="flex justify-center items-center gap-2 sm:gap-3" id="otp-inputs-container">
+        <!-- 6 OTP Input Boxes (52x60px, Fraunces 28px, Kraft border, Caramel focus) -->
+        <div class="flex justify-center items-center gap-2 sm:gap-2.5" id="otp-inputs-container">
             @for ($i = 0; $i < 6; $i++)
                 <input type="text"
                        maxlength="1"
@@ -29,10 +31,10 @@
                        pattern="[0-9]*"
                        autocomplete="one-time-code"
                        data-index="{{ $i }}"
-                       class="otp-digit w-10 sm:w-12 h-14 text-center text-2xl font-bold bg-white border border-gray-300 rounded-md focus:border-blue-500 focus:outline-none transition text-gray-900"
+                       class="otp-digit w-12 sm:w-[52px] h-[60px] text-center font-display text-2xl sm:text-[28px] font-bold bg-[#FFFDF8] border border-[#CDB48F] rounded-xl focus:border-[#B5753A] focus:ring-2 focus:ring-[#B5753A]/30 focus:outline-none transition text-[#2B1D14]"
                        {{ $i === 0 ? 'autofocus' : '' }}>
                 @if ($i === 2)
-                    <span class="text-gray-400 font-bold text-lg select-none">—</span>
+                    <span class="text-[#CDB48F] font-bold text-xl select-none">·</span>
                 @endif
             @endfor
         </div>
@@ -40,14 +42,14 @@
         <div>
             <button type="submit"
                     id="btn-verify"
-                    class="w-full bg-blue-600 text-white hover:bg-blue-700 font-medium text-xs uppercase tracking-wider py-2.5 px-4 rounded-md transition cursor-pointer">
+                    class="w-full bg-[#B5753A] text-white hover:bg-[#B4552F] font-bold text-xs uppercase tracking-wider py-3.5 px-4 rounded-xl transition shadow-warm cursor-pointer">
                 Verifikasi & Masuk
             </button>
         </div>
     </form>
 
-    <!-- Resend OTP Section -->
-    <div class="mt-6 pt-4 border-t border-gray-100 text-center text-xs text-gray-500">
+    <!-- Resend OTP Section (03-DESIGN.md Section 16.2) -->
+    <div class="mt-6 pt-5 border-t border-dashed border-[#CDB48F] text-center text-xs text-[#6B5646]">
         <p class="mb-2">
             Tidak menerima kode verifikasi?
         </p>
@@ -57,13 +59,13 @@
             <input type="hidden" name="identifier" value="{{ $identifier }}">
             <button type="submit"
                     id="btn-resend"
-                    class="text-blue-600 hover:underline font-semibold">
-                Kirim Ulang Kode (<span id="countdown">60</span>s)
+                    class="text-[#B5753A] hover:text-[#B4552F] font-bold">
+                Kirim Ulang Kode (<span id="countdown" class="font-mono">60</span>s)
             </button>
         </form>
 
         <div class="mt-4">
-            <a href="{{ route('login') }}" class="text-xs text-gray-400 hover:text-gray-600">
+            <a href="{{ route('login') }}" class="text-xs text-[#6B5646] hover:text-[#2B1D14] underline underline-offset-2">
                 ← Kembali ke Halaman Masuk
             </a>
         </div>

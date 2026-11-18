@@ -7,34 +7,34 @@
     <style>
         body {
             font-family: 'Georgia', serif;
-            background-color: #F5E6C8;
-            color: #3E200E;
+            background-color: #F4ECDD;
+            color: #2B1D14;
             margin: 0;
-            padding: 24px;
+            padding: 28px;
         }
         .container {
-            max-width: 500px;
+            max-width: 480px;
             margin: 0 auto;
-            background-color: #FFF8F0;
-            border: 2px solid #B87333;
-            border-radius: 4px;
-            padding: 32px;
-            box-shadow: 4px 4px 0px #B87333;
+            background-color: #FFFDF8;
+            border: 1px dashed #CDB48F;
+            border-radius: 16px;
+            padding: 36px 28px;
+            box-shadow: 0 8px 24px rgba(43, 29, 20, 0.08);
         }
         .header {
             text-align: center;
-            border-bottom: 2px solid #EDD9A3;
+            border-bottom: 1px dashed #CDB48F;
             padding-bottom: 20px;
             margin-bottom: 24px;
         }
         .logo {
             font-size: 26px;
             font-weight: bold;
-            color: #3E1F0D;
-            letter-spacing: 1px;
+            color: #2B1D14;
+            letter-spacing: -0.5px;
         }
         .divider {
-            color: #B87333;
+            color: #B5753A;
             font-size: 14px;
             margin: 8px 0;
         }
@@ -44,28 +44,27 @@
         }
         .otp-box {
             display: inline-block;
-            background-color: #3E1F0D;
-            color: #F5E6C8;
+            background-color: #2B1D14;
+            color: #F4ECDD;
             font-size: 32px;
             font-weight: bold;
             letter-spacing: 8px;
             padding: 16px 28px;
-            border: 2px solid #B87333;
+            border: 2px solid #B5753A;
             margin: 24px 0;
-            border-radius: 4px;
+            border-radius: 12px;
         }
         .warning {
             font-size: 13px;
-            color: #7A5C45;
-            font-style: italic;
+            color: #6B5646;
             margin-top: 16px;
         }
         .footer {
             margin-top: 32px;
             text-align: center;
             font-size: 12px;
-            color: #8B7D75;
-            border-top: 1px dashed #D4A574;
+            color: #6B5646;
+            border-top: 1px dashed #CDB48F;
             padding-top: 16px;
         }
     </style>
@@ -74,13 +73,13 @@
     <div class="container">
         <div class="header">
             <div class="logo">☕ COFFEBAR</div>
-            <div class="divider">❧ ─────── ✦ ─────── ❧</div>
-            <p style="margin: 4px 0 0; color: #B87333; font-style: italic;">Seduhan Cerita & Kopi Pilihan</p>
+            <div class="divider">✦ ─────── ☕ ─────── ✦</div>
+            <p style="margin: 4px 0 0; color: #B5753A; font-style: italic;">Seduhan Hangat & Cerita Autentik</p>
         </div>
 
         <div class="content">
-            <h2 style="color: #3E1F0D; margin-bottom: 8px;">Kode Verifikasi Anda</h2>
-            <p>Gunakan kode OTP 6-digit di bawah ini untuk menyelesaikan proses pendaftaran atau masuk ke akun Anda:</p>
+            <h2 style="color: #2B1D14; margin-bottom: 8px; font-size: 20px;">Kode Verifikasi Anda</h2>
+            <p style="color: #4A3224; font-size: 14px;">Gunakan kode OTP 6-digit di bawah ini untuk menyelesaikan proses pendaftaran atau masuk ke akun Anda:</p>
 
             <div class="otp-box">
                 {{ $otpCode }}
@@ -88,12 +87,12 @@
 
             <p class="warning">
                 * Kode ini berlaku selama <strong>{{ $expiryMinutes }} menit</strong>.<br>
-                Demi keamanan, jangan berikan kode ini kepada siapapun termasuk pihak CoffeBar.
+                Demi keamanan, jangan berikan kode ini kepada siapapun termasuk barista CoffeBar.
             </p>
         </div>
 
         <div class="footer">
-            &copy; {{ date('Y') }} CoffeBar. Semua hak cipta dilindungi.
+            &copy; {{ date('Y') }} CoffeBar · Rasa Nusantara Diracik Untukmu
         </div>
     </div>
 </body>
