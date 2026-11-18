@@ -3,7 +3,10 @@
 @section('title', 'Keranjang Pesanan')
 
 @section('content')
-<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative">
+    <!-- Pinggiran Biji Kopi Keranjang: Kiri & Kanan -->
+    <img src="{{ asset('images/beans-falling.png') }}" class="absolute -left-12 top-20 w-24 h-auto object-contain pointer-events-none opacity-40 -rotate-6 select-none hidden lg:block" alt="" />
+    <img src="{{ asset('images/beans-cluster.png') }}" class="absolute -right-10 bottom-12 w-24 h-24 object-contain pointer-events-none opacity-45 rotate-12 select-none hidden lg:block" alt="" />
 
     <!-- Header (Rustic Modern) -->
     <div class="mb-10 border-b border-dashed border-[#CDB48F] pb-6">
@@ -47,17 +50,30 @@
             @foreach ($items as $rowId => $item)
             @php
                 $itemName = strtolower($item['name'] ?? '');
-                $itemImg = (str_contains($itemName, 'latte') || str_contains($itemName, 'susu') || str_contains($itemName, 'cappuccino') || str_contains($itemName, 'fusion') || str_contains($itemName, 'matcha'))
+                $isDrink = str_contains($itemName, 'latte') || str_contains($itemName, 'susu') || str_contains($itemName, 'cappuccino') || str_contains($itemName, 'fusion') || str_contains($itemName, 'matcha') || str_contains($itemName, 'tea') || str_contains($itemName, 'chocolate') || str_contains($itemName, 'espresso') || str_contains($itemName, 'americano') || str_contains($itemName, 'cold brew') || str_contains($itemName, 'kopi');
+                $itemImg = (str_contains($itemName, 'latte') || str_contains($itemName, 'susu') || str_contains($itemName, 'cappuccino') || str_contains($itemName, 'fusion') || str_contains($itemName, 'matcha') || str_contains($itemName, 'tea') || str_contains($itemName, 'chocolate'))
                     ? asset('images/cup-latte.png')
-                    : ((str_contains($itemName, 'espresso') || str_contains($itemName, 'americano') || str_contains($itemName, 'cold brew') || str_contains($itemName, 'kopi'))
-                        ? asset('images/cup-black.png')
-                        : asset('images/beans-cluster.png'));
+                    : asset('images/cup-black.png');
             @endphp
             <div class="p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 hover:bg-[#F4ECDD]/30 transition">
                 <!-- Left: Item Info & Options -->
                 <div class="flex items-start gap-4 flex-1">
                     <div class="w-12 h-12 bg-[#F4ECDD] rounded-xl flex items-center justify-center p-1.5 flex-shrink-0 border border-[#CDB48F]/50 mt-0.5">
-                        <img src="{{ $itemImg }}" class="w-full h-full object-contain" alt="{{ $item['name'] }}">
+                        @if ($isDrink)
+                            <img src="{{ $itemImg }}" class="w-full h-full object-contain" alt="{{ $item['name'] }}">
+                        @else
+                            <span class="text-xl select-none">
+                                @if (str_contains($itemName, 'croissant') || str_contains($itemName, 'roti'))
+                                    🥐
+                                @elseif (str_contains($itemName, 'nasi'))
+                                    🍲
+                                @elseif (str_contains($itemName, 'fries'))
+                                    🍟
+                                @else
+                                    🍽️
+                                @endif
+                            </span>
+                        @endif
                     </div>
                     <div class="space-y-1.5 flex-1">
                         <h3 class="font-display font-semibold text-lg text-[#2B1D14]">

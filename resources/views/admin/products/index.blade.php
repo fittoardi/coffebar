@@ -93,7 +93,21 @@
                                 <td class="p-3.5">
                                     <div class="flex items-center space-x-3">
                                         <div class="w-12 h-12 bg-[#F4ECDD] border border-[#CDB48F] rounded-xl overflow-hidden shrink-0 flex items-center justify-center p-1">
-                                            <img src="{{ $prod->image_url }}" alt="{{ $prod->name }}" class="w-full h-full object-contain">
+                                            @if ($prod->image_url)
+                                                <img src="{{ $prod->image_url }}" alt="{{ $prod->name }}" class="w-full h-full object-contain">
+                                            @else
+                                                <span class="text-xl select-none">
+                                                    @if (str_contains(strtolower($prod->name), 'croissant') || str_contains(strtolower($prod->name), 'roti'))
+                                                        🥐
+                                                    @elseif (str_contains(strtolower($prod->name), 'nasi'))
+                                                        🍲
+                                                    @elseif (str_contains(strtolower($prod->name), 'fries'))
+                                                        🍟
+                                                    @else
+                                                        🍽️
+                                                    @endif
+                                                </span>
+                                            @endif
                                         </div>
                                         <div>
                                             <strong class="font-display font-semibold text-sm text-[#2B1D14] block">{{ $prod->name }}</strong>

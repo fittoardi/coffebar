@@ -15,9 +15,15 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="bg-[#F4ECDD] min-h-screen text-[#2B1D14] flex flex-col justify-center items-center py-12 px-4 sm:px-6 font-sans antialiased selection:bg-[#B5753A] selection:text-white">
+<body class="bg-[#F4ECDD] min-h-screen text-[#2B1D14] flex flex-col justify-center items-center py-12 px-4 sm:px-6 font-sans antialiased selection:bg-[#B5753A] selection:text-white relative overflow-hidden">
 
-    <div class="w-full max-w-[440px]">
+    <!-- Pinggiran Biji Kopi Layar: 4 Sudut Layar Luar -->
+    <img src="{{ asset('images/beans-falling.png') }}" class="fixed left-6 top-8 w-28 h-auto object-contain pointer-events-none opacity-40 -rotate-12 select-none hidden md:block" alt="" />
+    <img src="{{ asset('images/beans-cluster.png') }}" class="fixed right-10 top-10 w-24 h-24 object-contain pointer-events-none opacity-45 rotate-45 select-none hidden md:block" alt="" />
+    <img src="{{ asset('images/beans-falling.png') }}" class="fixed right-6 bottom-8 w-28 h-auto object-contain pointer-events-none opacity-40 rotate-12 select-none hidden md:block" alt="" />
+    <img src="{{ asset('images/beans-cluster.png') }}" class="fixed left-10 bottom-12 w-24 h-24 object-contain pointer-events-none opacity-40 -rotate-12 select-none hidden md:block" alt="" />
+
+    <div class="w-full max-w-[440px] relative z-10">
         <!-- Brand Header (03-DESIGN.md Section 16.1) -->
         <div class="text-center mb-8">
             <a href="{{ route('home') }}" class="inline-block group transition">

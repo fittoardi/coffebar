@@ -3,7 +3,7 @@
 @section('title', 'Katalog Menu Autentik')
 
 @section('content')
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative"
     x-data="{
         selectedProduct: null,
         modalOpen: false,
@@ -43,8 +43,14 @@
         }
      }">
 
+    <!-- Pinggiran Biji Kopi Halaman Menu: Kiri & Kanan Layar Melayang -->
+    <img src="{{ asset('images/beans-falling.png') }}" class="absolute -left-10 top-16 w-28 h-auto object-contain pointer-events-none opacity-45 -rotate-12 drop-shadow-md select-none hidden xl:block animate-float-slow" alt="" />
+    <img src="{{ asset('images/beans-cluster.png') }}" class="absolute -right-6 top-10 w-24 h-24 object-contain pointer-events-none opacity-50 rotate-45 select-none hidden xl:block animate-float-reverse" alt="" />
+    <img src="{{ asset('images/beans-falling.png') }}" class="absolute -right-10 top-1/2 w-28 h-auto object-contain pointer-events-none opacity-45 rotate-12 drop-shadow-md select-none hidden xl:block animate-float" alt="" />
+    <img src="{{ asset('images/beans-cluster.png') }}" class="absolute -left-6 bottom-16 w-24 h-24 object-contain pointer-events-none opacity-40 -rotate-12 select-none hidden xl:block animate-float-drift" alt="" />
+
     <!-- Page Header (Rustic Modern: Fraunces + Caveat) -->
-    <div class="mb-10 border-b border-dashed border-[#CDB48F] pb-6">
+    <div class="mb-10 border-b border-dashed border-[#CDB48F] pb-6 relative z-10">
         <span class="font-hand text-2xl text-[#B5753A]">Seduhan Hari Ini</span>
         <h1 class="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#2B1D14] tracking-tight mt-1">
             Menu Kami
@@ -109,7 +115,7 @@
     @else
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         @foreach ($products as $product)
-        <div class="bg-[#FFFDF8] border border-[#CDB48F] rounded-2xl p-5 sm:p-6 flex flex-col justify-between hover:-translate-y-1 hover:shadow-warm transition duration-200 relative group">
+        <div class="bg-[#FFFDF8] border border-[#CDB48F] rounded-2xl p-5 sm:p-6 flex flex-col justify-between hover:-translate-y-1.5 hover:shadow-warm-lg transition-all duration-300 relative group reveal-on-scroll">
 
             <!-- Out of stock badge overlay if unavailable -->
             @if (! $product->is_available)
@@ -122,11 +128,27 @@
             @endif
 
             <div>
-                <!-- Product Thumbnail with Saucer & Shadow -->
+                <!-- Product Thumbnail with Saucer & Shadow (Beverage cups or food badges - NO beans inside) -->
                 <div class="w-full h-40 bg-[#F4ECDD]/70 rounded-xl mb-4 flex items-center justify-center p-3 overflow-hidden border border-[#CDB48F]/40 group-hover:bg-[#E8DCC4]/50 transition">
-                    <img src="{{ $product->image_url }}"
-                         alt="{{ $product->name }}"
-                         class="h-32 w-32 object-contain drop-shadow-md group-hover:scale-105 transition transform duration-300">
+                    @if ($product->image_url)
+                        <img src="{{ $product->image_url }}"
+                             alt="{{ $product->name }}"
+                             class="h-32 w-32 object-contain drop-shadow-md group-hover:scale-105 transition transform duration-300">
+                    @else
+                        <div class="h-28 w-28 rounded-full bg-[#E8DCC4] border border-[#CDB48F] flex items-center justify-center text-4xl shadow-inner group-hover:scale-105 transition duration-300 select-none">
+                            @if (str_contains(strtolower($product->name), 'croissant') || str_contains(strtolower($product->name), 'roti'))
+                                🥐
+                            @elseif (str_contains(strtolower($product->name), 'nasi'))
+                                🍲
+                            @elseif (str_contains(strtolower($product->name), 'fries'))
+                                🍟
+                            @elseif (str_contains(strtolower($product->name), 'churros'))
+                                🥖
+                            @else
+                                🍽️
+                            @endif
+                        </div>
+                    @endif
                 </div>
 
                 <!-- Category pill & favorite flag -->
@@ -197,9 +219,14 @@
             <!-- Product Header with Real Image Thumbnail -->
             <div class="border-b border-dashed border-[#CDB48F] pb-5 mb-5 flex items-start gap-4">
                 <div class="w-16 h-16 sm:w-20 sm:h-20 bg-[#F4ECDD] rounded-xl flex items-center justify-center p-2 flex-shrink-0 border border-[#CDB48F]/50">
-                    <img :src="selectedProduct ? selectedProduct.image_url : '{{ asset('images/cup-latte.png') }}'"
-                         :alt="selectedProduct ? selectedProduct.name : ''"
-                         class="w-full h-full object-contain drop-shadow-sm">
+                    <template x-if="selectedProduct && selectedProduct.image_url">
+                        <img :src="selectedProduct.image_url"
+                             :alt="selectedProduct.name"
+                             class="w-full h-full object-contain drop-shadow-sm">
+                    </template>
+                    <template x-if="selectedProduct && !selectedProduct.image_url">
+                        <span class="text-3xl select-none">🍽️</span>
+                    </template>
                 </div>
                 <div class="flex-1 pr-6">
                     <span class="text-xs uppercase tracking-wider font-semibold text-[#B5753A] block mb-1"

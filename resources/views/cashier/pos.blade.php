@@ -116,7 +116,21 @@
                                     <span class="text-[10px] uppercase font-bold text-[#B5753A] block">{{ $cat->name }}</span>
                                     <strong class="font-display text-sm text-[#2B1D14] leading-tight block truncate mt-1 group-hover:text-[#B5753A] transition">{{ $p->name }}</strong>
                                 </div>
-                                <img src="{{ $p->image_url }}" class="w-8 h-8 object-contain flex-shrink-0 drop-shadow-sm" alt="{{ $p->name }}">
+                                @if ($p->image_url)
+                                    <img src="{{ $p->image_url }}" class="w-8 h-8 object-contain flex-shrink-0 drop-shadow-sm" alt="{{ $p->name }}">
+                                @else
+                                    <span class="text-base flex-shrink-0 select-none">
+                                        @if (str_contains(strtolower($p->name), 'croissant') || str_contains(strtolower($p->name), 'roti'))
+                                            🥐
+                                        @elseif (str_contains(strtolower($p->name), 'nasi'))
+                                            🍲
+                                        @elseif (str_contains(strtolower($p->name), 'fries'))
+                                            🍟
+                                        @else
+                                            🍽️
+                                        @endif
+                                    </span>
+                                @endif
                             </div>
                             <div class="font-display font-bold text-sm text-[#2B1D14] pt-2 border-t border-dashed border-[#CDB48F]/60">
                                 {{ $p->formatted_price }}
