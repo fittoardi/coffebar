@@ -3,7 +3,7 @@
 @section('title', 'Berkreasi Minuman Kustom')
 
 @section('content')
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16"
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10"
      x-data="{
         name: 'Racikan Pilihan Saya',
         selectedBase: 'Espresso Blend',
@@ -47,70 +47,53 @@
         }
      }">
 
-    <!-- Header Section with Retro Label -->
-    <div class="text-center mb-12">
-        <span class="inline-block bg-retro-orange text-parchment font-heading text-[11px] font-black uppercase tracking-widest px-3 py-1 border-2 border-rustic-900 shadow-rustic-sm mb-3 -rotate-1">
-            ★ COFFEBAR COFFEE LAB & ROASTERY ★
-        </span>
-        <h1 class="font-display font-black text-4xl sm:text-5xl text-rustic-900 tracking-tight">
+    <!-- Header Section -->
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-900 tracking-tight">
             Racik Minumanmu Sendiri
         </h1>
-        <div class="text-retro-orange text-sm tracking-widest my-2 select-none flex items-center justify-center gap-3">
-            <span class="h-0.5 w-12 bg-retro-orange/60 inline-block"></span>
-            <span class="text-retro-mustard font-bold">❧ ✦ ❧</span>
-            <span class="h-0.5 w-12 bg-retro-orange/60 inline-block"></span>
-        </div>
-        <p class="font-body italic text-rustic-700 text-sm sm:text-base max-w-xl mx-auto">
-            Eksplorasi kombinasi rasa yang paling pas dengan seleramu. Pilih bahan dasar, sesuaikan manis dan suhu, lalu tambahkan topping favorit.
+        <p class="text-gray-500 text-sm mt-1">
+            Eksplorasi kombinasi rasa yang pas dengan seleramu. Pilih bahan dasar, ukuran, tingkat gula, suhu, dan topping.
         </p>
     </div>
 
     <!-- Main Builder Grid: Left Preview, Right Controls -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
 
-        <!-- LEFT COLUMN: STICKY CUP PREVIEW & PRICE -->
-        <div class="lg:col-span-5 lg:sticky lg:top-28">
-            <div class="bg-[#FFF8F0] border-2 border-copper rounded-sm p-6 sm:p-8 shadow-rustic-lg text-center space-y-6">
+        <!-- LEFT COLUMN: SUMMARY & PRICE -->
+        <div class="lg:col-span-5 lg:sticky lg:top-24">
+            <div class="bg-white border border-gray-200 rounded-lg p-6 space-y-6">
 
-                <!-- Dynamic Crafted Cup Illustration -->
-                <div class="w-48 h-56 mx-auto bg-rustic-900 border-2 border-rustic-700 rounded-sm p-4 flex flex-col justify-between items-center relative overflow-hidden shadow-inner text-parchment">
-                    <span class="absolute top-2 right-2 text-[10px] font-heading uppercase px-2 py-0.5 border border-copper"
-                          x-text="selectedIce === 'Dingin (Es Batu)' ? '❄ DINGIN' : '☕ HANGAT'"></span>
-
-                    <!-- Cup Icon -->
-                    <div class="mt-4 text-5xl">
-                        <span x-show="selectedBase.includes('Espresso') || selectedBase.includes('Cold Brew')">☕</span>
-                        <span x-show="selectedBase.includes('Matcha')">🍵</span>
-                        <span x-show="selectedBase.includes('Tea')">🫖</span>
-                        <span x-show="selectedBase.includes('Milk')">🥛</span>
+                <!-- Summary Box -->
+                <div class="bg-gray-50 border border-gray-200 rounded-lg p-5 text-center space-y-3">
+                    <div class="text-4xl">☕</div>
+                    <div class="font-bold text-lg text-gray-900 truncate" x-text="name"></div>
+                    <div class="text-sm font-semibold text-blue-600" x-text="selectedBase"></div>
+                    <div class="text-xs text-gray-500 space-y-1">
+                        <div>Ukuran: <span class="font-medium text-gray-700" x-text="selectedSize"></span></div>
+                        <div>Gula: <span class="font-medium text-gray-700" x-text="selectedSugar"></span></div>
+                        <div>Suhu: <span class="font-medium text-gray-700" x-text="selectedIce"></span></div>
                     </div>
 
-                    <!-- Selected Base & Size on the Cup -->
-                    <div class="space-y-1 text-center w-full px-2">
-                        <div class="font-display font-bold text-sm text-copper truncate" x-text="name"></div>
-                        <div class="font-heading text-[11px] text-rustic-300 uppercase tracking-wider" x-text="selectedBase"></div>
-                        <div class="text-[10px] text-rustic-400 italic">
-                            Ukuran: <span x-text="selectedSize"></span> | Gula: <span x-text="selectedSugar"></span>
-                        </div>
-                    </div>
-
-                    <!-- Topping Badges Preview -->
-                    <div class="w-full flex flex-wrap gap-1 justify-center pt-2 border-t border-rustic-800 text-[9px] text-parchment font-heading">
-                        <template x-for="t in selectedToppings" :key="t.name">
-                            <span class="bg-rustic-800 px-1.5 py-0.5 border border-copper rounded-xs" x-text="'+ ' + t.name"></span>
+                    <!-- Toppings List -->
+                    <div class="pt-3 border-t border-gray-200 text-xs text-gray-600">
+                        <div class="font-medium mb-1">Topping:</div>
+                        <template x-if="selectedToppings.length === 0">
+                            <span class="text-gray-400">Tidak ada</span>
                         </template>
-                        <span x-show="selectedToppings.length === 0" class="text-rustic-500 italic text-[10px]">Tanpa Topping Tambahan</span>
+                        <div class="flex flex-wrap gap-1 justify-center">
+                            <template x-for="t in selectedToppings" :key="t.name">
+                                <span class="bg-gray-200 text-gray-700 px-2 py-0.5 rounded text-xs" x-text="t.name"></span>
+                            </template>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Price and Calculation -->
-                <div class="border-t-2 border-dashed border-rustic-300 pt-4">
-                    <div class="text-xs font-heading uppercase tracking-widest text-rustic-600">Perkiraan Harga</div>
-                    <div class="font-display font-bold text-3xl sm:text-4xl text-rustic-900 mt-1"
+                <div class="border-t border-gray-200 pt-4 text-center">
+                    <div class="text-xs text-gray-500">Total Harga</div>
+                    <div class="font-bold text-3xl text-gray-900 mt-1"
                          x-text="formatRupiah(calculateTotalPrice())"></div>
-                    <div class="text-xs text-rustic-500 font-body italic mt-0.5">
-                        Harga dihitung otomatis secara real-time
-                    </div>
                 </div>
 
                 <!-- Forms / Buttons: Save & Order -->
@@ -132,8 +115,8 @@
                             <input type="hidden" name="notes" :value="notes">
 
                             <button type="submit"
-                                    class="w-full bg-rustic-800 text-parchment border-2 border-copper hover:bg-rustic-700 font-heading tracking-widest uppercase text-xs py-3.5 shadow-rustic transition duration-150 active:translate-x-0.5 active:translate-y-0.5 font-bold">
-                                🛒 PESAN KREASI INI SEKARANG
+                                    class="w-full bg-blue-600 text-white hover:bg-blue-700 font-medium text-sm py-3 rounded-md transition cursor-pointer">
+                                Tambahkan ke Keranjang
                             </button>
                         </form>
 
@@ -152,20 +135,20 @@
                             <input type="hidden" name="notes" :value="notes">
 
                             <button type="submit"
-                                    class="w-full bg-transparent text-rustic-800 border-2 border-rustic-700 hover:bg-rustic-100 font-heading tracking-widest uppercase text-xs py-2.5 transition active:translate-x-0.5 active:translate-y-0.5">
-                                ⭐ SIMPAN KE FAVORIT SAYA
+                                    class="w-full bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 font-medium text-sm py-2.5 rounded-md transition cursor-pointer">
+                                Simpan ke Favorit
                             </button>
                         </form>
                     @else
                         <!-- Guest notice -->
-                        <div class="bg-rustic-100 p-3 border border-copper text-xs font-body text-rustic-800 text-left">
-                            <span class="font-bold font-heading text-copper block uppercase">✦ Masuk untuk Memesan:</span>
-                            Anda bebas mencoba racikan di simulator ini. Untuk menyimpan resep atau memesannya ke kasir, silakan masuk ke akun Anda.
+                        <div class="bg-blue-50 border border-blue-200 p-3 rounded-md text-xs text-blue-800 text-left">
+                            <span class="font-bold block mb-1">Masuk untuk Memesan:</span>
+                            Silakan masuk atau daftar terlebih dahulu untuk memesan racikan ini.
                         </div>
 
                         <a href="{{ route('login') }}"
-                           class="block w-full bg-rustic-800 text-parchment border-2 border-copper hover:bg-rustic-700 font-heading tracking-widest uppercase text-xs py-3.5 shadow-rustic transition active:translate-x-0.5 active:translate-y-0.5 font-bold">
-                            MASUK UNTUK MEMESAN
+                           class="block text-center w-full bg-blue-600 text-white hover:bg-blue-700 font-medium text-sm py-3 rounded-md transition">
+                            Masuk untuk Memesan
                         </a>
                     @endauth
                 </div>
@@ -174,39 +157,31 @@
         </div>
 
         <!-- RIGHT COLUMN: BUILDER OPTIONS CONTROLS -->
-        <div class="lg:col-span-7 space-y-8">
+        <div class="lg:col-span-7 space-y-6">
 
             <!-- 1. Nama Kreasi -->
-            <div class="bg-parchment border-2 border-rustic-500 rounded-sm p-6 shadow-rustic">
-                <label for="craft-name" class="block font-heading font-bold text-sm uppercase tracking-wider text-rustic-900 mb-1">
+            <div class="bg-white border border-gray-200 rounded-lg p-5">
+                <label for="craft-name" class="block font-semibold text-sm text-gray-900 mb-1">
                     1. Beri Nama Racikan Minumanmu
                 </label>
-                <p class="font-body italic text-xs text-rustic-600 mb-3">
-                    Berikan nama kreatif untuk kreasi unikmu
-                </p>
                 <input type="text"
                        id="craft-name"
                        x-model="name"
-                       class="w-full bg-[#FFF8F0] border-2 border-rustic-400 font-display font-bold text-base px-4 py-2.5 text-rustic-900 rounded-sm focus:border-copper focus:outline-none">
+                       class="w-full bg-white border border-gray-300 font-medium text-sm px-3.5 py-2 text-gray-900 rounded-md focus:border-blue-500 focus:outline-none">
             </div>
 
             <!-- 2. Pilihan Base Minuman -->
-            <div class="bg-parchment border-2 border-rustic-500 rounded-sm p-6 shadow-rustic">
-                <label class="block font-heading font-bold text-sm uppercase tracking-wider text-rustic-900 mb-1">
+            <div class="bg-white border border-gray-200 rounded-lg p-5">
+                <label class="block font-semibold text-sm text-gray-900 mb-2">
                     2. Pilih Bahan Dasar (Base)
                 </label>
-                <p class="font-body italic text-xs text-rustic-600 mb-3">
-                    Fondasi rasa utama dari minumanmu
-                </p>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     @foreach ($bases as $base)
                         <div @click="selectBase('{{ $base->name }}', {{ (float) $base->price }})"
-                             class="p-3.5 border-2 rounded-sm cursor-pointer transition flex items-center justify-between"
-                             :class="selectedBase === '{{ $base->name }}' ? 'bg-rustic-800 text-parchment border-copper shadow-rustic-sm font-bold' : 'bg-[#FFF8F0] text-rustic-800 border-rustic-400 hover:bg-rustic-100'">
-                            <div>
-                                <div class="font-heading text-xs uppercase tracking-wide">{{ $base->name }}</div>
-                            </div>
-                            <div class="font-display font-bold text-xs text-copper">
+                             class="p-3 border rounded-md cursor-pointer transition flex items-center justify-between"
+                             :class="selectedBase === '{{ $base->name }}' ? 'bg-blue-50 border-blue-600 text-blue-900' : 'bg-white border-gray-200 text-gray-700 hover:bg-gray-50'">
+                            <div class="font-medium text-sm">{{ $base->name }}</div>
+                            <div class="font-bold text-xs text-gray-900">
                                 {{ $base->formatted_price }}
                             </div>
                         </div>
@@ -215,17 +190,17 @@
             </div>
 
             <!-- 3. Ukuran Cup -->
-            <div class="bg-parchment border-2 border-rustic-500 rounded-sm p-6 shadow-rustic">
-                <label class="block font-heading font-bold text-sm uppercase tracking-wider text-rustic-900 mb-1">
-                    3. Pilih Ukuran Cup
+            <div class="bg-white border border-gray-200 rounded-lg p-5">
+                <label class="block font-semibold text-sm text-gray-900 mb-2">
+                    3. Pilih Ukuran
                 </label>
-                <div class="grid grid-cols-3 gap-3 mt-3">
+                <div class="grid grid-cols-3 gap-3">
                     @foreach ($sizes as $size)
                         <div @click="selectSize('{{ $size->name }}', {{ (float) $size->price }})"
-                             class="p-3 border-2 text-center rounded-sm cursor-pointer transition"
-                             :class="selectedSize === '{{ $size->name }}' ? 'bg-rustic-800 text-parchment border-copper shadow-rustic-sm font-bold' : 'bg-[#FFF8F0] text-rustic-800 border-rustic-400 hover:bg-rustic-100'">
-                            <div class="font-heading text-xs uppercase">{{ $size->name }}</div>
-                            <div class="text-[11px] text-copper mt-0.5">
+                             class="p-3 border text-center rounded-md cursor-pointer transition"
+                             :class="selectedSize === '{{ $size->name }}' ? 'bg-blue-50 border-blue-600 text-blue-900' : 'bg-white border-gray-200 text-gray-700 hover:bg-gray-50'">
+                            <div class="font-medium text-xs">{{ $size->name }}</div>
+                            <div class="text-[11px] text-gray-500 mt-0.5">
                                 {{ (float) $size->price > 0 ? '+ ' . $size->formatted_price : '+ Rp 0' }}
                             </div>
                         </div>
@@ -234,26 +209,26 @@
             </div>
 
             <!-- 4. Gula & Suhu -->
-            <div class="bg-parchment border-2 border-rustic-500 rounded-sm p-6 shadow-rustic space-y-6">
+            <div class="bg-white border border-gray-200 rounded-lg p-5 space-y-5">
                 <!-- Gula -->
                 <div>
-                    <label class="block font-heading font-bold text-sm uppercase tracking-wider text-rustic-900 mb-1">
+                    <label class="block font-semibold text-sm text-gray-900 mb-2">
                         4. Tingkat Kemanisan
                     </label>
-                    <div class="grid grid-cols-3 gap-3 mt-2">
+                    <div class="grid grid-cols-3 gap-3">
                         <div @click="selectedSugar = 'Tanpa Gula (0%)'"
-                             class="p-2.5 text-center border-2 rounded-sm cursor-pointer text-xs font-heading uppercase transition"
-                             :class="selectedSugar === 'Tanpa Gula (0%)' ? 'bg-rustic-800 text-parchment border-copper font-bold' : 'bg-[#FFF8F0] text-rustic-800 border-rustic-400'">
-                            0% (Pahit / Plain)
+                             class="p-2.5 text-center border rounded-md cursor-pointer text-xs font-medium transition"
+                             :class="selectedSugar === 'Tanpa Gula (0%)' ? 'bg-blue-50 border-blue-600 text-blue-900' : 'bg-white border-gray-200 text-gray-700 hover:bg-gray-50'">
+                            0% (Tanpa Gula)
                         </div>
                         <div @click="selectedSugar = 'Sedikit Manis (50%)'"
-                             class="p-2.5 text-center border-2 rounded-sm cursor-pointer text-xs font-heading uppercase transition"
-                             :class="selectedSugar === 'Sedikit Manis (50%)' ? 'bg-rustic-800 text-parchment border-copper font-bold' : 'bg-[#FFF8F0] text-rustic-800 border-rustic-400'">
-                            50% (Sedang)
+                             class="p-2.5 text-center border rounded-md cursor-pointer text-xs font-medium transition"
+                             :class="selectedSugar === 'Sedikit Manis (50%)' ? 'bg-blue-50 border-blue-600 text-blue-900' : 'bg-white border-gray-200 text-gray-700 hover:bg-gray-50'">
+                            50% (Sedikit Manis)
                         </div>
                         <div @click="selectedSugar = 'Normal (100%)'"
-                             class="p-2.5 text-center border-2 rounded-sm cursor-pointer text-xs font-heading uppercase transition"
-                             :class="selectedSugar === 'Normal (100%)' ? 'bg-rustic-800 text-parchment border-copper font-bold' : 'bg-[#FFF8F0] text-rustic-800 border-rustic-400'">
+                             class="p-2.5 text-center border rounded-md cursor-pointer text-xs font-medium transition"
+                             :class="selectedSugar === 'Normal (100%)' ? 'bg-blue-50 border-blue-600 text-blue-900' : 'bg-white border-gray-200 text-gray-700 hover:bg-gray-50'">
                             100% (Normal)
                         </div>
                     </div>
@@ -261,42 +236,39 @@
 
                 <!-- Suhu -->
                 <div>
-                    <label class="block font-heading font-bold text-sm uppercase tracking-wider text-rustic-900 mb-1">
+                    <label class="block font-semibold text-sm text-gray-900 mb-2">
                         5. Suhu Penyajian
                     </label>
-                    <div class="grid grid-cols-2 gap-3 mt-2">
+                    <div class="grid grid-cols-2 gap-3">
                         <div @click="selectedIce = 'Dingin (Es Batu)'"
-                             class="p-3 text-center border-2 rounded-sm cursor-pointer text-xs font-heading uppercase transition"
-                             :class="selectedIce === 'Dingin (Es Batu)' ? 'bg-rustic-800 text-parchment border-copper font-bold' : 'bg-[#FFF8F0] text-rustic-800 border-rustic-400'">
-                            ❄ Dingin (Es Batu)
+                             class="p-2.5 text-center border rounded-md cursor-pointer text-xs font-medium transition"
+                             :class="selectedIce === 'Dingin (Es Batu)' ? 'bg-blue-50 border-blue-600 text-blue-900' : 'bg-white border-gray-200 text-gray-700 hover:bg-gray-50'">
+                            Dingin (Es Batu)
                         </div>
                         <div @click="selectedIce = 'Hangat / Panas'"
-                             class="p-3 text-center border-2 rounded-sm cursor-pointer text-xs font-heading uppercase transition"
-                             :class="selectedIce === 'Hangat / Panas' ? 'bg-rustic-800 text-parchment border-copper font-bold' : 'bg-[#FFF8F0] text-rustic-800 border-rustic-400'">
-                            ☕ Hangat / Panas
+                             class="p-2.5 text-center border rounded-md cursor-pointer text-xs font-medium transition"
+                             :class="selectedIce === 'Hangat / Panas' ? 'bg-blue-50 border-blue-600 text-blue-900' : 'bg-white border-gray-200 text-gray-700 hover:bg-gray-50'">
+                            Hangat / Panas
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- 5. Toppings -->
-            <div class="bg-parchment border-2 border-rustic-500 rounded-sm p-6 shadow-rustic">
-                <label class="block font-heading font-bold text-sm uppercase tracking-wider text-rustic-900 mb-1">
-                    6. Tambahan Topping (Bisa Lebih Dari Satu)
+            <div class="bg-white border border-gray-200 rounded-lg p-5">
+                <label class="block font-semibold text-sm text-gray-900 mb-2">
+                    6. Tambahan Topping (Opsional)
                 </label>
-                <p class="font-body italic text-xs text-rustic-600 mb-3">
-                    Klik topping yang ingin kamu tambahkan ke dalam gelasmu
-                </p>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     @foreach ($toppings as $topping)
                         <div @click="toggleTopping('{{ $topping->name }}', {{ (float) $topping->price }})"
-                             class="p-3 border-2 rounded-sm cursor-pointer transition flex items-center justify-between"
-                             :class="isToppingSelected('{{ $topping->name }}') ? 'bg-rustic-800 text-parchment border-copper shadow-rustic-sm font-bold' : 'bg-[#FFF8F0] text-rustic-800 border-rustic-400 hover:bg-rustic-100'">
+                             class="p-3 border rounded-md cursor-pointer transition flex items-center justify-between"
+                             :class="isToppingSelected('{{ $topping->name }}') ? 'bg-blue-50 border-blue-600 text-blue-900' : 'bg-white border-gray-200 text-gray-700 hover:bg-gray-50'">
                             <div class="flex items-center space-x-2">
-                                <span x-show="isToppingSelected('{{ $topping->name }}')" class="text-copper">✓</span>
-                                <span class="font-heading text-xs uppercase">{{ $topping->name }}</span>
+                                <span x-show="isToppingSelected('{{ $topping->name }}')" class="text-blue-600 font-bold">✓</span>
+                                <span class="text-xs font-medium">{{ $topping->name }}</span>
                             </div>
-                            <span class="font-display font-bold text-xs text-copper">
+                            <span class="text-xs font-bold text-gray-900">
                                 + {{ $topping->formatted_price }}
                             </span>
                         </div>
@@ -305,45 +277,45 @@
             </div>
 
             <!-- 6. Jumlah & Catatan Barista -->
-            <div class="bg-parchment border-2 border-rustic-500 rounded-sm p-6 shadow-rustic grid grid-cols-1 sm:grid-cols-3 gap-4 items-end">
+            <div class="bg-white border border-gray-200 rounded-lg p-5 grid grid-cols-1 sm:grid-cols-3 gap-4 items-end">
                 <div>
-                    <label class="block font-heading font-bold text-xs uppercase text-rustic-900 mb-1">
+                    <label class="block font-semibold text-xs text-gray-700 mb-1">
                         Jumlah Gelas
                     </label>
-                    <div class="flex items-center border-2 border-rustic-400 rounded-sm bg-[#FFF8F0]">
+                    <div class="flex items-center border border-gray-300 rounded-md bg-white">
                         <button type="button" @click="if (quantity > 1) quantity--"
-                                class="px-3 py-2 font-bold text-rustic-800 hover:bg-rustic-200">-</button>
+                                class="px-3 py-2 font-bold text-gray-600 hover:bg-gray-100">-</button>
                         <input type="number" x-model="quantity" min="1"
-                               class="w-full text-center bg-transparent font-bold text-sm border-0 focus:ring-0 p-1">
+                               class="w-full text-center bg-transparent font-semibold text-sm border-0 focus:ring-0 p-1">
                         <button type="button" @click="quantity++"
-                                class="px-3 py-2 font-bold text-rustic-800 hover:bg-rustic-200">+</button>
+                                class="px-3 py-2 font-bold text-gray-600 hover:bg-gray-100">+</button>
                     </div>
                 </div>
 
                 <div class="sm:col-span-2">
-                    <label class="block font-heading font-bold text-xs uppercase text-rustic-900 mb-1">
-                        Catatan Khusus untuk Barista
+                    <label class="block font-semibold text-xs text-gray-700 mb-1">
+                        Catatan Khusus
                     </label>
                     <input type="text"
                            x-model="notes"
-                           placeholder="Contoh: Tolong diaduk rata, es batu jangan kebanyakan"
-                           class="w-full bg-[#FFF8F0] border-2 border-rustic-400 text-xs font-body p-2.5 rounded-sm focus:border-copper focus:outline-none">
+                           placeholder="Contoh: Es dipisah, dll."
+                           class="w-full bg-white border border-gray-300 text-xs p-2 rounded-md focus:border-blue-500 focus:outline-none">
                 </div>
             </div>
 
             <!-- Saved User Custom Menus (If Authenticated) -->
             @auth
                 @if ($savedMenus->isNotEmpty())
-                    <div class="bg-[#FFF8F0] border-2 border-copper rounded-sm p-6 shadow-rustic">
-                        <h3 class="font-heading font-bold text-sm uppercase tracking-wider text-rustic-900 mb-3">
-                            ⭐ Racikan Favorit yang Pernah Kamu Simpan
+                    <div class="bg-white border border-gray-200 rounded-lg p-5">
+                        <h3 class="font-semibold text-sm text-gray-900 mb-3">
+                            Racikan Favorit yang Disimpan
                         </h3>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             @foreach ($savedMenus as $saved)
-                                <div class="bg-parchment border border-rustic-400 p-3 rounded-sm flex items-center justify-between">
+                                <div class="bg-gray-50 border border-gray-200 p-3 rounded-md flex items-center justify-between">
                                     <div>
-                                        <div class="font-display font-bold text-sm text-rustic-900">{{ $saved->name }}</div>
-                                        <div class="text-[11px] text-rustic-600 italic">
+                                        <div class="font-bold text-sm text-gray-900">{{ $saved->name }}</div>
+                                        <div class="text-xs text-gray-500">
                                             {{ $saved->base }} ({{ $saved->size }}) • {{ $saved->formatted_price }}
                                         </div>
                                     </div>
@@ -362,7 +334,7 @@
                                         <input type="hidden" name="price" value="{{ $saved->price }}">
                                         <input type="hidden" name="quantity" value="1">
                                         <button type="submit"
-                                                class="bg-rustic-800 text-parchment font-heading text-[10px] uppercase px-3 py-1.5 border border-copper hover:bg-rustic-700">
+                                                class="bg-blue-600 text-white text-xs font-medium px-3 py-1.5 rounded hover:bg-blue-700 transition cursor-pointer">
                                             + Pesan
                                         </button>
                                     </form>

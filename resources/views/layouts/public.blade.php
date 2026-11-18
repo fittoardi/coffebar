@@ -3,69 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Kedai Kopi & Cerita Autentik') — CoffeBar</title>
-
-    <!-- Google Fonts: Rustic Typography -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    <title>@yield('title', 'Kedai Kopi') — CoffeBar</title>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('styles')
 </head>
-<body class="texture-parchment min-h-screen font-body text-rustic-800 flex flex-col antialiased selection:bg-copper selection:text-rustic-900"
+<body class="bg-gray-50 text-gray-900 min-h-screen flex flex-col font-sans antialiased"
       x-data="{ mobileMenuOpen: false }">
 
     @php
         $cartCount = app(\App\Services\Cart\CartService::class)->getCount();
     @endphp
 
-    <!-- Top Retro Navigation Bar with 70s Burnt Orange Accent -->
-    <nav class="sticky top-0 z-40 bg-rustic-900 text-parchment border-t-4 border-retro-orange border-b-2 border-rustic-950 shadow-md">
+    <!-- Simple Functional Navigation Bar -->
+    <nav class="sticky top-0 z-40 bg-white border-b border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-18 sm:h-20">
+            <div class="flex items-center justify-between h-16">
 
                 <!-- Logo & Brand -->
                 <div class="flex items-center space-x-3">
-                    <a href="{{ route('home') }}" class="flex items-center space-x-3 text-copper hover:text-copper-light transition group">
-                        <span class="text-2xl sm:text-3xl font-display font-black tracking-wide text-parchment group-hover:text-retro-orange transition flex items-center gap-2">
-                            <span>☕</span>
-                            <span class="tracking-tight">COFFEBAR</span>
-                        </span>
-                        <span class="hidden sm:inline-block text-[9px] font-heading tracking-widest text-retro-mustard uppercase font-bold border-l-2 border-rustic-700 pl-3">
-                            ★ ESTD. 2026 ★
-                        </span>
+                    <a href="{{ route('home') }}" class="flex items-center space-x-2 text-gray-900 font-bold text-xl tracking-tight hover:text-blue-600 transition">
+                        <span>☕</span>
+                        <span>COFFEBAR</span>
                     </a>
                 </div>
 
                 <!-- Desktop Navigation Links -->
-                <div class="hidden md:flex items-center space-x-8 font-heading text-sm tracking-wider uppercase">
+                <div class="hidden md:flex items-center space-x-6 text-sm font-medium text-gray-700">
                     <a href="{{ route('home') }}"
-                       class="{{ request()->routeIs('home') ? 'text-copper border-b-2 border-copper pb-1' : 'text-parchment hover:text-copper' }} transition">
+                       class="{{ request()->routeIs('home') ? 'text-blue-600 font-semibold' : 'hover:text-gray-900' }} transition">
                         Beranda
                     </a>
                     <a href="{{ route('menu.index') }}"
-                       class="{{ request()->routeIs('menu.*') ? 'text-copper border-b-2 border-copper pb-1' : 'text-parchment hover:text-copper' }} transition">
+                       class="{{ request()->routeIs('menu.*') ? 'text-blue-600 font-semibold' : 'hover:text-gray-900' }} transition">
                         Menu Kami
                     </a>
                     <a href="{{ route('custom.index') }}"
-                       class="{{ request()->routeIs('custom.*') ? 'text-copper border-b-2 border-copper pb-1' : 'text-parchment hover:text-copper' }} transition">
-                        Berkreasi ✦
+                       class="{{ request()->routeIs('custom.*') ? 'text-blue-600 font-semibold' : 'hover:text-gray-900' }} transition">
+                        Berkreasi
                     </a>
                 </div>
 
                 <!-- Right Action Icons: Cart & Auth -->
-                <div class="flex items-center space-x-4 sm:space-x-6">
+                <div class="flex items-center space-x-4">
                     <!-- Shopping Cart Icon -->
                     <a href="{{ route('cart.index') }}"
-                       class="relative p-2 text-parchment hover:text-copper transition"
+                       class="relative p-2 text-gray-700 hover:text-blue-600 transition"
                        title="Keranjang Pesanan">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                   d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                         </svg>
                         @if ($cartCount > 0)
-                            <span class="absolute -top-1 -right-1 bg-copper text-rustic-900 font-heading font-bold text-xs w-5 h-5 rounded-full flex items-center justify-center border border-rustic-900 shadow">
+                            <span class="absolute -top-1 -right-1 bg-blue-600 text-white font-bold text-xs w-5 h-5 rounded-full flex items-center justify-center">
                                 {{ $cartCount }}
                             </span>
                         @endif
@@ -76,9 +66,9 @@
                         <div class="relative" x-data="{ userMenuOpen: false }">
                             <button @click="userMenuOpen = !userMenuOpen"
                                     type="button"
-                                    class="flex items-center space-x-2 text-xs font-heading uppercase tracking-wider text-parchment hover:text-copper border border-rustic-700 bg-rustic-800 px-3 py-1.5 rounded-sm transition">
-                                <span>{{ Str::limit(Auth::user()->name, 12) }}</span>
-                                <svg class="w-4 h-4 text-copper" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    class="flex items-center space-x-2 text-sm text-gray-700 border border-gray-300 bg-white px-3 py-1.5 rounded-md hover:bg-gray-50 transition">
+                                <span>{{ Str::limit(Auth::user()->name, 16) }}</span>
+                                <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                                 </svg>
                             </button>
@@ -86,58 +76,56 @@
                             <!-- User Dropdown Menu -->
                             <div x-show="userMenuOpen"
                                  @click.outside="userMenuOpen = false"
-                                 x-transition:enter="transition ease-out duration-100"
-                                 x-transition:enter-start="opacity-0 scale-95"
-                                 x-transition:enter-end="opacity-100 scale-100"
-                                 class="absolute right-0 mt-2 w-48 bg-rustic-900 border-2 border-copper shadow-rustic rounded-sm py-2 z-50 text-xs font-heading uppercase tracking-wider">
-                                <div class="px-4 py-2 border-b border-rustic-700 text-rustic-400 normal-case font-body">
+                                 x-cloak
+                                 class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 shadow-md rounded-md py-1 z-50 text-sm">
+                                <div class="px-4 py-2 border-b border-gray-100 text-xs text-gray-500">
                                     Masuk sebagai:<br>
-                                    <strong class="text-parchment">{{ Auth::user()->name }}</strong>
+                                    <strong class="text-gray-900 font-medium">{{ Auth::user()->name }}</strong>
                                 </div>
 
                                 <a href="{{ route('orders.index') }}"
-                                   class="block px-4 py-2.5 text-parchment hover:bg-rustic-800 hover:text-copper transition">
-                                    📋 Pesanan Saya
+                                   class="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition">
+                                    Pesanan Saya
                                 </a>
 
                                 @if (Auth::user()->isCashier())
                                     <a href="{{ route('cashier.dashboard') }}"
-                                       class="block px-4 py-2.5 text-parchment hover:bg-rustic-800 hover:text-copper transition">
-                                        🛒 Panel Kasir
+                                       class="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition">
+                                        Panel Kasir
                                     </a>
                                 @endif
 
                                 @if (Auth::user()->isAdmin())
                                     <a href="{{ route('admin.dashboard') }}"
-                                       class="block px-4 py-2.5 text-parchment hover:bg-rustic-800 hover:text-copper transition">
-                                        ⚙️ Panel Admin
+                                       class="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition">
+                                        Panel Admin
                                     </a>
                                 @endif
 
-                                <div class="border-t border-rustic-700 my-1"></div>
+                                <div class="border-t border-gray-100 my-1"></div>
 
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
                                     <button type="submit"
-                                            class="w-full text-left px-4 py-2.5 text-brick hover:bg-rustic-800 transition">
-                                        🚪 Keluar
+                                            class="w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100 transition">
+                                        Keluar
                                     </button>
                                 </form>
                             </div>
                         </div>
                     @else
                         <a href="{{ route('login') }}"
-                           class="hidden sm:inline-block bg-rustic-800 text-parchment border-2 border-copper hover:bg-rustic-700 font-heading text-xs uppercase tracking-widest px-4 py-2 shadow-rustic transition active:translate-x-0.5 active:translate-y-0.5">
-                            MASUK
+                           class="hidden sm:inline-block bg-blue-600 text-white hover:bg-blue-700 text-sm font-medium px-4 py-2 rounded-md transition">
+                            Masuk
                         </a>
                     @endauth
 
                     <!-- Mobile Hamburger Button -->
                     <button @click="mobileMenuOpen = !mobileMenuOpen"
                             type="button"
-                            class="md:hidden text-parchment hover:text-copper p-1 focus:outline-none"
+                            class="md:hidden text-gray-700 hover:text-gray-900 p-1 focus:outline-none"
                             aria-label="Menu Navigasi">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path x-show="!mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                             <path x-show="mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                         </svg>
@@ -148,28 +136,26 @@
 
         <!-- Mobile Drawer Navigation -->
         <div x-show="mobileMenuOpen"
-             x-transition:enter="transition ease-out duration-200"
-             x-transition:enter-start="opacity-0 -translate-y-2"
-             x-transition:enter-end="opacity-100 translate-y-0"
-             class="md:hidden bg-rustic-900 border-t border-rustic-700 px-4 pt-3 pb-5 space-y-3 font-heading uppercase text-sm tracking-wider">
+             x-cloak
+             class="md:hidden bg-white border-t border-gray-200 px-4 pt-2 pb-4 space-y-1 text-sm">
             <a href="{{ route('home') }}"
-               class="block py-2 text-parchment hover:text-copper border-b border-rustic-800">
+               class="block py-2 text-gray-700 hover:text-blue-600 border-b border-gray-100">
                 Beranda
             </a>
             <a href="{{ route('menu.index') }}"
-               class="block py-2 text-parchment hover:text-copper border-b border-rustic-800">
+               class="block py-2 text-gray-700 hover:text-blue-600 border-b border-gray-100">
                 Menu Kami
             </a>
             <a href="{{ route('custom.index') }}"
-               class="block py-2 text-parchment hover:text-copper border-b border-rustic-800">
-                Berkreasi Minuman ✦
+               class="block py-2 text-gray-700 hover:text-blue-600 border-b border-gray-100">
+                Berkreasi
             </a>
 
             @guest
                 <div class="pt-2">
                     <a href="{{ route('login') }}"
-                       class="block text-center w-full bg-rustic-800 text-parchment border-2 border-copper font-heading py-2.5 shadow-rustic">
-                        MASUK KE AKUN
+                       class="block text-center w-full bg-blue-600 text-white font-medium py-2 rounded-md hover:bg-blue-700 transition">
+                        Masuk ke Akun
                     </a>
                 </div>
             @endguest
@@ -178,21 +164,21 @@
 
     <!-- Flash Alerts Container -->
     @if (session('status') || session('success') || session('error'))
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4 w-full">
             @if (session('status'))
-                <div class="p-4 bg-rustic-100 border-l-4 border-copper text-rustic-800 text-sm font-body shadow-sm">
+                <div class="p-4 bg-blue-50 border border-blue-200 text-blue-800 text-sm rounded-md">
                     {{ session('status') }}
                 </div>
             @endif
 
             @if (session('success'))
-                <div class="p-4 bg-[#2D6A4F]/15 border-l-4 border-[#2D6A4F] text-[#2D6A4F] text-sm font-body shadow-sm font-semibold">
+                <div class="p-4 bg-green-50 border border-green-200 text-green-800 text-sm font-medium rounded-md">
                     ✓ {{ session('success') }}
                 </div>
             @endif
 
             @if (session('error'))
-                <div class="p-4 bg-brick/15 border-l-4 border-brick text-brick text-sm font-body shadow-sm">
+                <div class="p-4 bg-red-50 border border-red-200 text-red-800 text-sm rounded-md">
                     ⚠ {{ session('error') }}
                 </div>
             @endif
@@ -204,58 +190,50 @@
         @yield('content')
     </main>
 
-    <!-- Rustic Footer -->
-    <footer class="bg-rustic-900 text-parchment border-t-4 border-copper mt-20 pt-12 pb-8">
+    <!-- Simple Functional Footer -->
+    <footer class="bg-white border-t border-gray-200 mt-16 py-10 text-gray-600 text-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
 
-                <!-- Col 1: Brand & Philosophy -->
-                <div class="md:col-span-2 space-y-3">
-                    <span class="text-3xl font-display font-black tracking-wide text-copper">
-                        ☕ COFFEBAR
+                <!-- Col 1: Brand -->
+                <div class="space-y-2">
+                    <span class="text-xl font-bold text-gray-900 tracking-tight flex items-center gap-2">
+                        <span>☕</span>
+                        <span>COFFEBAR</span>
                     </span>
-                    <div class="text-copper text-xs tracking-widest select-none">
-                        ❧ ─────── ✦ ─────── ❧
-                    </div>
-                    <p class="font-body text-sm text-rustic-300 max-w-md leading-relaxed">
-                        Menyeduh cerita dan cita rasa kopi autentik dari tanah nusantara. Hadir dengan suasana hangat meja kayu tua, aroma biji kopi segar, dan racikan penuh dedikasi.
+                    <p class="text-gray-500 text-sm leading-relaxed">
+                        Menikmati cita rasa kopi pilihan nusantara dengan racikan sederhana dan berkualitas.
                     </p>
                 </div>
 
                 <!-- Col 2: Jam Operasional -->
                 <div class="space-y-2">
-                    <h3 class="font-heading font-bold text-copper uppercase tracking-wider text-sm border-b border-rustic-700 pb-1">
-                        Jam Operasional
-                    </h3>
-                    <ul class="text-sm font-body text-rustic-300 space-y-1">
-                        <li>Senin – Jumat: 08.00 – 22.00</li>
-                        <li>Sabtu – Minggu: 07.00 – 23.00</li>
-                        <li class="italic text-xs text-copper pt-1">Buka setiap hari termasuk hari libur nasional.</li>
+                    <h3 class="font-semibold text-gray-900 text-sm">Jam Operasional</h3>
+                    <ul class="text-gray-500 text-sm space-y-1">
+                        <li>Senin – Jumat: 08.00 – 22.00 WIB</li>
+                        <li>Sabtu – Minggu: 07.00 – 23.00 WIB</li>
                     </ul>
                 </div>
 
                 <!-- Col 3: Lokasi & Kontak -->
                 <div class="space-y-2">
-                    <h3 class="font-heading font-bold text-copper uppercase tracking-wider text-sm border-b border-rustic-700 pb-1">
-                        Kedai Kami
-                    </h3>
-                    <p class="text-sm font-body text-rustic-300">
-                        Jl. Kopi No. 12, Senopati, Kebayoran Baru, Jakarta Selatan.
+                    <h3 class="font-semibold text-gray-900 text-sm">Lokasi & Kontak</h3>
+                    <p class="text-gray-500 text-sm">
+                        Jl. Senopati No. 88, Jakarta Selatan
                     </p>
-                    <div class="pt-2 text-xs font-heading space-y-1">
-                        <div>WhatsApp: <a href="https://wa.me/6281234567890" class="text-copper hover:underline">0812-3456-7890</a></div>
-                        <div>Instagram: <span class="text-copper">@coffebar.id</span></div>
+                    <div class="text-sm space-y-1 text-gray-500">
+                        <div>WhatsApp: 0812-3456-7890</div>
                     </div>
                 </div>
 
             </div>
 
             <!-- Footer Bottom Line -->
-            <div class="border-t border-rustic-800 pt-6 text-center text-xs text-rustic-400 font-body">
-                <div>&copy; {{ date('Y') }} CoffeBar Indonesia. Disajikan dengan rasa bangga dan secangkir cerita.</div>
-                <div class="mt-2 text-[11px]">
-                    <a href="{{ route('staff.login') }}" class="text-rustic-500 hover:text-copper transition font-heading uppercase tracking-wider">
-                        🔐 Portal Khusus Petugas Kasir & Admin →
+            <div class="border-t border-gray-200 pt-6 text-center text-xs text-gray-500 flex flex-col sm:flex-row items-center justify-between gap-2">
+                <div>&copy; {{ date('Y') }} CoffeBar. Semua hak cipta dilindungi.</div>
+                <div>
+                    <a href="{{ route('staff.login') }}" class="text-gray-500 hover:text-gray-900 underline transition">
+                        Portal Staf & Kasir
                     </a>
                 </div>
             </div>
