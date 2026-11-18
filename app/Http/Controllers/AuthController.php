@@ -41,6 +41,7 @@ class AuthController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'phone' => ['required', 'string', 'max:20', 'unique:users,phone'],
+            'password' => ['required', 'string', 'min:6', 'confirmed'],
         ], [
             'name.required' => 'Nama lengkap wajib diisi.',
             'email.required' => 'Alamat email wajib diisi.',
@@ -48,6 +49,9 @@ class AuthController extends Controller
             'email.unique' => 'Alamat email sudah terdaftar. Silakan masuk.',
             'phone.required' => 'Nomor WhatsApp / HP wajib diisi.',
             'phone.unique' => 'Nomor WhatsApp / HP sudah terdaftar. Silakan masuk.',
+            'password.required' => 'Kata sandi wajib diisi.',
+            'password.min' => 'Kata sandi minimal 6 karakter.',
+            'password.confirmed' => 'Konfirmasi kata sandi tidak cocok.',
         ]);
 
         // Normalize Indonesian phone number (e.g. +62 to 08)
@@ -61,7 +65,7 @@ class AuthController extends Controller
             'email' => strtolower($validated['email']),
             'phone' => $cleanPhone,
             'role' => 'customer',
-            'password' => null,
+            'password' => $validated['password'],
         ]);
 
         try {
@@ -168,83 +172,50 @@ class AuthController extends Controller
     }
 
     /**
-     * Handle login (either via password for staff or OTP for customers).
+     * Handle customer & staff login via email/phone and password.
      */
     public function login(Request $request): JsonResponse|RedirectResponse
     {
         $validated = $request->validate([
             'identifier' => ['required', 'string'],
-            'password' => ['nullable', 'string'],
+            'password' => ['required', 'string'],
         ], [
             'identifier.required' => 'Email atau Nomor HP wajib diisi.',
+            'password.required' => 'Kata sandi wajib diisi.',
         ]);
 
         $identifier = trim($validated['identifier']);
-        $password = $validated['password'] ?? null;
+        $password = $validated['password'];
 
         // Find user by email or phone
         $user = User::where('email', strtolower($identifier))
             ->orWhere('phone', $identifier)
             ->first();
 
-        // If password is provided (e.g. Cashier or Admin login)
-        if (! empty($password)) {
-            if (! $user || ! Hash::check($password, (string) $user->password)) {
-                throw ValidationException::withMessages([
-                    'identifier' => 'Kredensial yang diberikan tidak cocok dengan data kami.',
-                ]);
-            }
-
-            Auth::login($user, true);
-
-            if ($request->hasSession()) {
-                $request->session()->regenerate();
-            }
-
-            if ($request->wantsJson()) {
-                $token = $user->createToken('auth-token')->plainTextToken;
-
-                return response()->json([
-                    'message' => 'Login berhasil.',
-                    'token' => $token,
-                    'user' => $user,
-                ]);
-            }
-
-            return $this->redirectBasedOnRole($user);
-        }
-
-        // Standard Customer OTP Login
-        if (! $user) {
+        if (! $user || ! Hash::check($password, (string) $user->password)) {
             throw ValidationException::withMessages([
-                'identifier' => 'Akun dengan email atau nomor HP tersebut belum terdaftar. Silakan daftar terlebih dahulu.',
+                'identifier' => 'Email/No. HP atau kata sandi yang Anda masukkan salah.',
             ]);
         }
 
-        // Generate OTP
-        $channel = filter_var($identifier, FILTER_VALIDATE_EMAIL) ? 'email' : 'whatsapp';
-
-        try {
-            $this->otpService->generate($identifier, $channel, $user->id);
-        } catch (OtpRateLimitException $e) {
-            throw ValidationException::withMessages([
-                'identifier' => $e->getMessage(),
-            ]);
-        }
+        Auth::login($user, $request->boolean('remember'));
 
         if ($request->hasSession()) {
-            $request->session()->put('pending_otp_identifier', $identifier);
+            $request->session()->regenerate();
         }
 
         if ($request->wantsJson()) {
+            $token = $user->createToken('auth-token')->plainTextToken;
+
             return response()->json([
-                'message' => 'Kode OTP telah dikirimkan. Silakan periksa pesan Anda.',
-                'identifier' => $identifier,
+                'message' => 'Login berhasil.',
+                'token' => $token,
+                'user' => $user,
             ]);
         }
 
-        return redirect()->route('otp.verify.notice')
-            ->with('status', 'Kode OTP 6-digit telah dikirim ke '.$identifier.'. Masukkan kode untuk masuk.');
+        return $this->redirectBasedOnRole($user)
+            ->with('success', 'Selamat datang kembali, '.$user->name.'!');
     }
 
     /**
@@ -293,6 +264,12 @@ class AuthController extends Controller
         $user = User::where('email', strtolower($identifier))
             ->orWhere('phone', $identifier)
             ->firstOrFail();
+
+        if (filter_var($identifier, FILTER_VALIDATE_EMAIL)) {
+            $user->update(['email_verified_at' => now()]);
+        } else {
+            $user->update(['phone_verified_at' => now()]);
+        }
 
         Auth::login($user, true);
 

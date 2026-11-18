@@ -3,7 +3,7 @@
 @section('title', 'Katalog Menu Autentik')
 
 @section('content')
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative"
+<div class="w-full px-4 sm:px-8 lg:px-12 xl:px-16 2xl:px-24 py-12 relative overflow-hidden"
     x-data="{
         selectedProduct: null,
         modalOpen: false,
@@ -44,10 +44,10 @@
      }">
 
     <!-- Pinggiran Biji Kopi Halaman Menu: Kiri & Kanan Layar Melayang -->
-    <img src="{{ asset('images/beans-falling.png') }}" class="absolute -left-10 top-16 w-28 h-auto object-contain pointer-events-none opacity-45 -rotate-12 drop-shadow-md select-none hidden xl:block animate-float-slow" alt="" />
-    <img src="{{ asset('images/beans-cluster.png') }}" class="absolute -right-6 top-10 w-24 h-24 object-contain pointer-events-none opacity-50 rotate-45 select-none hidden xl:block animate-float-reverse" alt="" />
-    <img src="{{ asset('images/beans-falling.png') }}" class="absolute -right-10 top-1/2 w-28 h-auto object-contain pointer-events-none opacity-45 rotate-12 drop-shadow-md select-none hidden xl:block animate-float" alt="" />
-    <img src="{{ asset('images/beans-cluster.png') }}" class="absolute -left-6 bottom-16 w-24 h-24 object-contain pointer-events-none opacity-40 -rotate-12 select-none hidden xl:block animate-float-drift" alt="" />
+    <img src="{{ asset('images/beans-falling.png') }}" class="absolute left-2 lg:left-6 top-16 w-24 sm:w-28 h-auto object-contain pointer-events-none opacity-45 -rotate-12 drop-shadow-md select-none hidden sm:block animate-float-slow" alt="" />
+    <img src="{{ asset('images/beans-cluster.png') }}" class="absolute right-4 lg:right-8 top-10 w-20 sm:w-24 h-24 object-contain pointer-events-none opacity-50 rotate-45 select-none hidden md:block animate-float-reverse" alt="" />
+    <img src="{{ asset('images/beans-falling.png') }}" class="absolute right-2 lg:right-6 top-1/2 w-24 sm:w-28 h-auto object-contain pointer-events-none opacity-45 rotate-12 drop-shadow-md select-none hidden sm:block animate-float" alt="" />
+    <img src="{{ asset('images/beans-cluster.png') }}" class="absolute left-4 lg:left-8 bottom-16 w-20 sm:w-24 h-24 object-contain pointer-events-none opacity-40 -rotate-12 select-none hidden md:block animate-float-drift" alt="" />
 
     <!-- Page Header (Rustic Modern: Fraunces + Caveat) -->
     <div class="mb-10 border-b border-dashed border-[#CDB48F] pb-6 relative z-10">
@@ -113,7 +113,7 @@
         </div>
     </div>
     @else
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-6 xl:gap-8">
         @foreach ($products as $product)
         <div class="bg-[#FFFDF8] border border-[#CDB48F] rounded-2xl p-5 sm:p-6 flex flex-col justify-between hover:-translate-y-1.5 hover:shadow-warm-lg transition-all duration-300 relative group reveal-on-scroll">
 

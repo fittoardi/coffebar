@@ -30,16 +30,32 @@ test('registration validates unique email and phone', function () {
         'name' => 'Baru',
         'email' => 'existing@coffebar.id',
         'phone' => '081122334455',
+        'password' => 'secret123',
+        'password_confirmation' => 'secret123',
     ]);
 
     $response->assertSessionHasErrors(['email', 'phone']);
 });
 
-test('registration creates user and redirects to verify otp', function () {
+test('registration validates password confirmation and minimum length', function () {
+    $response = $this->post('/register', [
+        'name' => 'Baru',
+        'email' => 'test@coffebar.id',
+        'phone' => '081122334455',
+        'password' => 'short',
+        'password_confirmation' => 'mismatch',
+    ]);
+
+    $response->assertSessionHasErrors(['password']);
+});
+
+test('registration creates user with password and redirects to verify otp', function () {
     $response = $this->post('/register', [
         'name' => 'Ahmad Pelanggan',
         'email' => 'ahmad@example.com',
         'phone' => '081299887766',
+        'password' => 'secret123',
+        'password_confirmation' => 'secret123',
     ]);
 
     $response->assertRedirect(route('otp.verify.notice'));
@@ -47,6 +63,7 @@ test('registration creates user and redirects to verify otp', function () {
     $user = User::where('email', 'ahmad@example.com')->first();
     expect($user)->not->toBeNull();
     expect($user->role)->toBe('customer');
+    expect(Hash::check('secret123', $user->password))->toBeTrue();
 
     // Asserts OTP was dispatched via email
     Mail::assertSent(SendOtpMail::class, function ($mail) {
@@ -60,24 +77,59 @@ test('registration creates user and redirects to verify otp', function () {
 test('login page can be rendered', function () {
     $response = $this->get('/login');
     $response->assertStatus(200);
-    $response->assertSee('Pelanggan (OTP)');
+    $response->assertSee('Masuk ke Akun');
+    $response->assertSee('Kata Sandi');
 });
 
-test('customer can request login otp', function () {
+test('customer can login directly with password', function () {
     $user = User::factory()->create([
         'email' => 'customer@example.com',
         'phone' => '081233445566',
+        'password' => Hash::make('password123'),
+        'role' => 'customer',
     ]);
 
     $response = $this->post('/login', [
         'identifier' => 'customer@example.com',
+        'password' => 'password123',
     ]);
 
-    $response->assertRedirect(route('otp.verify.notice'));
+    $response->assertRedirect('/');
+    expect(Auth::check())->toBeTrue();
+    expect(Auth::id())->toBe($user->id);
+});
 
-    Mail::assertSent(SendOtpMail::class, function ($mail) {
-        return $mail->hasTo('customer@example.com');
-    });
+test('customer can login with phone and password', function () {
+    $user = User::factory()->create([
+        'email' => 'phoneuser@example.com',
+        'phone' => '081233445566',
+        'password' => Hash::make('password123'),
+        'role' => 'customer',
+    ]);
+
+    $response = $this->post('/login', [
+        'identifier' => '081233445566',
+        'password' => 'password123',
+    ]);
+
+    $response->assertRedirect('/');
+    expect(Auth::check())->toBeTrue();
+    expect(Auth::id())->toBe($user->id);
+});
+
+test('customer cannot login with incorrect password', function () {
+    User::factory()->create([
+        'email' => 'customer@example.com',
+        'password' => Hash::make('correct123'),
+    ]);
+
+    $response = $this->post('/login', [
+        'identifier' => 'customer@example.com',
+        'password' => 'wrongpassword',
+    ]);
+
+    $response->assertSessionHasErrors(['identifier']);
+    expect(Auth::check())->toBeFalse();
 });
 
 test('user can verify otp and becomes authenticated', function () {

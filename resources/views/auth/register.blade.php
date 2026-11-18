@@ -4,9 +4,12 @@
 
 @section('content')
     <div class="mb-6 text-center">
-        <h1 class="font-display text-2xl font-semibold text-[#2B1D14]">Pendaftaran Pelanggan</h1>
+        <span class="inline-block bg-[#E8DCC4] border border-[#CDB48F] text-[#4A3224] text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full mb-3">
+            Pendaftaran Pelanggan
+        </span>
+        <h1 class="font-display text-2xl font-semibold text-[#2B1D14]">Buat Akun Baru</h1>
         <p class="text-xs text-[#6B5646] mt-1.5 leading-relaxed">
-            Daftar untuk mulai memesan dan meracik minuman kustom Anda.
+            Daftar dengan verifikasi OTP untuk mulai memesan kopi dan kudapan autentik.
         </p>
     </div>
 
@@ -26,6 +29,9 @@
                    autofocus
                    placeholder="Contoh: Ahmad Budiman"
                    class="w-full bg-[#FFFDF8] border border-[#CDB48F] px-4 py-2.5 text-sm text-[#2B1D14] rounded-xl focus:border-[#B5753A] focus:outline-none focus:ring-1 focus:ring-[#B5753A]">
+            @error('name')
+                <span class="text-xs text-[#B4552F] mt-1 block">{{ $message }}</span>
+            @enderror
         </div>
 
         <div>
@@ -39,7 +45,10 @@
                    required
                    placeholder="nama@email.com"
                    class="w-full bg-[#FFFDF8] border border-[#CDB48F] px-4 py-2.5 text-sm text-[#2B1D14] rounded-xl focus:border-[#B5753A] focus:outline-none focus:ring-1 focus:ring-[#B5753A]">
-            <span class="text-[11px] text-[#6B5646] mt-1 block">Kode OTP verifikasi akan dikirimkan ke email ini.</span>
+            @error('email')
+                <span class="text-xs text-[#B4552F] mt-1 block">{{ $message }}</span>
+            @enderror
+            <span class="text-[11px] text-[#6B5646] mt-1 block">Kode OTP verifikasi pendaftaran akan dikirimkan ke email ini.</span>
         </div>
 
         <div>
@@ -53,13 +62,44 @@
                    required
                    placeholder="08xxxxxxxxxx"
                    class="w-full bg-[#FFFDF8] border border-[#CDB48F] px-4 py-2.5 text-sm text-[#2B1D14] rounded-xl focus:border-[#B5753A] focus:outline-none focus:ring-1 focus:ring-[#B5753A]">
-            <span class="text-[11px] text-[#6B5646] mt-1 block">Wajib aktif untuk menerima kode verifikasi OTP.</span>
+            @error('phone')
+                <span class="text-xs text-[#B4552F] mt-1 block">{{ $message }}</span>
+            @enderror
+            <span class="text-[11px] text-[#6B5646] mt-1 block">Nomor aktif untuk cadangan penerimaan kode OTP.</span>
+        </div>
+
+        <div>
+            <label for="password" class="block text-xs font-bold uppercase tracking-wider text-[#4A3224] mb-1.5">
+                Kata Sandi <span class="text-[#B4552F]">*</span>
+            </label>
+            <input type="password"
+                   name="password"
+                   id="password"
+                   required
+                   placeholder="Minimal 6 karakter"
+                   class="w-full bg-[#FFFDF8] border border-[#CDB48F] px-4 py-2.5 text-sm text-[#2B1D14] rounded-xl focus:border-[#B5753A] focus:outline-none focus:ring-1 focus:ring-[#B5753A]">
+            @error('password')
+                <span class="text-xs text-[#B4552F] mt-1 block">{{ $message }}</span>
+            @enderror
+            <span class="text-[11px] text-[#6B5646] mt-1 block">Kata sandi ini digunakan untuk login sehari-hari.</span>
+        </div>
+
+        <div>
+            <label for="password_confirmation" class="block text-xs font-bold uppercase tracking-wider text-[#4A3224] mb-1.5">
+                Konfirmasi Kata Sandi <span class="text-[#B4552F]">*</span>
+            </label>
+            <input type="password"
+                   name="password_confirmation"
+                   id="password_confirmation"
+                   required
+                   placeholder="Ulangi kata sandi"
+                   class="w-full bg-[#FFFDF8] border border-[#CDB48F] px-4 py-2.5 text-sm text-[#2B1D14] rounded-xl focus:border-[#B5753A] focus:outline-none focus:ring-1 focus:ring-[#B5753A]">
         </div>
 
         <div class="pt-2">
             <button type="submit"
                     class="w-full bg-[#B5753A] text-white hover:bg-[#B4552F] font-bold text-xs uppercase tracking-wider py-3.5 px-4 rounded-xl transition shadow-warm cursor-pointer">
-                Daftar & Kirim OTP
+                Daftar & Verifikasi OTP →
             </button>
         </div>
     </form>
@@ -67,7 +107,7 @@
     <div class="mt-6 pt-5 border-t border-dashed border-[#CDB48F] text-center text-xs text-[#6B5646]">
         Sudah memiliki akun?
         <a href="{{ route('login') }}" class="text-[#B5753A] hover:text-[#B4552F] font-bold ml-1">
-            Masuk Sekarang
+            Masuk dengan Kata Sandi
         </a>
     </div>
 @endsection

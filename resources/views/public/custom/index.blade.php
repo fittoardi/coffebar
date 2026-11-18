@@ -3,7 +3,7 @@
 @section('title', 'Meja Barista — Racik Minumanmu Sendiri')
 
 @section('content')
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative"
+<div class="w-full px-4 sm:px-8 lg:px-12 xl:px-16 2xl:px-24 py-12 relative overflow-hidden"
      x-data="{
         name: 'Racikan Pilihan Saya',
         selectedBase: 'Espresso Blend',
@@ -55,10 +55,10 @@
      }">
 
     <!-- Pinggiran Biji Kopi Meja Barista: Kiri & Kanan Melayang -->
-    <img src="{{ asset('images/beans-falling.png') }}" class="absolute -left-10 top-16 w-28 h-auto object-contain pointer-events-none opacity-45 -rotate-12 drop-shadow-md select-none hidden xl:block animate-float-slow" alt="" />
-    <img src="{{ asset('images/beans-cluster.png') }}" class="absolute -right-6 top-12 w-24 h-24 object-contain pointer-events-none opacity-50 rotate-45 select-none hidden xl:block animate-float-reverse" alt="" />
-    <img src="{{ asset('images/beans-falling.png') }}" class="absolute -right-10 bottom-24 w-28 h-auto object-contain pointer-events-none opacity-45 rotate-6 drop-shadow-md select-none hidden xl:block animate-float" alt="" />
-    <img src="{{ asset('images/beans-cluster.png') }}" class="absolute -left-6 bottom-16 w-24 h-24 object-contain pointer-events-none opacity-40 -rotate-12 select-none hidden xl:block animate-float-drift" alt="" />
+    <img src="{{ asset('images/beans-falling.png') }}" class="absolute left-2 lg:left-6 top-16 w-24 sm:w-28 h-auto object-contain pointer-events-none opacity-45 -rotate-12 drop-shadow-md select-none hidden sm:block animate-float-slow" alt="" />
+    <img src="{{ asset('images/beans-cluster.png') }}" class="absolute right-4 lg:right-8 top-12 w-20 sm:w-24 h-24 object-contain pointer-events-none opacity-50 rotate-45 select-none hidden md:block animate-float-reverse" alt="" />
+    <img src="{{ asset('images/beans-falling.png') }}" class="absolute right-2 lg:right-6 bottom-24 w-24 sm:w-28 h-auto object-contain pointer-events-none opacity-45 rotate-6 drop-shadow-md select-none hidden sm:block animate-float" alt="" />
+    <img src="{{ asset('images/beans-cluster.png') }}" class="absolute left-4 lg:left-8 bottom-16 w-20 sm:w-24 h-24 object-contain pointer-events-none opacity-40 -rotate-12 select-none hidden md:block animate-float-drift" alt="" />
 
     <!-- Page Header (Rustic Modern) -->
     <div class="mb-10 border-b border-dashed border-[#CDB48F] pb-6 relative z-10 reveal-on-scroll">
@@ -72,10 +72,10 @@
     </div>
 
     <!-- Main Builder Grid: Left Preview & Summary, Right Controls (03-DESIGN.md Section 17.1) -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 xl:gap-12 items-start">
 
         <!-- LEFT COLUMN: SUMMARY & PREVIEW (STICKY MEJA BARISTA) -->
-        <div class="lg:col-span-5 lg:sticky lg:top-24 order-2 lg:order-1">
+        <div class="lg:col-span-5 xl:col-span-5 2xl:col-span-4 lg:sticky lg:top-24 order-2 lg:order-1">
             <div class="bg-[#FFFDF8] border border-[#CDB48F] rounded-2xl p-6 sm:p-7 space-y-6 shadow-warm relative overflow-hidden motion-frame">
                 <img src="{{ asset('images/beans-cluster.png') }}" class="absolute -bottom-4 -right-4 w-20 h-20 object-contain pointer-events-none drop-shadow-sm opacity-60 z-0" alt="Biji Kopi" />
 
@@ -224,7 +224,7 @@
         </div>
 
         <!-- RIGHT COLUMN: STEPPER OPTIONS CONTROLS (MEJA RACIK) -->
-        <div class="lg:col-span-7 space-y-6 order-1 lg:order-2">
+        <div class="lg:col-span-7 xl:col-span-7 2xl:col-span-8 space-y-6 order-1 lg:order-2">
 
             <!-- 1. Nama Kreasi (Caveat Style) -->
             <div class="bg-[#FFFDF8] border border-[#CDB48F] rounded-2xl p-6 shadow-sm">

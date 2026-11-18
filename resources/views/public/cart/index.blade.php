@@ -3,10 +3,10 @@
 @section('title', 'Keranjang Pesanan')
 
 @section('content')
-<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative">
+<div class="max-w-5xl mx-auto px-4 sm:px-8 lg:px-12 py-12 relative overflow-hidden">
     <!-- Pinggiran Biji Kopi Keranjang: Kiri & Kanan Melayang -->
-    <img src="{{ asset('images/beans-falling.png') }}" class="absolute -left-12 top-20 w-24 h-auto object-contain pointer-events-none opacity-40 -rotate-6 select-none hidden lg:block animate-float-slow" alt="" />
-    <img src="{{ asset('images/beans-cluster.png') }}" class="absolute -right-10 bottom-12 w-24 h-24 object-contain pointer-events-none opacity-45 rotate-12 select-none hidden lg:block animate-float-reverse" alt="" />
+    <img src="{{ asset('images/beans-falling.png') }}" class="absolute left-2 lg:left-6 top-20 w-24 h-auto object-contain pointer-events-none opacity-40 -rotate-6 select-none hidden lg:block animate-float-slow" alt="" />
+    <img src="{{ asset('images/beans-cluster.png') }}" class="absolute right-4 lg:right-6 bottom-12 w-24 h-24 object-contain pointer-events-none opacity-45 rotate-12 select-none hidden lg:block animate-float-reverse" alt="" />
 
     <!-- Header (Rustic Modern) -->
     <div class="mb-10 border-b border-dashed border-[#CDB48F] pb-6">

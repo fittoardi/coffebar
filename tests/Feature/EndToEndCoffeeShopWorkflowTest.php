@@ -26,6 +26,8 @@ test('end-to-end: full journey from customer registration, custom menu order, to
         'name' => 'Dewi Lestari',
         'email' => 'dewi@example.com',
         'phone' => '081299887766',
+        'password' => 'secret123',
+        'password_confirmation' => 'secret123',
     ]);
     $registerResponse->assertRedirect(route('otp.verify.notice'));
 

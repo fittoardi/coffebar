@@ -4,102 +4,162 @@
 
 @section('content')
 
-    <!-- 1. HERO SECTION (03-DESIGN.md Section 7 & Section 6.1) -->
-    <section class="relative overflow-hidden py-16 lg:py-24 border-b border-dashed border-[#CDB48F]">
-        <!-- Pinggiran Luar Hero: Taburan Biji Kopi Organik Melayang -->
-        <img src="{{ asset('images/beans-falling.png') }}" class="absolute -left-6 top-10 w-24 sm:w-28 h-auto object-contain pointer-events-none opacity-50 -rotate-12 drop-shadow-md select-none hidden lg:block animate-float-slow" alt="" />
-        <img src="{{ asset('images/beans-cluster.png') }}" class="absolute left-10 -bottom-6 w-20 h-20 object-contain pointer-events-none opacity-40 rotate-12 drop-shadow-sm select-none hidden md:block animate-float-reverse" alt="" />
-        <img src="{{ asset('images/beans-falling.png') }}" class="absolute -right-8 top-16 w-28 h-auto object-contain pointer-events-none opacity-55 rotate-6 drop-shadow-md select-none hidden sm:block animate-float" alt="" />
-        <img src="{{ asset('images/beans-cluster.png') }}" class="absolute right-1/4 -top-8 w-20 h-20 object-contain pointer-events-none opacity-35 rotate-45 select-none hidden xl:block animate-float-drift" alt="" />
+    <!-- 1. FULLSCREEN HERO VIDEO SECTION (03-DESIGN.md Section 7 & Section 6.1) -->
+    <section class="relative min-h-[90vh] lg:min-h-screen flex items-center overflow-hidden border-b border-dashed border-[#CDB48F]"
+             x-data="{
+                isPlaying: true,
+                isMuted: true,
+                togglePlay() {
+                    const v = this.$refs.heroVideo;
+                    if (v.paused) {
+                        v.play();
+                        this.isPlaying = true;
+                    } else {
+                        v.pause();
+                        this.isPlaying = false;
+                    }
+                },
+                toggleMute() {
+                    const v = this.$refs.heroVideo;
+                    v.muted = !v.muted;
+                    this.isMuted = v.muted;
+                },
+                goFullscreen() {
+                    const v = this.$refs.heroVideo;
+                    if (v.requestFullscreen) {
+                        v.requestFullscreen();
+                    } else if (v.webkitRequestFullscreen) {
+                        v.webkitRequestFullscreen();
+                    } else if (v.msRequestFullscreen) {
+                        v.msRequestFullscreen();
+                    }
+                }
+             }">
 
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        <!-- Fullscreen Video Background -->
+        <video x-ref="heroVideo"
+               autoplay
+               loop
+               muted
+               playsinline
+               poster="{{ asset('images/coffee-story-poster.jpg') }}"
+               class="absolute inset-0 w-full h-full object-cover select-none pointer-events-none z-0">
+            <source src="{{ asset('images/coffee-story.mp4') }}" type="video/mp4">
+        </video>
 
-                <!-- Left Column (5-6 cols editorial text) -->
-                <div class="lg:col-span-7 space-y-6 text-left reveal-on-scroll">
-                    <div class="inline-flex items-center space-x-2 bg-[#E8DCC4] border border-[#CDB48F] px-3.5 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider text-[#4A3224]">
+        <!-- Cinematic Gradient Overlays (Rustic Dark Roast & Warmth) -->
+        <div class="absolute inset-0 bg-gradient-to-r from-[#1E1A17]/95 via-[#2B1D14]/85 to-[#2B1D14]/65 z-0 pointer-events-none"></div>
+        <div class="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-[#1E1A17] via-[#1E1A17]/60 to-transparent z-0 pointer-events-none"></div>
+        <div class="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#1E1A17]/70 to-transparent z-0 pointer-events-none"></div>
+
+        <!-- Pinggiran Luar Hero: Taburan Biji Kopi Organik Melayang di Tepi Kiri & Kanan Layar -->
+        <img src="{{ asset('images/beans-falling.png') }}" class="absolute -left-3 sm:left-2 lg:left-6 xl:left-10 top-6 sm:top-10 w-20 sm:w-28 lg:w-32 xl:w-36 h-auto object-contain pointer-events-none opacity-45 lg:opacity-70 -rotate-12 drop-shadow-xl select-none hidden sm:block animate-float-slow z-10" alt="" />
+        <img src="{{ asset('images/beans-cluster.png') }}" class="absolute left-4 sm:left-8 lg:left-16 bottom-8 sm:bottom-12 w-16 sm:w-22 lg:w-26 h-auto object-contain pointer-events-none opacity-40 lg:opacity-60 rotate-12 drop-shadow-lg select-none hidden sm:block animate-float-reverse z-10" alt="" />
+        <img src="{{ asset('images/beans-falling.png') }}" class="absolute -right-3 sm:right-2 lg:right-6 xl:right-10 top-10 sm:top-14 w-20 sm:w-28 lg:w-32 xl:w-36 h-auto object-contain pointer-events-none opacity-45 lg:opacity-70 rotate-6 drop-shadow-xl select-none hidden sm:block animate-float z-10" alt="" />
+        <img src="{{ asset('images/beans-cluster.png') }}" class="absolute right-4 sm:right-10 lg:right-20 bottom-16 sm:bottom-20 w-16 sm:w-22 lg:w-26 h-auto object-contain pointer-events-none opacity-40 lg:opacity-60 -rotate-12 drop-shadow-lg select-none hidden md:block animate-float-drift z-10" alt="" />
+
+        <!-- Main Hero Content Container -->
+        <div class="w-full px-4 sm:px-8 lg:px-12 xl:px-16 2xl:px-24 py-16 sm:py-24 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 xl:gap-16 items-center">
+
+                <!-- Left Column: Editorial Headline & Actions -->
+                <div class="lg:col-span-8 xl:col-span-7 space-y-6 sm:space-y-8 text-left reveal-on-scroll">
+                    <div class="inline-flex items-center space-x-2 bg-[#E8DCC4]/95 backdrop-blur-md border border-[#CDB48F] px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider text-[#2B1D14] shadow-md">
                         <img src="{{ asset('images/bean-single.png') }}" class="w-4 h-4 object-contain inline-block -mt-0.5" alt="Kopi" />
                         <span>{{ $settings['shop_tagline'] ?? 'Kedai Kopi Autentik Nusantara' }}</span>
                     </div>
 
-                    <h1 class="font-display text-4xl sm:text-6xl lg:text-7xl font-semibold text-[#2B1D14] leading-[1.08] tracking-tight">
+                    <h1 class="font-display text-4xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold text-[#FFFDF8] leading-[1.08] tracking-tight drop-shadow-md">
                         Disangrai pelan,<br>
-                        <span class="italic font-normal text-[#B5753A]">diseduh dengan hati.</span>
+                        <span class="italic font-normal text-[#CDB48F]">diseduh dengan hati.</span>
                     </h1>
 
-                    <div class="space-y-2">
-                        <p class="font-display text-xl sm:text-2xl font-medium text-[#4A3224]">
+                    <div class="space-y-3">
+                        <p class="font-display text-xl sm:text-2xl xl:text-3xl font-medium text-[#F4ECDD] drop-shadow-sm">
                             COFFEBAR — {{ $settings['hero_title'] ?? 'Kopi Terbaik, Diracik Untukmu' }}
                         </p>
-                        <p class="text-[#6B5646] text-base sm:text-lg max-w-xl leading-relaxed">
+                        <p class="text-[#E8DCC4]/90 text-base sm:text-lg xl:text-xl max-w-2xl leading-relaxed">
                             {{ $settings['hero_subtitle'] ?? 'Cita Rasa Juara Dari Bumi Nusantara' }}
                         </p>
                     </div>
 
-                    <!-- 2 Action Buttons (Section 6.2) -->
-                    <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-4">
+                    <!-- 2 Action Buttons -->
+                    <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-3 sm:pt-5">
                         <a href="{{ route('menu.index') }}"
-                           class="inline-flex justify-center items-center bg-[#B5753A] text-white hover:bg-[#B4552F] font-bold text-sm px-8 py-3.5 rounded-xl shadow-warm hover:-translate-y-0.5 transition duration-200">
+                           class="inline-flex justify-center items-center bg-[#B5753A] text-white hover:bg-[#B4552F] font-bold text-sm sm:text-base px-8 py-4 rounded-xl shadow-warm hover:-translate-y-0.5 transition duration-200 text-center">
                             Lihat Daftar Menu
                         </a>
                         <a href="{{ route('custom.index') }}"
-                           class="inline-flex justify-center items-center border-1.5 border-[#4A3224] text-[#4A3224] hover:bg-[#4A3224] hover:text-[#F4ECDD] font-semibold text-sm px-7 py-3.5 rounded-xl transition duration-200">
+                           class="inline-flex justify-center items-center bg-[#FFFDF8]/10 hover:bg-[#FFFDF8] text-[#FFFDF8] hover:text-[#2B1D14] border-1.5 border-[#CDB48F]/70 backdrop-blur-sm font-semibold text-sm sm:text-base px-7 py-4 rounded-xl transition duration-200 text-center shadow-sm">
                             Racik Minuman Sendiri ✦
                         </a>
                     </div>
                 </div>
 
-                <!-- Right Column: Arch Visual with Motion Frame & Rotating Stamp Badge -->
-                <div class="lg:col-span-5 relative flex justify-center reveal-on-scroll">
-                    <div class="relative w-full max-w-md">
-                        <!-- Arch Video Wrapper (03-DESIGN.md: Elemen Arch Lengkung + Motion Frame) -->
-                        <div class="w-full h-[470px] bg-[#2B1D14] border-2 border-[#CDB48F] rounded-arch overflow-hidden shadow-warm relative group motion-frame">
-                            <video autoplay loop muted playsinline poster="{{ asset('images/coffee-story-poster.jpg') }}" class="w-full h-full object-cover">
-                                <source src="{{ asset('images/coffee-story.mp4') }}" type="video/mp4">
-                            </video>
+                <!-- Right Column: Rotating Artisan Stamp & Atmospheric Coffee Badge -->
+                <div class="lg:col-span-4 xl:col-span-5 flex flex-col items-center lg:items-end justify-center space-y-6 reveal-on-scroll">
+                    <!-- Glass Badge: Seduhan Murni -->
+                    <div class="bg-[#1E1A17]/80 backdrop-blur-md border border-[#CDB48F]/40 rounded-2xl p-6 sm:p-7 text-center lg:text-right max-w-sm shadow-2xl space-y-2 motion-frame">
+                        <span class="font-hand text-3xl text-[#B5753A]">Seduhan Murni</span>
+                        <p class="font-display text-lg text-[#F4ECDD] font-semibold">"Aroma pagi yang tak pernah bohong"</p>
+                        <p class="text-xs text-[#CDB48F] uppercase tracking-wider pt-1 border-t border-dashed border-[#CDB48F]/30">
+                            Single Origin & House Blend · Sejak 2024
+                        </p>
+                    </div>
 
-                            <!-- Gradient shade for rustic warmth & text readability -->
-                            <div class="absolute inset-0 bg-gradient-to-t from-[#2B1D14]/90 via-[#2B1D14]/25 to-transparent pointer-events-none"></div>
-
-                            <!-- Bottom Arch Content -->
-                            <div class="absolute bottom-6 inset-x-6 text-center text-[#FFFDF8] pointer-events-none space-y-1 z-10">
-                                <p class="font-display text-2xl font-semibold text-[#F4ECDD]">Seduhan Murni</p>
-                                <p class="font-hand text-2xl text-[#B5753A]">"Aroma pagi yang tak pernah bohong"</p>
-                                <p class="text-[11px] text-[#E8DCC4]/80 uppercase tracking-widest pt-1">Single Origin & House Blend · Sejak 2024</p>
-                            </div>
-                        </div>
-
-                        <!-- Floating decorative falling beans -->
-                        <img src="{{ asset('images/beans-falling.png') }}"
-                             class="absolute -top-7 -right-6 w-20 sm:w-24 h-auto object-contain pointer-events-none drop-shadow-lg z-20 opacity-90 hidden sm:block animate-float-slow"
-                             alt="Biji Kopi Sangrai" />
-
-                        <!-- Rotating Stamp Badge (Section 5: stempel bulat rotasi pelan) -->
-                        <div class="absolute -bottom-6 -left-6 w-28 h-28 bg-[#FFFDF8] border-2 border-dashed border-[#B5753A] rounded-full flex items-center justify-center shadow-md animate-spin-slow select-none pointer-events-none z-20">
-                            <svg class="w-24 h-24 text-[#4A3224]" viewBox="0 0 100 100">
-                                <path id="stamp-circle" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="none" />
-                                <text class="text-[9px] font-bold uppercase tracking-widest fill-current">
-                                    <textPath href="#stamp-circle" startOffset="0%">
-                                        ✦ ARTISAN ROASTERY ✦ COFFEBAR ✦
-                                    </textPath>
-                                </text>
-                            </svg>
-                            <img src="{{ asset('images/bean-single.png') }}" class="absolute w-7 h-7 object-contain drop-shadow-sm" alt="Kopi" />
-                        </div>
+                    <!-- Rotating Stamp Badge -->
+                    <div class="relative w-32 h-32 sm:w-36 sm:h-36 bg-[#FFFDF8]/95 backdrop-blur-md border-2 border-dashed border-[#B5753A] rounded-full flex items-center justify-center shadow-2xl animate-spin-slow select-none pointer-events-none">
+                        <svg class="w-28 h-28 sm:w-32 sm:h-32 text-[#4A3224]" viewBox="0 0 100 100">
+                            <path id="stamp-circle" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="none" />
+                            <text class="text-[9px] font-bold uppercase tracking-widest fill-current">
+                                <textPath href="#stamp-circle" startOffset="0%">
+                                    ✦ ARTISAN ROASTERY ✦ COFFEBAR ✦
+                                </textPath>
+                            </text>
+                        </svg>
+                        <img src="{{ asset('images/bean-single.png') }}" class="absolute w-8 h-8 sm:w-9 sm:h-9 object-contain drop-shadow-md" alt="Kopi" />
                     </div>
                 </div>
 
             </div>
         </div>
-    </section>
 
-            </div>
+        <!-- Video Control Bar (Bottom-Right: Play/Pause, Mute/Unmute, & Native Fullscreen Toggle) -->
+        <div class="absolute bottom-6 right-4 sm:right-8 lg:right-12 z-20 flex items-center space-x-2 bg-[#1E1A17]/85 backdrop-blur-md border border-[#CDB48F]/50 px-3.5 py-2 rounded-xl text-white shadow-xl text-xs">
+            <!-- Play/Pause -->
+            <button @click="togglePlay()"
+                    type="button"
+                    class="p-1.5 hover:text-[#B5753A] transition cursor-pointer"
+                    :title="isPlaying ? 'Jeda Video' : 'Putar Video'">
+                <span x-show="isPlaying">⏸</span>
+                <span x-show="!isPlaying">▶</span>
+            </button>
+
+            <!-- Mute/Unmute -->
+            <button @click="toggleMute()"
+                    type="button"
+                    class="p-1.5 hover:text-[#B5753A] transition cursor-pointer"
+                    :title="isMuted ? 'Nyalakan Suara' : 'Matikan Suara'">
+                <span x-show="!isMuted">🔊</span>
+                <span x-show="isMuted">🔇</span>
+            </button>
+
+            <span class="text-[#CDB48F]/40 select-none">|</span>
+
+            <!-- Native Fullscreen -->
+            <button @click="goFullscreen()"
+                    type="button"
+                    class="flex items-center space-x-1.5 px-2.5 py-1 bg-[#B5753A] hover:bg-[#B4552F] rounded-lg font-bold text-[11px] uppercase tracking-wider transition shadow-sm cursor-pointer"
+                    title="Buka Layar Penuh (Fullscreen)">
+                <span>⛶</span>
+                <span class="hidden sm:inline">Layar Penuh</span>
+            </button>
         </div>
     </section>
 
-    <!-- 2. STRIP INFO (03-DESIGN.md Section 7: Bar Oat) -->
+    <!-- 2. STRIP INFO (03-DESIGN.md Section 7: Bar Oat Full Width) -->
     <div class="bg-[#E8DCC4] border-b border-dashed border-[#CDB48F] py-4">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="w-full px-4 sm:px-8 lg:px-12 xl:px-16 2xl:px-24">
             <div class="flex flex-col md:flex-row items-center justify-between gap-4 text-xs sm:text-sm text-[#4A3224]">
                 <div class="flex items-center space-x-2">
                     <span class="relative flex h-3 w-3">
@@ -116,46 +176,46 @@
                     <span>{{ $settings['shop_address'] ?? 'Jl. Senopati No. 88, Jakarta Selatan' }}</span>
                 </div>
 
-                <div class="hidden lg:flex items-center space-x-2 font-hand text-xl text-[#2B1D14]">
+                <div class="hidden lg:flex items-center space-x-2 font-hand text-xl xl:text-2xl text-[#2B1D14]">
                     <span>"Hangatnya seduhan Nusantara"</span>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- 3. HIGHLIGHT MENU & POPULAR PRODUCTS (03-DESIGN.md Section 6.3 & 7) -->
-    <section class="py-16 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+    <!-- 3. HIGHLIGHT MENU & POPULAR PRODUCTS (03-DESIGN.md Section 6.3 & 7: Full Width) -->
+    <section class="py-16 sm:py-24 w-full px-4 sm:px-8 lg:px-12 xl:px-16 2xl:px-24 relative overflow-hidden">
         <!-- Pinggiran Biji Kopi Melayang: Pojok Kiri & Kanan Section -->
-        <img src="{{ asset('images/beans-falling.png') }}" class="absolute -left-10 top-1/4 w-28 sm:w-32 h-auto object-contain pointer-events-none opacity-45 -rotate-12 drop-shadow-md select-none hidden xl:block animate-float-slow" alt="" />
-        <img src="{{ asset('images/beans-cluster.png') }}" class="absolute left-4 -bottom-6 w-20 h-20 object-contain pointer-events-none opacity-40 rotate-45 select-none hidden lg:block animate-float-reverse" alt="" />
-        <img src="{{ asset('images/beans-falling.png') }}" class="absolute -right-10 top-1/2 w-28 sm:w-32 h-auto object-contain pointer-events-none opacity-45 rotate-12 drop-shadow-md select-none hidden xl:block animate-float" alt="" />
-        <img src="{{ asset('images/beans-cluster.png') }}" class="absolute right-4 top-4 w-20 h-20 object-contain pointer-events-none opacity-50 -rotate-12 select-none hidden md:block animate-float-drift" alt="" />
+        <img src="{{ asset('images/beans-falling.png') }}" class="absolute left-2 lg:left-6 top-1/4 w-24 sm:w-32 h-auto object-contain pointer-events-none opacity-45 -rotate-12 drop-shadow-md select-none hidden sm:block animate-float-slow" alt="" />
+        <img src="{{ asset('images/beans-cluster.png') }}" class="absolute left-4 lg:left-12 -bottom-6 w-20 h-20 object-contain pointer-events-none opacity-40 rotate-45 select-none hidden lg:block animate-float-reverse" alt="" />
+        <img src="{{ asset('images/beans-falling.png') }}" class="absolute right-2 lg:right-6 top-1/2 w-24 sm:w-32 h-auto object-contain pointer-events-none opacity-45 rotate-12 drop-shadow-md select-none hidden sm:block animate-float" alt="" />
+        <img src="{{ asset('images/beans-cluster.png') }}" class="absolute right-4 lg:right-12 top-4 w-20 h-20 object-contain pointer-events-none opacity-50 -rotate-12 select-none hidden md:block animate-float-drift" alt="" />
 
         <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 border-b border-dashed border-[#CDB48F] pb-6 relative z-10 reveal-on-scroll">
             <div>
-                <span class="font-hand text-2xl text-[#B5753A]">Pilihan Barista</span>
-                <h2 class="font-display text-3xl sm:text-4xl font-semibold text-[#2B1D14] mt-1">Pilihan Menu Favorit</h2>
+                <span class="font-hand text-2xl xl:text-3xl text-[#B5753A]">Pilihan Barista</span>
+                <h2 class="font-display text-3xl sm:text-4xl xl:text-5xl font-semibold text-[#2B1D14] mt-1">Pilihan Menu Favorit</h2>
                 <p class="text-[#6B5646] text-sm sm:text-base mt-2">Jelajahi berbagai pilihan kopi dan sajian pelengkap kami.</p>
             </div>
             <div class="mt-4 md:mt-0">
-                <a href="{{ route('menu.index') }}" class="font-semibold text-sm text-[#4A3224] hover:text-[#B5753A] underline underline-offset-4 decoration-[#B5753A] transition">
+                <a href="{{ route('menu.index') }}" class="font-semibold text-sm sm:text-base text-[#4A3224] hover:text-[#B5753A] underline underline-offset-4 decoration-[#B5753A] transition">
                     Lihat Semua Menu ({{ count($popularProducts ?? []) }}+) →
                 </a>
             </div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative z-10">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-6 xl:gap-8 relative z-10">
             @forelse ($popularProducts ?? [] as $product)
-                <div class="bg-[#FFFDF8] border border-[#CDB48F] rounded-2xl p-5 flex flex-col justify-between hover:-translate-y-1.5 hover:shadow-warm-lg transition-all duration-300 group reveal-on-scroll">
+                <div class="bg-[#FFFDF8] border border-[#CDB48F] rounded-2xl p-5 sm:p-6 flex flex-col justify-between hover:-translate-y-1.5 hover:shadow-warm-lg transition-all duration-300 group reveal-on-scroll">
                     <div>
-                        <!-- Product Visual (Cups for beverages, clean food badges for food - NO beans inside) -->
-                        <div class="w-full h-36 bg-[#F4ECDD]/70 rounded-xl mb-4 flex items-center justify-center p-3 overflow-hidden border border-[#CDB48F]/40 group-hover:bg-[#E8DCC4]/50 transition">
+                        <!-- Product Visual (Cups for beverages, realistic pastries/fries for food) -->
+                        <div class="w-full h-40 bg-[#F4ECDD]/70 rounded-xl mb-4 flex items-center justify-center p-3 overflow-hidden border border-[#CDB48F]/40 group-hover:bg-[#E8DCC4]/50 transition">
                             @if ($product->image_url)
                                 <img src="{{ $product->image_url }}"
                                      alt="{{ $product->name }}"
-                                     class="h-28 w-28 object-contain drop-shadow-md group-hover:scale-105 transition transform duration-400">
+                                     class="h-32 w-32 object-contain drop-shadow-md group-hover:scale-105 transition transform duration-400">
                             @else
-                                <div class="h-24 w-24 rounded-full bg-[#E8DCC4] border border-[#CDB48F] flex items-center justify-center text-3xl shadow-inner group-hover:scale-105 transition duration-300 select-none">
+                                <div class="h-28 w-28 rounded-full bg-[#E8DCC4] border border-[#CDB48F] flex items-center justify-center text-3xl shadow-inner group-hover:scale-105 transition duration-300 select-none">
                                     @if (str_contains(strtolower($product->name), 'croissant') || str_contains(strtolower($product->name), 'roti'))
                                         🥐
                                     @elseif (str_contains(strtolower($product->name), 'nasi'))
@@ -212,53 +272,53 @@
         </div>
     </section>
 
-    <!-- 4. CERITA KAMI (ABOUT SECTION - 03-DESIGN.md Section 7) -->
+    <!-- 4. CERITA KAMI (ABOUT SECTION - Full Width) -->
     <section id="tentang" class="bg-[#E8DCC4] border-y border-dashed border-[#CDB48F] py-16 sm:py-24 relative overflow-hidden">
         <!-- Pinggiran Biji Kopi Melayang: Kiri & Kanan -->
-        <img src="{{ asset('images/beans-falling.png') }}" class="absolute -left-8 top-8 w-28 h-auto object-contain pointer-events-none opacity-50 rotate-12 drop-shadow-md select-none hidden md:block animate-float-slow" alt="" />
+        <img src="{{ asset('images/beans-falling.png') }}" class="absolute left-2 lg:left-8 top-8 w-24 sm:w-28 h-auto object-contain pointer-events-none opacity-50 rotate-12 drop-shadow-md select-none hidden sm:block animate-float-slow" alt="" />
         <img src="{{ asset('images/beans-cluster.png') }}" class="absolute left-1/4 -bottom-6 w-20 h-20 object-contain pointer-events-none opacity-40 -rotate-12 select-none hidden lg:block animate-float-reverse" alt="" />
-        <img src="{{ asset('images/beans-falling.png') }}" class="absolute -right-8 bottom-6 w-28 h-auto object-contain pointer-events-none opacity-50 -rotate-12 drop-shadow-md select-none hidden md:block animate-float" alt="" />
+        <img src="{{ asset('images/beans-falling.png') }}" class="absolute right-2 lg:right-8 bottom-6 w-24 sm:w-28 h-auto object-contain pointer-events-none opacity-50 -rotate-12 drop-shadow-md select-none hidden sm:block animate-float" alt="" />
         <img src="{{ asset('images/beans-cluster.png') }}" class="absolute right-12 top-4 w-20 h-20 object-contain pointer-events-none opacity-45 rotate-45 select-none hidden lg:block animate-float-drift" alt="" />
 
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-                <div class="lg:col-span-7 space-y-6 text-left reveal-on-scroll">
-                    <span class="font-hand text-3xl text-[#B5753A]">Dedikasi & Rasa</span>
-                    <h2 class="font-display text-3xl sm:text-5xl font-semibold text-[#2B1D14]">Tentang CoffeBar</h2>
-                    <div class="w-16 h-0.5 bg-[#B5753A]"></div>
-                    <p class="text-[#4A3224] text-base sm:text-lg leading-relaxed">
+        <div class="w-full px-4 sm:px-8 lg:px-12 xl:px-16 2xl:px-24 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 xl:gap-16 items-center">
+                <div class="lg:col-span-7 xl:col-span-8 space-y-6 text-left reveal-on-scroll">
+                    <span class="font-hand text-3xl xl:text-4xl text-[#B5753A]">Dedikasi & Rasa</span>
+                    <h2 class="font-display text-3xl sm:text-5xl xl:text-6xl font-semibold text-[#2B1D14]">Tentang CoffeBar</h2>
+                    <div class="w-20 h-0.5 bg-[#B5753A]"></div>
+                    <p class="text-[#4A3224] text-base sm:text-lg xl:text-xl leading-relaxed max-w-4xl">
                         {{ $settings['about_text'] ?? 'CoffeBar didirikan dengan semangat menyajikan kopi berkualitas dari berbagai pelosok Nusantara. Kami percaya setiap cangkir memiliki cerita dan kehangatan yang layak dinikmati bersama.' }}
                     </p>
-                    <p class="font-hand text-2xl text-[#2B1D14] pt-2">
+                    <p class="font-hand text-2xl sm:text-3xl text-[#2B1D14] pt-2">
                         "Secangkir kopi, sejuta obrolan bermakna."
                     </p>
                 </div>
 
-                <div class="lg:col-span-5 relative flex justify-center reveal-on-scroll">
-                    <div class="relative w-64 h-64 sm:w-80 sm:h-80 bg-[#FFFDF8] border-2 border-[#CDB48F] rounded-full p-6 shadow-warm flex items-center justify-center motion-frame">
-                        <img src="{{ asset('images/cup-latte.png') }}" class="w-52 h-52 sm:w-64 sm:h-64 object-contain drop-shadow-xl hover:scale-105 transition transform duration-500" alt="Latte Art CoffeBar">
+                <div class="lg:col-span-5 xl:col-span-4 relative flex justify-center lg:justify-end reveal-on-scroll">
+                    <div class="relative w-64 h-64 sm:w-80 sm:h-80 xl:w-96 xl:h-96 bg-[#FFFDF8] border-2 border-[#CDB48F] rounded-full p-6 shadow-warm flex items-center justify-center motion-frame">
+                        <img src="{{ asset('images/cup-latte.png') }}" class="w-52 h-52 sm:w-64 sm:h-64 xl:w-80 xl:h-80 object-contain drop-shadow-xl hover:scale-105 transition transform duration-500" alt="Latte Art CoffeBar">
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 5. PROSES KAMI: 3 LANGKAH IKONIK (03-DESIGN.md Section 7: Espresso Dark Section) -->
+    <!-- 5. PROSES KAMI: 3 LANGKAH IKONIK (Full Width) -->
     <section class="bg-[#2B1D14] text-[#F4ECDD] py-20 border-b border-[#4A3224] relative overflow-hidden">
         <!-- Pinggiran Biji Kopi Gelap Melayang: Kiri & Kanan -->
-        <img src="{{ asset('images/beans-falling.png') }}" class="absolute -left-8 top-10 w-28 h-auto object-contain pointer-events-none opacity-30 rotate-12 select-none hidden lg:block animate-float-slow" alt="" />
-        <img src="{{ asset('images/beans-cluster.png') }}" class="absolute left-8 -bottom-6 w-20 h-20 object-contain pointer-events-none opacity-30 -rotate-12 select-none hidden md:block animate-float-reverse" alt="" />
-        <img src="{{ asset('images/beans-falling.png') }}" class="absolute -right-8 bottom-10 w-28 h-auto object-contain pointer-events-none opacity-30 -rotate-6 select-none hidden lg:block animate-float" alt="" />
-        <img src="{{ asset('images/beans-cluster.png') }}" class="absolute right-10 top-4 w-20 h-20 object-contain pointer-events-none opacity-30 rotate-45 select-none hidden md:block animate-float-drift" alt="" />
+        <img src="{{ asset('images/beans-falling.png') }}" class="absolute left-2 lg:left-8 top-10 w-24 sm:w-28 h-auto object-contain pointer-events-none opacity-30 rotate-12 select-none hidden sm:block animate-float-slow" alt="" />
+        <img src="{{ asset('images/beans-cluster.png') }}" class="absolute left-8 lg:left-14 -bottom-6 w-20 h-20 object-contain pointer-events-none opacity-30 -rotate-12 select-none hidden md:block animate-float-reverse" alt="" />
+        <img src="{{ asset('images/beans-falling.png') }}" class="absolute right-2 lg:right-8 bottom-10 w-24 sm:w-28 h-auto object-contain pointer-events-none opacity-30 -rotate-6 select-none hidden sm:block animate-float" alt="" />
+        <img src="{{ asset('images/beans-cluster.png') }}" class="absolute right-10 lg:right-16 top-4 w-20 h-20 object-contain pointer-events-none opacity-30 rotate-45 select-none hidden md:block animate-float-drift" alt="" />
 
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="text-center max-w-xl mx-auto mb-16 reveal-on-scroll">
-                <span class="font-hand text-2xl text-[#CDB48F]">Dari Kebun ke Meja</span>
-                <h2 class="font-display text-3xl sm:text-4xl font-semibold text-[#F4ECDD] mt-1">Proses Seduhan Kami</h2>
-                <p class="text-[#CDB48F] text-sm mt-2">Tiga prinsip tak terpisahkan dalam setiap tetes kopi CoffeBar.</p>
+        <div class="w-full px-4 sm:px-8 lg:px-12 xl:px-16 2xl:px-24 relative z-10">
+            <div class="text-center max-w-2xl mx-auto mb-16 reveal-on-scroll">
+                <span class="font-hand text-2xl xl:text-3xl text-[#CDB48F]">Dari Kebun ke Meja</span>
+                <h2 class="font-display text-3xl sm:text-4xl xl:text-5xl font-semibold text-[#F4ECDD] mt-1">Proses Seduhan Kami</h2>
+                <p class="text-[#CDB48F] text-sm sm:text-base mt-2">Tiga prinsip tak terpisahkan dalam setiap tetes kopi CoffeBar.</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 xl:gap-10">
                 <!-- Step 1: Petik -->
                 <div class="bg-[#1E1A17] border border-[#4A3224] rounded-2xl p-8 text-center space-y-4 hover:border-[#B5753A] hover:-translate-y-1 transition duration-300 group reveal-on-scroll">
                     <div class="w-20 h-20 mx-auto flex items-center justify-center">
@@ -304,19 +364,19 @@
         </div>
     </section>
 
-    <!-- 6. LOKASI & KONTAK SECTION (03-DESIGN.md Section 7) -->
-    <section id="kontak" class="py-16 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+    <!-- 6. LOKASI & KONTAK SECTION (Full Width) -->
+    <section id="kontak" class="py-16 sm:py-24 w-full px-4 sm:px-8 lg:px-12 xl:px-16 2xl:px-24 relative overflow-hidden">
         <!-- Pinggiran Biji Kopi: Kiri & Kanan -->
-        <img src="{{ asset('images/beans-cluster.png') }}" class="absolute -left-6 bottom-12 w-24 h-24 object-contain pointer-events-none opacity-40 rotate-12 select-none hidden xl:block animate-float-slow" alt="" />
-        <img src="{{ asset('images/beans-falling.png') }}" class="absolute -right-6 top-10 w-24 h-auto object-contain pointer-events-none opacity-40 -rotate-12 select-none hidden xl:block animate-float-reverse" alt="" />
+        <img src="{{ asset('images/beans-cluster.png') }}" class="absolute left-2 lg:left-8 bottom-12 w-20 sm:w-24 h-24 object-contain pointer-events-none opacity-40 rotate-12 select-none hidden sm:block animate-float-slow" alt="" />
+        <img src="{{ asset('images/beans-falling.png') }}" class="absolute right-2 lg:right-8 top-10 w-20 sm:w-24 h-auto object-contain pointer-events-none opacity-40 -rotate-12 select-none hidden sm:block animate-float-reverse" alt="" />
 
-        <div class="text-center max-w-xl mx-auto mb-14 relative z-10 reveal-on-scroll">
-            <span class="font-hand text-2xl text-[#B5753A]">Mampir & Bertegur Sapa</span>
-            <h2 class="font-display text-3xl sm:text-4xl font-semibold text-[#2B1D14] mt-1">Lokasi & Kontak</h2>
+        <div class="text-center max-w-2xl mx-auto mb-14 relative z-10 reveal-on-scroll">
+            <span class="font-hand text-2xl xl:text-3xl text-[#B5753A]">Mampir & Bertegur Sapa</span>
+            <h2 class="font-display text-3xl sm:text-4xl xl:text-5xl font-semibold text-[#2B1D14] mt-1">Lokasi & Kontak</h2>
             <p class="text-[#6B5646] text-sm sm:text-base mt-2">Kunjungi kedai kami atau hubungi kami untuk informasi lebih lanjut.</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 xl:gap-8 relative z-10">
             <!-- Card 1: Alamat -->
             <div class="bg-[#FFFDF8] border border-[#CDB48F] rounded-2xl p-7 flex flex-col justify-between shadow-sm hover:-translate-y-1 hover:shadow-warm transition duration-300 reveal-on-scroll">
                 <div>
