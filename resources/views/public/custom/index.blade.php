@@ -121,18 +121,93 @@
                     <div class="relative h-60 mx-auto flex items-end justify-center">
                         <!-- Single Cup Wrapper: exactly bounds the cup image and liquid together -->
                         <div class="relative inline-flex items-end justify-center" :class="getCupHeightClass()">
-                            <!-- Liquid & Ice Layer (Clipped to cup trapezoid slope, sits directly behind transparent cup body) -->
+                            <!-- Liquid Layer (Clipped to cup trapezoid slope, sits directly behind transparent cup body) -->
                             <div class="absolute inset-0 transition-all duration-500 pointer-events-none overflow-hidden"
                                  :style="'background-color: ' + getLiquidColor() + '; clip-path: ' + getLiquidClipPath() + '; opacity: 0.94;'">
-                                <!-- Ice cubes floating at liquid surface -->
-                                <div x-show="selectedIce.includes('Dingin')"
-                                     class="absolute inset-x-3 top-[30%] flex flex-wrap gap-1.5 justify-center opacity-90 pointer-events-none">
-                                    <span class="w-3.5 h-3.5 bg-white/85 border border-white/70 rounded-sm rotate-6 shadow-sm"></span>
-                                    <span class="w-3.5 h-3.5 bg-white/85 border border-white/70 rounded-sm -rotate-12 shadow-sm"></span>
-                                    <span class="w-3 h-3 bg-white/85 border border-white/70 rounded-sm rotate-45 shadow-sm"></span>
-                                </div>
                                 <!-- Foam / Crema layer at liquid surface -->
                                 <div class="absolute inset-x-0 top-[26%] h-2 bg-white/20 blur-[1px]"></div>
+                            </div>
+
+                            <!-- Realistic 3D Glassy Submerged Ice Cubes Layer (Submerged in liquid, inside cup behind sticker & rim) -->
+                            <div x-show="selectedIce.includes('Dingin')"
+                                 x-transition:enter="transition cubic-bezier(0.34, 1.56, 0.64, 1) duration-600"
+                                 x-transition:enter-start="opacity-0 -translate-y-6 scale-75"
+                                 x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+                                 x-transition:leave="transition ease-in duration-300"
+                                 x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+                                 x-transition:leave-end="opacity-0 translate-y-3 scale-75"
+                                 class="absolute inset-x-0 z-[5] pointer-events-none flex justify-center items-center"
+                                 :style="'top: ' + (selectedSize.toLowerCase().includes('18') ? '19%' : (selectedSize.toLowerCase().includes('12') ? '21%' : '24%'))">
+                                <div class="relative w-full max-w-[210px] h-16 flex items-center justify-center">
+                                    <!-- Cube 1 (Left Submerged Ice Chunk) -->
+                                    <svg viewBox="0 0 50 50" class="w-10 h-10 sm:w-11 sm:h-11 absolute left-2 -top-1 -rotate-12 drop-shadow-[0_4px_8px_rgba(0,0,0,0.35)] animate-float-slow">
+                                        <!-- Submerged Left & Right Facets: semi-translucent crystal tinted by liquid below -->
+                                        <polygon points="6,15 25,26 25,44 6,33" fill="rgba(255,255,255,0.22)" stroke="rgba(255,255,255,0.65)" stroke-width="1.4" stroke-linejoin="round"/>
+                                        <polygon points="25,26 44,15 44,33 25,44" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,0.55)" stroke-width="1.4" stroke-linejoin="round"/>
+                                        <!-- Top Face Floating Above Water: crisp reflection & specular frost -->
+                                        <polygon points="25,4 44,15 25,26 6,15" fill="rgba(255,255,255,0.72)" stroke="rgba(255,255,255,0.95)" stroke-width="1.5" stroke-linejoin="round"/>
+                                        <!-- Internal refraction fracture line -->
+                                        <line x1="14" y1="18" x2="22" y2="38" stroke="rgba(255,255,255,0.85)" stroke-width="1.2" stroke-linecap="round"/>
+                                        <!-- Frost glint -->
+                                        <circle cx="26" cy="15" r="1.8" fill="white" opacity="0.95"/>
+                                    </svg>
+
+                                    <!-- Cube 2 (Center-Left Chunky Ice Block) -->
+                                    <svg viewBox="0 0 50 50" class="w-11 h-11 sm:w-12 sm:h-12 absolute left-14 -top-3 rotate-6 drop-shadow-[0_5px_10px_rgba(0,0,0,0.4)] animate-float">
+                                        <!-- Submerged Left & Right Facets -->
+                                        <polygon points="6,15 25,26 25,44 6,33" fill="rgba(255,255,255,0.28)" stroke="rgba(255,255,255,0.75)" stroke-width="1.4" stroke-linejoin="round"/>
+                                        <polygon points="25,26 44,15 44,33 25,44" fill="rgba(255,255,255,0.18)" stroke="rgba(255,255,255,0.6)" stroke-width="1.4" stroke-linejoin="round"/>
+                                        <!-- Top Floating Face -->
+                                        <polygon points="25,4 44,15 25,26 6,15" fill="rgba(255,255,255,0.78)" stroke="rgba(255,255,255,0.98)" stroke-width="1.5" stroke-linejoin="round"/>
+                                        <!-- Fracture & Highlights -->
+                                        <line x1="12" y1="17" x2="20" y2="36" stroke="rgba(255,255,255,0.9)" stroke-width="1.4" stroke-linecap="round"/>
+                                        <circle cx="25" cy="14" r="2" fill="white" opacity="0.95"/>
+                                    </svg>
+
+                                    <!-- Cube 3 (Center-Right Floating Ice Block) -->
+                                    <svg viewBox="0 0 50 50" class="w-11 h-11 sm:w-12 sm:h-12 absolute right-12 -top-2.5 -rotate-8 drop-shadow-[0_4px_8px_rgba(0,0,0,0.4)] animate-float-reverse">
+                                        <!-- Submerged Left & Right Facets -->
+                                        <polygon points="6,15 25,26 25,44 6,33" fill="rgba(255,255,255,0.24)" stroke="rgba(255,255,255,0.7)" stroke-width="1.4" stroke-linejoin="round"/>
+                                        <polygon points="25,26 44,15 44,33 25,44" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.58)" stroke-width="1.4" stroke-linejoin="round"/>
+                                        <!-- Top Floating Face -->
+                                        <polygon points="25,4 44,15 25,26 6,15" fill="rgba(255,255,255,0.74)" stroke="rgba(255,255,255,0.95)" stroke-width="1.5" stroke-linejoin="round"/>
+                                        <!-- Fracture Line -->
+                                        <line x1="15" y1="18" x2="21" y2="37" stroke="rgba(255,255,255,0.85)" stroke-width="1.2" stroke-linecap="round"/>
+                                        <circle cx="27" cy="16" r="1.6" fill="white" opacity="0.9"/>
+                                    </svg>
+
+                                    <!-- Cube 4 (Right Dipping Ice Chunk) -->
+                                    <svg viewBox="0 0 50 50" class="w-10 h-10 sm:w-11 sm:h-11 absolute right-2 -top-0.5 rotate-16 drop-shadow-[0_4px_8px_rgba(0,0,0,0.35)] animate-float">
+                                        <!-- Submerged Facets -->
+                                        <polygon points="6,15 25,26 25,44 6,33" fill="rgba(255,255,255,0.20)" stroke="rgba(255,255,255,0.65)" stroke-width="1.4" stroke-linejoin="round"/>
+                                        <polygon points="25,26 44,15 44,33 25,44" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.52)" stroke-width="1.4" stroke-linejoin="round"/>
+                                        <!-- Top Floating Face -->
+                                        <polygon points="25,4 44,15 25,26 6,15" fill="rgba(255,255,255,0.70)" stroke="rgba(255,255,255,0.92)" stroke-width="1.5" stroke-linejoin="round"/>
+                                        <!-- Highlights -->
+                                        <line x1="14" y1="17" x2="23" y2="35" stroke="rgba(255,255,255,0.8)" stroke-width="1.2" stroke-linecap="round"/>
+                                        <circle cx="24" cy="15" r="1.5" fill="white" opacity="0.9"/>
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <!-- Warm Steam Wisps (When Hangat / Panas is selected) -->
+                            <div x-show="selectedIce.includes('Hangat')"
+                                 x-transition:enter="transition ease-out duration-700"
+                                 x-transition:enter-start="opacity-0 translate-y-3"
+                                 x-transition:enter-end="opacity-100 translate-y-0"
+                                 x-transition:leave="transition ease-in duration-300"
+                                 x-transition:leave-start="opacity-100 translate-y-0"
+                                 x-transition:leave-end="opacity-0 -translate-y-3"
+                                 class="absolute inset-x-0 -top-6 flex justify-center space-x-3 pointer-events-none z-20">
+                                <svg class="w-4 h-10 text-white/50 animate-float-slow" viewBox="0 0 20 60" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                                    <path d="M 10 55 Q 16 40 8 28 Q 2 15 12 5" />
+                                </svg>
+                                <svg class="w-4 h-12 text-white/45 animate-float -mt-2" viewBox="0 0 20 60" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                                    <path d="M 10 55 Q 4 40 12 28 Q 18 15 8 5" />
+                                </svg>
+                                <svg class="w-4 h-9 text-white/35 animate-float-drift mt-1" viewBox="0 0 20 60" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                                    <path d="M 10 55 Q 15 42 7 30 Q 3 18 11 8" />
+                                </svg>
                             </div>
 
                             <!-- Realistic Transparent Cup Image with CoffeBar Kraft Sticker (Foreground) -->
@@ -382,14 +457,16 @@
                     </label>
                     <div class="grid grid-cols-2 gap-3">
                         <div @click="selectedIce = 'Dingin (Es Batu)'"
-                             class="p-3 text-center border rounded-xl cursor-pointer text-xs font-semibold transition"
-                             :class="selectedIce === 'Dingin (Es Batu)' ? 'bg-[#E8DCC4] border-[#B5753A] ring-1 ring-[#B5753A] text-[#2B1D14]' : 'bg-[#FFFDF8] border-[#CDB48F] text-[#4A3224] hover:bg-[#E8DCC4]/50'">
-                            Dingin (Es Batu)
+                             class="p-4 text-center border rounded-xl cursor-pointer text-xs font-semibold transition flex items-center justify-center space-x-2"
+                             :class="selectedIce === 'Dingin (Es Batu)' ? 'bg-[#E8DCC4] border-[#B5753A] ring-2 ring-[#B5753A] text-[#2B1D14]' : 'bg-[#FFFDF8] border-[#CDB48F] text-[#4A3224] hover:bg-[#E8DCC4]/50'">
+                            <span class="text-lg">🧊</span>
+                            <span>Dingin (Es Batu)</span>
                         </div>
                         <div @click="selectedIce = 'Hangat / Panas'"
-                             class="p-3 text-center border rounded-xl cursor-pointer text-xs font-semibold transition"
-                             :class="selectedIce === 'Hangat / Panas' ? 'bg-[#E8DCC4] border-[#B5753A] ring-1 ring-[#B5753A] text-[#2B1D14]' : 'bg-[#FFFDF8] border-[#CDB48F] text-[#4A3224] hover:bg-[#E8DCC4]/50'">
-                            Hangat / Panas
+                             class="p-4 text-center border rounded-xl cursor-pointer text-xs font-semibold transition flex items-center justify-center space-x-2"
+                             :class="selectedIce === 'Hangat / Panas' ? 'bg-[#E8DCC4] border-[#B5753A] ring-2 ring-[#B5753A] text-[#2B1D14]' : 'bg-[#FFFDF8] border-[#CDB48F] text-[#4A3224] hover:bg-[#E8DCC4]/50'">
+                            <span class="text-lg">♨️</span>
+                            <span>Hangat / Panas</span>
                         </div>
                     </div>
                 </div>
